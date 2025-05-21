@@ -1,73 +1,86 @@
-AI Prompt Used to Stub Code
+# cmdb-cvs-conversion
 
-Create a new java app that will consume a csv file with six columns (defined below) and make an https api call for each row.
+A Java 21 application (no external dependencies) that reads a CSV file, parses each row, and (optionally) makes an HTTPS API call for each record. The app also builds summary maps of owners and contacts to their associated IP addresses, separated by active and deactivated status.
 
-Use the following parameters to create the project:
+## Project Setup
 
-Use Maven for Project Management
-The Appname should be cmdb-cvs-conversion
-Use Java Version 21
-Do not use any dependencies. Only standard java
+- **Build Tool:** Maven
+- **Java Version:** 21
+- **Dependencies:** None (uses only standard Java libraries)
 
-CSV Input Column Definitions
-One=String
-Two=String
-Three=String
-Four=Between one and many comma delimited IP Addresses
-Five=DateTime format MM/DD/YYYY hh:mm:ss AM/PM
-Six==DateTime format MM/DD/YYYY hh:mm:ss AM/PM
+## CSV Input Format
 
+Each row in the CSV should have the following columns:
 
-Sample Output
-{
-    "one": "John",
-    "two": "Doe",
-    "three": "Engineer",
-    "ips": ["192.168.1.1"],
-    "five": ""2025-05-14T08:30"",
-    "six": ""2025-05-14T17:00""
-}
+1. **Asset Name** (String)
+2. **Contact** (String)
+3. **Owner** (String)
+4. **IP Addresses** (one or more, comma-separated)
+5. **Create Timestamp** (MM/DD/YYYY hh:mm:ss AM/PM)
+6. **Deactivated Timestamp** (MM/DD/YYYY hh:mm:ss AM/PM, may be empty)
 
-{
-    "one": "Jane",
-    "two": "Smith",
-    "three": "Manager",
-    "ips": ["10.0.0.1"],
-    "five": ""2025-05-13T09:00"",
-    "six": ""2025-05-13T18:00""
-}
+**Example:**
+```
+Server1,Doe,Engineer,192.168.1.1,05/14/2025 08:30:00 AM,05/14/2025 05:00:00 PM
+Desktop2,White,Admin,192.168.2.10,192.168.2.11,192.168.2.12,05/11/2025 10:15:00 AM,
+```
 
-{
-    "one": "Alice",
-    "two": "Brown",
-    "three": "Analyst",
-    "ips": ["172.16.0.1"],
-    "five": ""2025-05-12T07:45"",
-    "six": ""2025-05-12T16:30""
-}
+## What the App Does
 
-{
-    "one": "Bob",
-    "two": "White",
-    "three": "Admin",
-    "ips": ["192.168.1.10","192.168.1.11","192.168.1.12"],
-    "five": ""2025-05-11T10:15"",
-    "six": ""2025-05-11T19:00""
-}
+- Reads the CSV file and parses each row.
+- For each row:
+  - If `deactivatedTimestamp` is empty, adds all IPs to the "active" sets for both owner and contact.
+  - If `deactivatedTimestamp` is present, adds all IPs to the "deactivated" sets for both owner and contact.
+- Builds four maps:
+  - `ownerToActiveIps`
+  - `contactToActiveIps`
+  - `ownerToDeactivatedIps`
+  - `contactToDeactivatedIps`
+- Optionally, makes an HTTPS API call for each row (stubbed/mocked in the sample code).
+- Collects error codes from API responses (if implemented).
+- Prints summary of all maps and error records.
 
-{
-    "one": "Charlie",
-    "two": "Green",
-    "three": "Developer",
-    "ips": ["192.168.1.10","192.168.1.11","192.168.1.12"],
-    "five": ""2025-05-11T10:15"",
-    "six": "null"
-}
+## Sample Output
 
-{
-    "one": "Donna",
-    "two": "Black",
-    "ips": ["192.168.1.10","192.168.1.11","192.168.1.12"],
-    "five": "null",
-    "six": "null"
-}
+```
+Owner to Active IPs:
+Owner: Engineer -> IPs: [192.168.1.1]
+Owner: Admin -> IPs: [192.168.2.10, 192.168.2.11, 192.168.2.12]
+...
+
+Contact to Active IPs:
+Contact: Doe -> IPs: [192.168.1.1]
+Contact: White -> IPs: [192.168.2.10, 192.168.2.11, 192.168.2.12]
+...
+
+Owner to Deactivated IPs:
+Owner: Designer -> Deactivated IPs: [192.168.4.10, 192.168.4.11, 192.168.4.12]
+...
+
+Contact to Deactivated IPs:
+Contact: Black -> Deactivated IPs: [192.168.4.10, 192.168.4.11, 192.168.4.12]
+...
+```
+
+## Example `sample.csv`
+
+```
+Server1,Doe,Engineer,192.168.1.1,05/14/2025 08:30:00 AM,05/14/2025 05:00:00 PM
+Server2,Smith,Manager,10.0.0.1,05/13/2025 09:00:00 AM,05/13/2025 06:00:00 PM
+Desktop1,Brown,Analyst,172.16.0.1,05/12/2025 07:45:00 AM,05/12/2025 04:30:00 PM
+Desktop2,White,Admin,192.168.2.10,192.168.2.11,192.168.2.12,05/11/2025 10:15:00 AM,
+Desktop3,Green,Developer,192.168.3.10,192.168.3.11,192.168.3.12,05/11/2025 10:15:00 AM,
+Desktop4,Black,Designer,192.168.4.10,192.168.4.11,192.168.4.12,,05/11/2025 07:00:00 PM
+Desktop5,White,Tester,192.168.5.10,192.168.5.11,192.168.5.12,,
+Gary's PC,Gary,Development,192.168.6.10,192.168.6.11,192.168.6.12,05/11/2025 10:15:00 AM,05/11/2025 07:00:00 PM
+Laptop1,Lee,Support,203.0.113.5,2001:0db8:85a3:0000:0000:8a2e:0370:7334,05/15/2025 09:00:00 AM,
+ExtraRow,Kim,Ops,198.51.100.10,2001:db8:abcd:0012::1,05/16/2025 08:00:00 AM,
+```
+
+## Notes
+
+- The application is designed for demonstration and can be extended for real API integration.
+- All IP addresses in the sample data are unique.
+- No external libraries are used; only Java standard library.
+
+---

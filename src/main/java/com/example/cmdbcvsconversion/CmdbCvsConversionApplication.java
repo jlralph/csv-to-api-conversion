@@ -30,6 +30,15 @@ public class CmdbCvsConversionApplication {
 
         List<String> errorRecords = new ArrayList<>();
 
+        // Map of owner -> set of IPs (for records without deactivatedTimestamp)
+        Map<String, Set<String>> ownerToActiveIps = new HashMap<>();
+        // Map of contact -> set of IPs (for records without deactivatedTimestamp)
+        Map<String, Set<String>> contactToActiveIps = new HashMap<>();
+        // Map of owner -> set of deactivated IPs
+        Map<String, Set<String>> ownerToDeactivatedIps = new HashMap<>();
+        // Map of contact -> set of deactivated IPs
+        Map<String, Set<String>> contactToDeactivatedIps = new HashMap<>();
+
         // Read and process each line of the CSV file
         try (BufferedReader reader = Files.newBufferedReader(csvPath)) {
             String line;
@@ -52,6 +61,16 @@ public class CmdbCvsConversionApplication {
                 LocalDateTime createTimestamp = createTimestampStr.isEmpty() ? null : parseDate(createTimestampStr);
                 LocalDateTime deactivatedTimestamp = deactivatedTimestampStr.isEmpty() ? null : parseDate(deactivatedTimestampStr);
 
+                if (deactivatedTimestamp == null) {
+                    // No deactivatedTimestamp: add IPs to owner's and contact's set
+                    ownerToActiveIps.computeIfAbsent(owner, k -> new HashSet<>()).addAll(Arrays.asList(ips));
+                    contactToActiveIps.computeIfAbsent(contact, k -> new HashSet<>()).addAll(Arrays.asList(ips));
+                } else {
+                    // Has deactivatedTimestamp: add IPs to deactivated sets by owner and contact
+                    ownerToDeactivatedIps.computeIfAbsent(owner, k -> new HashSet<>()).addAll(Arrays.asList(ips));
+                    contactToDeactivatedIps.computeIfAbsent(contact, k -> new HashSet<>()).addAll(Arrays.asList(ips));
+                }
+
                 // Make API call and collect error codes if present
                 makeApiCall(assetName, contact, owner, ips, createTimestamp, deactivatedTimestamp, errorRecords);
             }
@@ -59,6 +78,30 @@ public class CmdbCvsConversionApplication {
 
         // Output all error codes found in API responses
         System.out.println("Error Records: " + errorRecords);
+
+        // Output owner to active IPs map
+        System.out.println("Owner to Active IPs:");
+        for (Map.Entry<String, Set<String>> entry : ownerToActiveIps.entrySet()) {
+            System.out.println("Owner: " + entry.getKey() + " -> IPs: " + entry.getValue());
+        }
+
+        // Output contact to active IPs map
+        System.out.println("Contact to Active IPs:");
+        for (Map.Entry<String, Set<String>> entry : contactToActiveIps.entrySet()) {
+            System.out.println("Contact: " + entry.getKey() + " -> IPs: " + entry.getValue());
+        }
+
+        // Output owner to deactivated IPs map
+        System.out.println("Owner to Deactivated IPs:");
+        for (Map.Entry<String, Set<String>> entry : ownerToDeactivatedIps.entrySet()) {
+            System.out.println("Owner: " + entry.getKey() + " -> Deactivated IPs: " + entry.getValue());
+        }
+
+        // Output contact to deactivated IPs map
+        System.out.println("Contact to Deactivated IPs:");
+        for (Map.Entry<String, Set<String>> entry : contactToDeactivatedIps.entrySet()) {
+            System.out.println("Contact: " + entry.getKey() + " -> Deactivated IPs: " + entry.getValue());
+        }
     }
 
     /**
