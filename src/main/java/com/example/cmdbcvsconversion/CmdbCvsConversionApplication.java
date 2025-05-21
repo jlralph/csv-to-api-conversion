@@ -38,22 +38,22 @@ public class CmdbCvsConversionApplication {
                 String[] cols = line.split(",", -1);
                 if (cols.length < 6) continue; // skip invalid rows
 
-                String one = cols[0].trim();
-                String two = cols[1].trim();
-                String three = cols[2].trim();
+                String assetName = cols[0].trim();
+                String contact = cols[1].trim();
+                String owner = cols[2].trim();
 
                 // IPs are from index 3 up to (length - 2)
                 String[] ips = Arrays.copyOfRange(cols, 3, cols.length - 2);
                 for (int i = 0; i < ips.length; i++) ips[i] = ips[i].trim();
 
-                String fiveStr = cols[cols.length - 2].trim();
-                String sixStr = cols[cols.length - 1].trim();
+                String createTimestampStr = cols[cols.length - 2].trim();
+                String deactivatedTimestampStr = cols[cols.length - 1].trim();
 
-                LocalDateTime five = fiveStr.isEmpty() ? null : parseDate(fiveStr);
-                LocalDateTime six = sixStr.isEmpty() ? null : parseDate(sixStr);
+                LocalDateTime createTimestamp = createTimestampStr.isEmpty() ? null : parseDate(createTimestampStr);
+                LocalDateTime deactivatedTimestamp = deactivatedTimestampStr.isEmpty() ? null : parseDate(deactivatedTimestampStr);
 
                 // Make API call and collect error codes if present
-                makeApiCall(one, two, three, ips, five, six, errorRecords);
+                makeApiCall(assetName, contact, owner, ips, createTimestamp, deactivatedTimestamp, errorRecords);
             }
         }
 
@@ -75,55 +75,55 @@ public class CmdbCvsConversionApplication {
      * Makes an HTTPS POST API call with the given data as JSON.
      * Reads the JSON response, extracts the "code" field, and adds it to errorRecords if it matches known Qualys error codes.
      *
-     * @param one, two, three, ips, five, six - data fields for the API call
+     * @param assetName, contact, owner, ips, createTimestamp, deactivatedTimestamp - data fields for the API call
      * @param errorRecords - list to collect found error codes
      */
     private static void makeApiCall(
-        String one, String two, String three, String[] ips,
-        LocalDateTime five, LocalDateTime six,
+        String assetName, String contact, String owner, String[] ips,
+        LocalDateTime createTimestamp, LocalDateTime deactivatedTimestamp,
         List<String> errorRecords
     ) throws IOException {
         // Prepare the API endpoint and open connection
-        URI uri = URI.create("https://example.com/api");
-        URL url = uri.toURL();
-        HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
-        conn.setRequestMethod("POST");
-        conn.setDoOutput(true);
-        conn.setRequestProperty("Content-Type", "application/json");
+      //  URI uri = URI.create("https://example.com/api");
+      //  URL url = uri.toURL();
+      //  HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
+      //  conn.setRequestMethod("POST");
+      //  conn.setDoOutput(true);
+      //  conn.setRequestProperty("Content-Type", "application/json");
 
         // Build JSON payload for API request
-        String json = buildJsonPayload(one, two, three, ips, five, six);
+        String json = buildJsonPayload(assetName, contact, owner, ips, createTimestamp, deactivatedTimestamp);
         System.out.println(json);
 
         // Send JSON payload to API
-        try (OutputStream os = conn.getOutputStream()) {
-            os.write(json.getBytes());
-        }
+      //  try (OutputStream os = conn.getOutputStream()) {
+      //      os.write(json.getBytes());
+      //  }
 
         // Get HTTP response code and message for logging
-        int responseCode = conn.getResponseCode();
-        System.out.println("API Response Code: " + responseCode);
-        System.out.println("API Response Message: " + conn.getResponseMessage());
+     //   int responseCode = conn.getResponseCode();
+     //   System.out.println("API Response Code: " + responseCode);
+      //  System.out.println("API Response Message: " + conn.getResponseMessage());
 
         // Read API response body as a string
-        String response = readApiResponse(conn, responseCode);
-        conn.disconnect();
+      //  String response = readApiResponse(conn, responseCode);
+      //  conn.disconnect();
 
         // Extract "code" field from JSON response
-        String code = extractCodeFromResponse(response);
+      //  String code = extractCodeFromResponse(response);
 
         // If code matches a known error or is not "SUCCESS", add to errorRecords
-        if (shouldAddErrorRecord(code)) {
-            errorRecords.add(code);
+     //   if (shouldAddErrorRecord(code)) {
+      //      errorRecords.add(code);
         }
-    }
+    //}
 
     /**
      * Builds the JSON payload for the API request.
-     * @param one, two, three, ips, five, six - data fields
+     * @param assetName, contact, owner, ips, createTimestamp, deactivatedTimestamp - data fields
      * @return JSON string
      */
-    private static String buildJsonPayload(String one, String two, String three, String[] ips, LocalDateTime five, LocalDateTime six) {
+    private static String buildJsonPayload(String assetName, String contact, String owner, String[] ips, LocalDateTime createTimestamp, LocalDateTime deactivatedTimestamp) {
         StringBuilder ipsJson = new StringBuilder("[");
         for (int i = 0; i < ips.length; i++) {
             ipsJson.append("\"").append(ips[i]).append("\"");
@@ -133,18 +133,18 @@ public class CmdbCvsConversionApplication {
 
         return """
     {
-        "one": "%s",
-        "two": "%s",
-        "three": "%s",
+        "assetName": "%s",
+        "contact": "%s",
+        "owner": "%s",
         "ips": %s,
-        "five": %s,
-        "six": %s
+        "createTimestamp": %s,
+        "deactivatedTimestamp": %s
     }
     """.formatted(
-                one, two, three,
+                assetName, contact, owner,
                 ipsJson.toString(),
-                five == null ? "null" : "\"" + five.toString() + "\"",
-                six == null ? "null" : "\"" + six.toString() + "\""
+                createTimestamp == null ? "null" : "\"" + createTimestamp.toString() + "\"",
+                deactivatedTimestamp == null ? "null" : "\"" + deactivatedTimestamp.toString() + "\""
         );
     }
 
