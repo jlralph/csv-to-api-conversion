@@ -13,8 +13,13 @@ public class CmdbCvsConversionApplication {
 
     /**
      * Entry point for the application.
-     * Reads a CSV file, parses each row, and makes an API call for each record.
-     * Collects error codes from API responses.
+     * Reads a CSV file, parses each row, and builds four maps:
+     *   - ownerToActiveIps
+     *   - contactToActiveIps
+     *   - ownerToDeactivatedIps
+     *   - contactToDeactivatedIps
+     * Then, for each map, makes Qualys API calls to add or remove IPs from asset groups.
+     * Collects error codes and descriptions from API responses.
      */
     public static void main(String[] args) throws Exception {
         // Determine CSV file path from arguments or use default sample
@@ -73,21 +78,8 @@ public class CmdbCvsConversionApplication {
             }
         }
 
-        // Now call makeApiCall for each entry in the four maps
-        // For active IPs by owner
-        for (Map.Entry<String, Set<String>> entry : ownerToActiveIps.entrySet()) {
-            String owner = entry.getKey();
-            Set<String> ips = entry.getValue();
-            makeApiCall("add", owner, ips.toArray(new String[0]), null, null, errorRecords);
-        }
-
-        // For active IPs by contact
-        for (Map.Entry<String, Set<String>> entry : contactToActiveIps.entrySet()) {
-            String contact = entry.getKey();
-            Set<String> ips = entry.getValue();
-            makeApiCall("add", contact, ips.toArray(new String[0]), null, null, errorRecords);
-        }
-
+        // Make API calls for each entry in the four maps
+        // First, process removals (deactivated IPs)
         // For deactivated IPs by owner
         for (Map.Entry<String, Set<String>> entry : ownerToDeactivatedIps.entrySet()) {
             String owner = entry.getKey();
@@ -100,6 +92,21 @@ public class CmdbCvsConversionApplication {
             String contact = entry.getKey();
             Set<String> ips = entry.getValue();
             makeApiCall("remove", contact, ips.toArray(new String[0]), null, LocalDateTime.now(), errorRecords);
+        }
+
+        // Then, process additions (active IPs)
+        // For active IPs by owner
+        for (Map.Entry<String, Set<String>> entry : ownerToActiveIps.entrySet()) {
+            String owner = entry.getKey();
+            Set<String> ips = entry.getValue();
+            makeApiCall("add", owner, ips.toArray(new String[0]), null, null, errorRecords);
+        }
+
+        // For active IPs by contact
+        for (Map.Entry<String, Set<String>> entry : contactToActiveIps.entrySet()) {
+            String contact = entry.getKey();
+            Set<String> ips = entry.getValue();
+            makeApiCall("add", contact, ips.toArray(new String[0]), null, null, errorRecords);
         }
 
         // Output all error codes found in API responses
@@ -135,155 +142,181 @@ public class CmdbCvsConversionApplication {
      * @param s the date string
      * @return LocalDateTime object
      */
-    private static LocalDateTime parseDate(String s) {
+    static LocalDateTime parseDate(String s) {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm:ss a");
         return LocalDateTime.parse(s, fmt);
     }
 
     /**
-     * Makes an HTTPS POST API call with the given data as JSON.
-     * Reads the JSON response, extracts the "code" field, and adds it to errorRecords if it matches known Qualys error codes.
+     * Makes an API call to Qualys to look up the asset group ID by groupName,
+     * then edits the asset group to add or remove the given IPs.
+     * Parses both API responses for error codes and adds them to errorRecords,
+     * but only if the error code is recognized in QualysApiErrors.
      *
-     * @param action ("add" or "remove"), groupName (owner or contact value), ips, createTimestamp, deactivatedTimestamp - data fields for the API call
-     * @param errorRecords - list to collect found error codes
+     * @param action ("add" or "remove")
+     * @param groupName (owner or contact value)
+     * @param ips IP addresses to add or remove
+     * @param createTimestamp Not used in API call, included for completeness
+     * @param deactivatedTimestamp Not used in API call, included for completeness
+     * @param errorRecords List to collect found error codes and descriptions
      */
-    private static void makeApiCall(
+    static void makeApiCall(
         String action, String groupName, String[] ips,
         LocalDateTime createTimestamp, LocalDateTime deactivatedTimestamp,
         List<String> errorRecords
     ) throws IOException {
-        // Prepare the API endpoint and open connection
-      //  URI uri = URI.create("https://example.com/api");
-      //  URL url = uri.toURL();
-      //  HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
-      //  conn.setRequestMethod("POST");
-      //  conn.setDoOutput(true);
-      //  conn.setRequestProperty("Content-Type", "application/json");
-
         // Validate action
         if (!"add".equals(action) && !"remove".equals(action)) {
             throw new IllegalArgumentException("action must be 'add' or 'remove'");
         }
-        // groupName can be any owner or contact value, so no validation here
 
-        // Build JSON payload for API request
-        String json = buildJsonPayload(action, groupName, ips, createTimestamp, deactivatedTimestamp);
-        System.out.println(json);
-
-        // Send JSON payload to API
-      //  try (OutputStream os = conn.getOutputStream()) {
-      //      os.write(json.getBytes());
-      //  }
-
-        // Get HTTP response code and message for logging
-     //   int responseCode = conn.getResponseCode();
-     //   System.out.println("API Response Code: " + responseCode);
-      //  System.out.println("API Response Message: " + conn.getResponseMessage());
-
-        // Read API response body as a string
-      //  String response = readApiResponse(conn, responseCode);
-      //  conn.disconnect();
-
-        // Extract "code" field from JSON response
-      //  String code = extractCodeFromResponse(response);
-
-        // If code matches a known error or is not "SUCCESS", add to errorRecords
-     //   if (shouldAddErrorRecord(code)) {
-      //      errorRecords.add(code);
+        // Lookup Qualys asset group ID by groupName
+        String groupId = lookupQualysGroupId(groupName);
+        if (groupId == null) {
+            errorRecords.add("GROUP_NOT_FOUND:" + groupName);
+            System.err.println("Asset group not found for groupName: " + groupName);
+            return;
         }
-    //}
+
+        // Edit the asset group to add or remove IPs
+        String editResponse = editQualysAssetGroup(groupId, action, ips);
+
+        // Parse the edit response for error codes and add only recognized codes
+        if (editResponse != null) {
+            String errorCode = extractQualysFoApiErrorCode(editResponse);
+            String errorDesc = QualysApiErrors.getDescriptionByCode(errorCode);
+            if (errorCode != null && !"Unknown error code".equals(errorDesc)) {
+                errorRecords.add(errorCode + ": " + errorDesc);
+            }
+        }
+    }
 
     /**
-     * Builds the JSON payload for the API request.
-     * @param action ("add" or "remove"), groupName ("owner" or "contact"), ips, createTimestamp, deactivatedTimestamp - data fields
-     * @return JSON string
+     * Edits the Qualys asset group by ID to add or remove IPs using the fo/asset/group API.
+     * Returns the raw API response as a string.
+     *
+     * @param groupId The Qualys asset group ID
+     * @param action "add" or "remove"
+     * @param ips Array of IP addresses to add or remove
+     * @return The raw API response as a string
      */
-    private static String buildJsonPayload(String action, String groupName, String[] ips, LocalDateTime createTimestamp, LocalDateTime deactivatedTimestamp) {
-        StringBuilder ipsJson = new StringBuilder("[");
+    private static String editQualysAssetGroup(String groupId, String action, String[] ips) throws IOException {
+        String apiUrl = "https://qualysapi.qualys.com/api/2.0/fo/asset/group/";
+        String username = "YOUR_QUALYS_USERNAME";
+        String password = "YOUR_QUALYS_PASSWORD";
+
+        StringBuilder ipList = new StringBuilder();
         for (int i = 0; i < ips.length; i++) {
-            ipsJson.append("\"").append(ips[i]).append("\"");
-            if (i < ips.length - 1) ipsJson.append(",");
+            ipList.append(ips[i]);
+            if (i < ips.length - 1) ipList.append(",");
         }
-        ipsJson.append("]");
 
-        return """
-    {
-        "action": "%s",
-        "groupName": "%s",
-        "ips": %s,
-        "createTimestamp": %s,
-        "deactivatedTimestamp": %s
-    }
-    """.formatted(
-                action, groupName,
-                ipsJson.toString(),
-                createTimestamp == null ? "null" : "\"" + createTimestamp.toString() + "\"",
-                deactivatedTimestamp == null ? "null" : "\"" + deactivatedTimestamp.toString() + "\""
-        );
+        String params;
+        if ("add".equals(action)) {
+            params = "action=edit&id=" + URLEncoder.encode(groupId, "UTF-8") +
+                     "&add_ips=" + URLEncoder.encode(ipList.toString(), "UTF-8");
+        } else if ("remove".equals(action)) {
+            params = "action=edit&id=" + URLEncoder.encode(groupId, "UTF-8") +
+                     "&remove_ips=" + URLEncoder.encode(ipList.toString(), "UTF-8");
+        } else {
+            throw new IllegalArgumentException("action must be 'add' or 'remove'");
+        }
+
+        URI uri = URI.create(apiUrl);
+        URL url = uri.toURL();
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("POST");
+        String basicAuth = java.util.Base64.getEncoder().encodeToString((username + ":" + password).getBytes());
+        conn.setRequestProperty("Authorization", "Basic " + basicAuth);
+        conn.setDoOutput(true);
+
+        try (OutputStream os = conn.getOutputStream()) {
+            os.write(params.getBytes());
+        }
+
+        int responseCode = conn.getResponseCode();
+        String response = new String(conn.getInputStream().readAllBytes());
+        conn.disconnect();
+
+        if (responseCode != 200) {
+            System.err.println("Failed to update asset group " + groupId + ". HTTP code: " + responseCode);
+        } else {
+            System.out.println("Asset group " + groupId + " updated. Response: " + response);
+        }
+        return response;
     }
 
     /**
-     * Reads the API response body as a string.
-     * Uses error stream for HTTP error codes, input stream otherwise.
-     * @param conn the HttpsURLConnection
-     * @param responseCode the HTTP response code
-     * @return the response body as a string
+     * Extracts a Qualys error code from a fo/asset/group API XML response.
+     * Returns the error code as a string, or null if not found.
+     *
+     * @param response The XML response from the Qualys API
+     * @return The error code as a string, or null if not found
      */
-    private static String readApiResponse(HttpsURLConnection conn, int responseCode) throws IOException {
-        StringBuilder responseBody = new StringBuilder();
-        try (BufferedReader in = new BufferedReader(new InputStreamReader(
-                responseCode >= 400 ? conn.getErrorStream() : conn.getInputStream()))) {
-            String inputLine;
-            while ((inputLine = in.readLine()) != null) {
-                responseBody.append(inputLine);
-            }
-        }
-        return responseBody.toString();
+    static String extractQualysFoApiErrorCode(String response) {
+        // Look for <ERROR><CODE>...</CODE></ERROR>
+        String codeTag = "<CODE>";
+        int codeStart = response.indexOf(codeTag);
+        if (codeStart == -1) return null;
+        int codeEnd = response.indexOf("</CODE>", codeStart);
+        if (codeEnd == -1) return null;
+        return response.substring(codeStart + codeTag.length(), codeEnd).trim();
     }
 
     /**
-     * Extracts the "code" field from a JSON response string.
-     * This is a simple string search, not a full JSON parser.
-     * @param response the JSON response string
-     * @return the code as a string, or null if not found
+     * Looks up the Qualys asset group ID for the given group name using the fo/asset/group API.
+     *
+     * @param groupName The name of the asset group (owner or contact value)
+     * @return The Qualys asset group ID as a String, or null if not found
      */
-    private static String extractCodeFromResponse(String response) {
-        String code = null;
-        int codeIdx = response.indexOf("\"code\"");
-        if (codeIdx != -1) {
-            int colonIdx = response.indexOf(":", codeIdx);
-            if (colonIdx != -1) {
-                int start = colonIdx + 1;
-                while (start < response.length() && !Character.isDigit(response.charAt(start))) start++;
-                int end = start;
-                while (end < response.length() && Character.isDigit(response.charAt(end))) end++;
-                if (start < end) {
-                    code = response.substring(start, end);
-                }
-            }
+    private static String lookupQualysGroupId(String groupName) throws IOException {
+        // Replace with your Qualys API endpoint and credentials
+        String apiUrl = "https://qualysapi.qualys.com/api/2.0/fo/asset/group/";
+        String username = "YOUR_QUALYS_USERNAME";
+        String password = "YOUR_QUALYS_PASSWORD";
+
+        // Build the query string for the group name
+        String params = "action=list&title=" + URLEncoder.encode(groupName, "UTF-8");
+
+        URI uri = URI.create(apiUrl + "?" + params);
+        URL url = uri.toURL();
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("GET");
+        String basicAuth = java.util.Base64.getEncoder().encodeToString((username + ":" + password).getBytes());
+        conn.setRequestProperty("Authorization", "Basic " + basicAuth);
+
+        int responseCode = conn.getResponseCode();
+        String response = new String(conn.getInputStream().readAllBytes());
+        conn.disconnect();
+
+        if (responseCode != 200) {
+            System.err.println("Failed to look up group ID for " + groupName + ". HTTP code: " + responseCode);
+            System.err.println("Response body:\n" + response);
+            return null;
         }
-        return code;
+
+        // Simple extraction (for demo; use proper XML parser in production)
+        String idTag = "<ID>";
+        int idStart = response.indexOf(idTag);
+        if (idStart == -1) return null;
+        int idEnd = response.indexOf("</ID>", idStart);
+        if (idEnd == -1) return null;
+        return response.substring(idStart + idTag.length(), idEnd).trim();
     }
 
-    /**
-     * Determines if an error code should be added to errorRecords.
-     * Returns true if the code is a known Qualys error or is not "SUCCESS".
-     * @param code the error code string
-     * @return true if should add, false otherwise
-     */
-    private static boolean shouldAddErrorRecord(String code) {
-        if (code == null) return false;
-        String desc = QualysApiErrors.getDescriptionByCode(code);
-        return (desc != null && !"Unknown error code".equals(desc)) || !"SUCCESS".equals(code);
-    }
+    // Example usage in your main logic:
+    // String groupId = lookupQualysGroupId(groupName);
+    // if (groupId != null) {
+    //     editQualysAssetGroup(groupId, action, ips);
+    // }
 }
 
 /**
  * Utility class for Qualys API error code lookups.
  * Provides mappings between error codes and their descriptions.
+ * Used to filter and describe error codes returned by the Qualys API.
  */
 class QualysApiErrors {
-
     // Immutable map of error codes to their descriptions
     private static final Map<String, String> ERROR_CODE_TO_DESCRIPTION;
     private static final Map<String, String> DESCRIPTION_TO_ERROR_CODE;

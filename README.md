@@ -1,6 +1,6 @@
 # cmdb-cvs-conversion
 
-A Java 21 application (no external dependencies) that reads a CSV file, parses each row, and (optionally) makes an HTTPS API call for each record. The app also builds summary maps of owners and contacts to their associated IP addresses, separated by active and deactivated status.
+A Java 21 application (no external dependencies) that reads a CSV file, parses each row, and (optionally) makes Qualys API calls to manage asset groups. The app builds summary maps of owners and contacts to their associated IP addresses, separated by active and deactivated status.
 
 ## Project Setup
 
@@ -36,8 +36,9 @@ Desktop2,White,Admin,192.168.2.10,192.168.2.11,192.168.2.12,05/11/2025 10:15:00 
   - `contactToActiveIps`
   - `ownerToDeactivatedIps`
   - `contactToDeactivatedIps`
-- Optionally, makes an HTTPS API call for each row (stubbed/mocked in the sample code).
-- Collects error codes from API responses (if implemented).
+- Iterates over each map and makes Qualys API calls to add or remove IPs from asset groups, using the group name as the owner or contact value.
+- Looks up the Qualys asset group ID using the fo/asset/group API, then edits the group to add or remove IPs.
+- Parses API responses for error codes and adds recognized codes and descriptions to the error records.
 - Prints summary of all maps and error records.
 
 ## Sample Output
@@ -60,6 +61,8 @@ Owner: Designer -> Deactivated IPs: [192.168.4.10, 192.168.4.11, 192.168.4.12]
 Contact to Deactivated IPs:
 Contact: Black -> Deactivated IPs: [192.168.4.10, 192.168.4.11, 192.168.4.12]
 ...
+
+Error Records: [INVALID_IP: The IP address provided is invalid, GROUP_NOT_FOUND:SomeGroup]
 ```
 
 ## Example `sample.csv`
@@ -79,8 +82,9 @@ ExtraRow,Kim,Ops,198.51.100.10,2001:db8:abcd:0012::1,05/16/2025 08:00:00 AM,
 
 ## Notes
 
-- The application is designed for demonstration and can be extended for real API integration.
+- The application is designed for demonstration and can be extended for real Qualys API integration.
 - All IP addresses in the sample data are unique.
 - No external libraries are used; only Java standard library.
+- Qualys API credentials must be provided in the code for real API calls.
 
 ---
