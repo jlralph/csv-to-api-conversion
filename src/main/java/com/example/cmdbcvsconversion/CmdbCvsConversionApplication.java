@@ -70,10 +70,36 @@ public class CmdbCvsConversionApplication {
                     ownerToDeactivatedIps.computeIfAbsent(owner, k -> new HashSet<>()).addAll(Arrays.asList(ips));
                     contactToDeactivatedIps.computeIfAbsent(contact, k -> new HashSet<>()).addAll(Arrays.asList(ips));
                 }
-
-                // Make API call and collect error codes if present
-                makeApiCall(assetName, contact, owner, ips, createTimestamp, deactivatedTimestamp, errorRecords);
             }
+        }
+
+        // Now call makeApiCall for each entry in the four maps
+        // For active IPs by owner
+        for (Map.Entry<String, Set<String>> entry : ownerToActiveIps.entrySet()) {
+            String owner = entry.getKey();
+            Set<String> ips = entry.getValue();
+            makeApiCall("add", owner, ips.toArray(new String[0]), null, null, errorRecords);
+        }
+
+        // For active IPs by contact
+        for (Map.Entry<String, Set<String>> entry : contactToActiveIps.entrySet()) {
+            String contact = entry.getKey();
+            Set<String> ips = entry.getValue();
+            makeApiCall("add", contact, ips.toArray(new String[0]), null, null, errorRecords);
+        }
+
+        // For deactivated IPs by owner
+        for (Map.Entry<String, Set<String>> entry : ownerToDeactivatedIps.entrySet()) {
+            String owner = entry.getKey();
+            Set<String> ips = entry.getValue();
+            makeApiCall("remove", owner, ips.toArray(new String[0]), null, LocalDateTime.now(), errorRecords);
+        }
+
+        // For deactivated IPs by contact
+        for (Map.Entry<String, Set<String>> entry : contactToDeactivatedIps.entrySet()) {
+            String contact = entry.getKey();
+            Set<String> ips = entry.getValue();
+            makeApiCall("remove", contact, ips.toArray(new String[0]), null, LocalDateTime.now(), errorRecords);
         }
 
         // Output all error codes found in API responses
@@ -118,11 +144,11 @@ public class CmdbCvsConversionApplication {
      * Makes an HTTPS POST API call with the given data as JSON.
      * Reads the JSON response, extracts the "code" field, and adds it to errorRecords if it matches known Qualys error codes.
      *
-     * @param assetName, contact, owner, ips, createTimestamp, deactivatedTimestamp - data fields for the API call
+     * @param action ("add" or "remove"), groupName (owner or contact value), ips, createTimestamp, deactivatedTimestamp - data fields for the API call
      * @param errorRecords - list to collect found error codes
      */
     private static void makeApiCall(
-        String assetName, String contact, String owner, String[] ips,
+        String action, String groupName, String[] ips,
         LocalDateTime createTimestamp, LocalDateTime deactivatedTimestamp,
         List<String> errorRecords
     ) throws IOException {
@@ -134,8 +160,14 @@ public class CmdbCvsConversionApplication {
       //  conn.setDoOutput(true);
       //  conn.setRequestProperty("Content-Type", "application/json");
 
+        // Validate action
+        if (!"add".equals(action) && !"remove".equals(action)) {
+            throw new IllegalArgumentException("action must be 'add' or 'remove'");
+        }
+        // groupName can be any owner or contact value, so no validation here
+
         // Build JSON payload for API request
-        String json = buildJsonPayload(assetName, contact, owner, ips, createTimestamp, deactivatedTimestamp);
+        String json = buildJsonPayload(action, groupName, ips, createTimestamp, deactivatedTimestamp);
         System.out.println(json);
 
         // Send JSON payload to API
@@ -163,10 +195,10 @@ public class CmdbCvsConversionApplication {
 
     /**
      * Builds the JSON payload for the API request.
-     * @param assetName, contact, owner, ips, createTimestamp, deactivatedTimestamp - data fields
+     * @param action ("add" or "remove"), groupName ("owner" or "contact"), ips, createTimestamp, deactivatedTimestamp - data fields
      * @return JSON string
      */
-    private static String buildJsonPayload(String assetName, String contact, String owner, String[] ips, LocalDateTime createTimestamp, LocalDateTime deactivatedTimestamp) {
+    private static String buildJsonPayload(String action, String groupName, String[] ips, LocalDateTime createTimestamp, LocalDateTime deactivatedTimestamp) {
         StringBuilder ipsJson = new StringBuilder("[");
         for (int i = 0; i < ips.length; i++) {
             ipsJson.append("\"").append(ips[i]).append("\"");
@@ -176,15 +208,14 @@ public class CmdbCvsConversionApplication {
 
         return """
     {
-        "assetName": "%s",
-        "contact": "%s",
-        "owner": "%s",
+        "action": "%s",
+        "groupName": "%s",
         "ips": %s,
         "createTimestamp": %s,
         "deactivatedTimestamp": %s
     }
     """.formatted(
-                assetName, contact, owner,
+                action, groupName,
                 ipsJson.toString(),
                 createTimestamp == null ? "null" : "\"" + createTimestamp.toString() + "\"",
                 deactivatedTimestamp == null ? "null" : "\"" + deactivatedTimestamp.toString() + "\""
