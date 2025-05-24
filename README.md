@@ -31,15 +31,26 @@ Desktop2,White,Admin,192.168.2.10,192.168.2.11,192.168.2.12,05/11/2025 10:15:00 
 - For each row:
   - If `deactivatedTimestamp` is empty, adds all IPs to the "active" sets for both owner and contact.
   - If `deactivatedTimestamp` is present, adds all IPs to the "deactivated" sets for both owner and contact.
+- Optionally, if a start timestamp is provided as a second argument, only includes records where either the create or deactivated timestamp is after or equal to the start timestamp.
 - Builds four maps:
   - `ownerToActiveIps`
   - `contactToActiveIps`
   - `ownerToDeactivatedIps`
   - `contactToDeactivatedIps`
-- Iterates over each map and makes Qualys API calls to add or remove IPs from asset groups, using the group name as the owner or contact value.
-- Looks up the Qualys asset group ID using the fo/asset/group API, then edits the group to add or remove IPs.
+- Makes Qualys API calls for each map entry:
+  - **Removals** (deactivated IPs) are processed before **additions** (active IPs).
+  - Looks up the Qualys asset group ID using the fo/asset/group API, then edits the group to add or remove IPs.
+  - Adds the header `X-Requested-With: Java` to all API requests.
 - Parses API responses for error codes and adds recognized codes and descriptions to the error records.
 - Prints summary of all maps and error records.
+
+## Running the Application
+
+```sh
+java -jar target/cmdb-cvs-conversion-0.0.1-SNAPSHOT.jar [csvFilePath] [optionalStartTimestamp]
+```
+- `csvFilePath` (optional): Path to the CSV file. Defaults to `src/main/resources/sample.csv` if not provided.
+- `optionalStartTimestamp` (optional): Filter records to only include those with create or deactivated timestamps after this value. Format: `MM/dd/yyyy hh:mm:ss a`
 
 ## Sample Output
 
@@ -86,5 +97,7 @@ ExtraRow,Kim,Ops,198.51.100.10,2001:db8:abcd:0012::1,05/16/2025 08:00:00 AM,
 - All IP addresses in the sample data are unique.
 - No external libraries are used; only Java standard library.
 - Qualys API credentials must be provided in the code for real API calls.
+- The application adds the `X-Requested-With: Java` header to all Qualys API requests.
+- If a start timestamp is provided, only records with create or deactivated timestamps after or equal to this value are processed.
 
 ---
