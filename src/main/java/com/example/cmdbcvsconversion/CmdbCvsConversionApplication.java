@@ -24,6 +24,7 @@ public class CmdbCvsConversionApplication {
     public static void main(String[] args) throws Exception {
         // Determine CSV file path from arguments or use default sample
         Path csvPath;
+        LocalDateTime startTimestamp = null;
 
         if (args.length < 1) {
             // If no argument is provided, use a default sample CSV path
@@ -31,6 +32,16 @@ public class CmdbCvsConversionApplication {
         } else {
             // Use the provided CSV file path
             csvPath = Paths.get(args[0]);
+        }
+
+        // Optional: parse start timestamp from args[1] if present
+        if (args.length >= 2) {
+            try {
+                startTimestamp = parseDate(args[1]);
+            } catch (Exception e) {
+                System.err.println("Invalid start timestamp format. Expected: MM/dd/yyyy hh:mm:ss a");
+                startTimestamp = null;
+            }
         }
 
         List<String> errorRecords = new ArrayList<>();
@@ -65,6 +76,18 @@ public class CmdbCvsConversionApplication {
 
                 LocalDateTime createTimestamp = createTimestampStr.isEmpty() ? null : parseDate(createTimestampStr);
                 LocalDateTime deactivatedTimestamp = deactivatedTimestampStr.isEmpty() ? null : parseDate(deactivatedTimestampStr);
+
+                // Filter: skip if startTimestamp is set and both create and deactivated are before it
+                if (startTimestamp != null) {
+                    boolean beforeCreate = (createTimestamp != null && createTimestamp.isBefore(startTimestamp));
+                    boolean beforeDeactivated = (deactivatedTimestamp != null && deactivatedTimestamp.isBefore(startTimestamp));
+                    // If both are present and both are before, skip
+                    // If only one is present and it's before, skip
+                    if ((createTimestamp != null && beforeCreate && (deactivatedTimestamp == null || beforeDeactivated))
+                        || (deactivatedTimestamp != null && beforeDeactivated && (createTimestamp == null || beforeCreate))) {
+                        continue;
+                    }
+                }
 
                 if (deactivatedTimestamp == null) {
                     // No deactivatedTimestamp: add IPs to owner's and contact's set
@@ -228,6 +251,7 @@ public class CmdbCvsConversionApplication {
         conn.setRequestMethod("POST");
         String basicAuth = java.util.Base64.getEncoder().encodeToString((username + ":" + password).getBytes());
         conn.setRequestProperty("Authorization", "Basic " + basicAuth);
+        conn.setRequestProperty("X-Requested-With", "Java"); // Add this header
         conn.setDoOutput(true);
 
         try (OutputStream os = conn.getOutputStream()) {
@@ -284,14 +308,15 @@ public class CmdbCvsConversionApplication {
         conn.setRequestMethod("GET");
         String basicAuth = java.util.Base64.getEncoder().encodeToString((username + ":" + password).getBytes());
         conn.setRequestProperty("Authorization", "Basic " + basicAuth);
+        conn.setRequestProperty("X-Requested-With", "Java"); // Add this header
 
         int responseCode = conn.getResponseCode();
         String response = new String(conn.getInputStream().readAllBytes());
         conn.disconnect();
 
+        System.err.println("Response body:\n" + response);
         if (responseCode != 200) {
             System.err.println("Failed to look up group ID for " + groupName + ". HTTP code: " + responseCode);
-            System.err.println("Response body:\n" + response);
             return null;
         }
 
