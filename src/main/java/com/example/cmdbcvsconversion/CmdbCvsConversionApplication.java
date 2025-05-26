@@ -52,8 +52,10 @@ public class CmdbCvsConversionApplication {
         }
 
         // Optional: suppress API call flag as third argument (dry run)
-        if (args.length >= 3) {
+        if (args.length >= 3 && args[2] != null && !args[2].isBlank()) {
             suppressApiCall = Boolean.parseBoolean(args[2]);
+        } else {
+            suppressApiCall = false; // Default to false if not specified
         }
 
         List<String> errorRecords = new ArrayList<>();
