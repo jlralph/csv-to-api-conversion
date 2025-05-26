@@ -14,17 +14,24 @@ public class CmdbCvsConversionApplication {
     /**
      * Entry point for the application.
      * Reads a CSV file, parses each row, and builds four maps:
-     *   - ownerToActiveIps
-     *   - contactToActiveIps
-     *   - ownerToDeactivatedIps
-     *   - contactToDeactivatedIps
-     * Then, for each map, makes Qualys API calls to add or remove IPs from asset groups.
+     *   - ownerToActiveIps: owner → set of active IPs (no deactivated timestamp)
+     *   - contactToActiveIps: contact → set of active IPs (no deactivated timestamp)
+     *   - ownerToDeactivatedIps: owner → set of deactivated IPs (has deactivated timestamp)
+     *   - contactToDeactivatedIps: contact → set of deactivated IPs (has deactivated timestamp)
+     * 
+     * If a start timestamp is provided as the second argument, only includes records where
+     * either the create or deactivated timestamp is after or equal to the start timestamp.
+     * 
+     * For each map, makes Qualys API calls to add or remove IPs from asset groups.
+     * Removals (deactivated IPs) are processed before additions (active IPs).
+     * If the third argument is true, API calls are suppressed and only dry-run output is printed.
      * Collects error codes and descriptions from API responses.
      */
     public static void main(String[] args) throws Exception {
         // Determine CSV file path from arguments or use default sample
         Path csvPath;
         LocalDateTime startTimestamp = null;
+        boolean suppressApiCall = false; // If true, do not make API calls (dry run)
 
         if (args.length < 1) {
             // If no argument is provided, use a default sample CSV path
@@ -42,6 +49,11 @@ public class CmdbCvsConversionApplication {
                 System.err.println("Invalid start timestamp format. Expected: MM/dd/yyyy hh:mm:ss a");
                 startTimestamp = null;
             }
+        }
+
+        // Optional: suppress API call flag as third argument (dry run)
+        if (args.length >= 3) {
+            suppressApiCall = Boolean.parseBoolean(args[2]);
         }
 
         List<String> errorRecords = new ArrayList<>();
@@ -103,33 +115,45 @@ public class CmdbCvsConversionApplication {
 
         // Make API calls for each entry in the four maps
         // First, process removals (deactivated IPs)
-        // For deactivated IPs by owner
         for (Map.Entry<String, Set<String>> entry : ownerToDeactivatedIps.entrySet()) {
             String owner = entry.getKey();
             Set<String> ips = entry.getValue();
-            makeApiCall("remove", owner, ips.toArray(new String[0]), null, LocalDateTime.now(), errorRecords);
+            if (!suppressApiCall) {
+                makeApiCall("remove", owner, ips.toArray(new String[0]), null, LocalDateTime.now(), errorRecords);
+            } else {
+                System.out.println("[DRY RUN] Would remove IPs " + ips + " from owner group: " + owner);
+            }
         }
 
-        // For deactivated IPs by contact
         for (Map.Entry<String, Set<String>> entry : contactToDeactivatedIps.entrySet()) {
             String contact = entry.getKey();
             Set<String> ips = entry.getValue();
-            makeApiCall("remove", contact, ips.toArray(new String[0]), null, LocalDateTime.now(), errorRecords);
+            if (!suppressApiCall) {
+                makeApiCall("remove", contact, ips.toArray(new String[0]), null, LocalDateTime.now(), errorRecords);
+            } else {
+                System.out.println("[DRY RUN] Would remove IPs " + ips + " from contact group: " + contact);
+            }
         }
 
         // Then, process additions (active IPs)
-        // For active IPs by owner
         for (Map.Entry<String, Set<String>> entry : ownerToActiveIps.entrySet()) {
             String owner = entry.getKey();
             Set<String> ips = entry.getValue();
-            makeApiCall("add", owner, ips.toArray(new String[0]), null, null, errorRecords);
+            if (!suppressApiCall) {
+                makeApiCall("add", owner, ips.toArray(new String[0]), null, null, errorRecords);
+            } else {
+                System.out.println("[DRY RUN] Would add IPs " + ips + " to owner group: " + owner);
+            }
         }
 
-        // For active IPs by contact
         for (Map.Entry<String, Set<String>> entry : contactToActiveIps.entrySet()) {
             String contact = entry.getKey();
             Set<String> ips = entry.getValue();
-            makeApiCall("add", contact, ips.toArray(new String[0]), null, null, errorRecords);
+            if (!suppressApiCall) {
+                makeApiCall("add", contact, ips.toArray(new String[0]), null, null, errorRecords);
+            } else {
+                System.out.println("[DRY RUN] Would add IPs " + ips + " to contact group: " + contact);
+            }
         }
 
         // Output all error codes found in API responses

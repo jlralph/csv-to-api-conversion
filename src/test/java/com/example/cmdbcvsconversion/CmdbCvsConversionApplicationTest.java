@@ -93,5 +93,4 @@ class CmdbCvsConversionApplicationTest {
         );
         assertTrue(ex.getMessage().contains("action must be 'add' or 'remove'"));
     }
-
 }

@@ -37,20 +37,22 @@ Desktop2,White,Admin,192.168.2.10,192.168.2.11,192.168.2.12,05/11/2025 10:15:00 
   - `contactToActiveIps`
   - `ownerToDeactivatedIps`
   - `contactToDeactivatedIps`
-- Makes Qualys API calls for each map entry:
+- Makes Qualys API calls for each map entry (unless suppressed):
   - **Removals** (deactivated IPs) are processed before **additions** (active IPs).
   - Looks up the Qualys asset group ID using the fo/asset/group API, then edits the group to add or remove IPs.
   - Adds the header `X-Requested-With: Java` to all API requests.
+- If the third argument is set to `true`, API calls are suppressed and only dry-run output is printed.
 - Parses API responses for error codes and adds recognized codes and descriptions to the error records.
 - Prints summary of all maps and error records.
 
 ## Running the Application
 
 ```sh
-java -jar target/cmdb-cvs-conversion-0.0.1-SNAPSHOT.jar [csvFilePath] [optionalStartTimestamp]
+java -jar target/cmdb-cvs-conversion-0.0.1-SNAPSHOT.jar [csvFilePath] [optionalStartTimestamp] [suppressApiCall]
 ```
 - `csvFilePath` (optional): Path to the CSV file. Defaults to `src/main/resources/sample.csv` if not provided.
 - `optionalStartTimestamp` (optional): Filter records to only include those with create or deactivated timestamps after this value. Format: `MM/dd/yyyy hh:mm:ss a`
+- `suppressApiCall` (optional): If `true`, API calls are not made and only dry-run output is printed.
 
 ## Sample Output
 
@@ -99,5 +101,6 @@ ExtraRow,Kim,Ops,198.51.100.10,2001:db8:abcd:0012::1,05/16/2025 08:00:00 AM,
 - Qualys API credentials must be provided in the code for real API calls.
 - The application adds the `X-Requested-With: Java` header to all Qualys API requests.
 - If a start timestamp is provided, only records with create or deactivated timestamps after or equal to this value are processed.
+- If `suppressApiCall` is set to `true`, no API calls are made and only dry-run output is printed.
 
 ---
