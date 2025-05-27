@@ -6,10 +6,25 @@ import java.nio.file.*;
 import java.time.*;
 import java.time.format.*;
 import java.util.*;
+import java.util.logging.*;
 
 import javax.net.ssl.HttpsURLConnection;
 
 public class CmdbCvsConversionApplication {
+
+    // Logger setup for both file and console output
+    private static final Logger LOGGER = Logger.getLogger(CmdbCvsConversionApplication.class.getName());
+    static {
+        try {
+            // Log to file "cmdb-cvs-conversion.log" in append mode
+            FileHandler fileHandler = new FileHandler("cmdb-cvs-conversion.log", true);
+            fileHandler.setFormatter(new SimpleFormatter());
+            LOGGER.addHandler(fileHandler);
+            LOGGER.setUseParentHandlers(true); // Also log to console
+        } catch (IOException e) {
+            System.err.println("Failed to set up file logger: " + e.getMessage());
+        }
+    }
 
     /**
      * Entry point for the application.
@@ -18,14 +33,15 @@ public class CmdbCvsConversionApplication {
      *   - contactToActiveIps: contact → set of active IPs (no deactivated timestamp)
      *   - ownerToDeactivatedIps: owner → set of deactivated IPs (has deactivated timestamp)
      *   - contactToDeactivatedIps: contact → set of deactivated IPs (has deactivated timestamp)
-     * 
+     *
      * If a start timestamp is provided as the second argument, only includes records where
      * either the create or deactivated timestamp is after or equal to the start timestamp.
-     * 
+     *
      * For each map, makes Qualys API calls to add or remove IPs from asset groups.
      * Removals (deactivated IPs) are processed before additions (active IPs).
      * If the third argument is true, API calls are suppressed and only dry-run output is printed.
      * Collects error codes and descriptions from API responses.
+     * Logs all summary output to both the logger and the console.
      */
     public static void main(String[] args) throws Exception {
         // Determine CSV file path from arguments or use default sample
@@ -60,13 +76,10 @@ public class CmdbCvsConversionApplication {
 
         List<String> errorRecords = new ArrayList<>();
 
-        // Map of owner -> set of IPs (for records without deactivatedTimestamp)
+        // Maps for owner/contact to active/deactivated IPs
         Map<String, Set<String>> ownerToActiveIps = new HashMap<>();
-        // Map of contact -> set of IPs (for records without deactivatedTimestamp)
         Map<String, Set<String>> contactToActiveIps = new HashMap<>();
-        // Map of owner -> set of deactivated IPs
         Map<String, Set<String>> ownerToDeactivatedIps = new HashMap<>();
-        // Map of contact -> set of deactivated IPs
         Map<String, Set<String>> contactToDeactivatedIps = new HashMap<>();
 
         // Read and process each line of the CSV file
@@ -116,7 +129,7 @@ public class CmdbCvsConversionApplication {
         }
 
         // Make API calls for each entry in the four maps
-        // First, process removals (deactivated IPs)
+        // Removals (deactivated IPs) are processed before additions (active IPs)
         for (Map.Entry<String, Set<String>> entry : ownerToDeactivatedIps.entrySet()) {
             String owner = entry.getKey();
             Set<String> ips = entry.getValue();
@@ -162,28 +175,35 @@ public class CmdbCvsConversionApplication {
         System.out.println("Error Records: " + errorRecords);
 
         // Output owner to active IPs map
-        System.out.println("Owner to Active IPs:");
+        LOGGER.info("Owner to Active IPs:");
         for (Map.Entry<String, Set<String>> entry : ownerToActiveIps.entrySet()) {
-            System.out.println("Owner: " + entry.getKey() + " -> IPs: " + entry.getValue());
+            String msg = "Owner: " + entry.getKey() + " -> IPs: " + entry.getValue();
+            LOGGER.info(msg);
         }
 
         // Output contact to active IPs map
-        System.out.println("Contact to Active IPs:");
+        LOGGER.info("Contact to Active IPs:");
         for (Map.Entry<String, Set<String>> entry : contactToActiveIps.entrySet()) {
-            System.out.println("Contact: " + entry.getKey() + " -> IPs: " + entry.getValue());
+            String msg = "Contact: " + entry.getKey() + " -> IPs: " + entry.getValue();
+            LOGGER.info(msg);
         }
 
         // Output owner to deactivated IPs map
-        System.out.println("Owner to Deactivated IPs:");
+        LOGGER.info("Owner to Deactivated IPs:");
         for (Map.Entry<String, Set<String>> entry : ownerToDeactivatedIps.entrySet()) {
-            System.out.println("Owner: " + entry.getKey() + " -> Deactivated IPs: " + entry.getValue());
+            String msg = "Owner: " + entry.getKey() + " -> Deactivated IPs: " + entry.getValue();
+            LOGGER.info(msg);
         }
 
         // Output contact to deactivated IPs map
-        System.out.println("Contact to Deactivated IPs:");
+        LOGGER.info("Contact to Deactivated IPs:");
         for (Map.Entry<String, Set<String>> entry : contactToDeactivatedIps.entrySet()) {
-            System.out.println("Contact: " + entry.getKey() + " -> Deactivated IPs: " + entry.getValue());
+            String msg = "Contact: " + entry.getKey() + " -> Deactivated IPs: " + entry.getValue();
+            LOGGER.info(msg);
         }
+
+        String errorMsg = "Error Records: " + errorRecords;
+        LOGGER.info(errorMsg);
     }
 
     /**
@@ -201,6 +221,7 @@ public class CmdbCvsConversionApplication {
      * then edits the asset group to add or remove the given IPs.
      * Parses both API responses for error codes and adds them to errorRecords,
      * but only if the error code is recognized in QualysApiErrors.
+     * Logs request and response details on error.
      *
      * @param action ("add" or "remove")
      * @param groupName (owner or contact value)
@@ -213,17 +234,21 @@ public class CmdbCvsConversionApplication {
         String action, String groupName, String[] ips,
         LocalDateTime createTimestamp, LocalDateTime deactivatedTimestamp,
         List<String> errorRecords
-    ) throws IOException {
+    ) {
         // Validate action
         if (!"add".equals(action) && !"remove".equals(action)) {
-            throw new IllegalArgumentException("action must be 'add' or 'remove'");
+            String msg = "action must be 'add' or 'remove'";
+            LOGGER.severe(msg);
+            throw new IllegalArgumentException(msg);
         }
 
         // Lookup Qualys asset group ID by groupName
         String groupId = lookupQualysGroupId(groupName);
         if (groupId == null) {
+            String msg = "Asset group not found for groupName: " + groupName;
             errorRecords.add("GROUP_NOT_FOUND:" + groupName);
-            System.err.println("Asset group not found for groupName: " + groupName);
+            LOGGER.warning(msg);
+            System.err.println(msg);
             return;
         }
 
@@ -235,7 +260,9 @@ public class CmdbCvsConversionApplication {
             String errorCode = extractQualysFoApiErrorCode(editResponse);
             String errorDesc = QualysApiErrors.getDescriptionByCode(errorCode);
             if (errorCode != null && !"Unknown error code".equals(errorDesc)) {
-                errorRecords.add(errorCode + ": " + errorDesc);
+                String msg = errorCode + ": " + errorDesc;
+                errorRecords.add(msg);
+                LOGGER.warning(msg);
             }
         }
     }
@@ -243,13 +270,14 @@ public class CmdbCvsConversionApplication {
     /**
      * Edits the Qualys asset group by ID to add or remove IPs using the fo/asset/group API.
      * Returns the raw API response as a string.
+     * Logs request and response details on error.
      *
      * @param groupId The Qualys asset group ID
      * @param action "add" or "remove"
      * @param ips Array of IP addresses to add or remove
      * @return The raw API response as a string
      */
-    private static String editQualysAssetGroup(String groupId, String action, String[] ips) throws IOException {
+    private static String editQualysAssetGroup(String groupId, String action, String[] ips) {
         String apiUrl = "https://qualysapi.qualys.com/api/2.0/fo/asset/group/";
         String username = "YOUR_QUALYS_USERNAME";
         String password = "YOUR_QUALYS_PASSWORD";
@@ -262,49 +290,137 @@ public class CmdbCvsConversionApplication {
 
         String params;
         if ("add".equals(action)) {
-            params = "action=edit&id=" + URLEncoder.encode(groupId, "UTF-8") +
-                     "&add_ips=" + URLEncoder.encode(ipList.toString(), "UTF-8");
+            params = "action=edit&id=" + URLEncoder.encode(groupId, java.nio.charset.StandardCharsets.UTF_8) +
+                     "&add_ips=" + URLEncoder.encode(ipList.toString(), java.nio.charset.StandardCharsets.UTF_8);
         } else if ("remove".equals(action)) {
-            params = "action=edit&id=" + URLEncoder.encode(groupId, "UTF-8") +
-                     "&remove_ips=" + URLEncoder.encode(ipList.toString(), "UTF-8");
+            params = "action=edit&id=" + URLEncoder.encode(groupId, java.nio.charset.StandardCharsets.UTF_8) +
+                     "&remove_ips=" + URLEncoder.encode(ipList.toString(), java.nio.charset.StandardCharsets.UTF_8);
         } else {
             throw new IllegalArgumentException("action must be 'add' or 'remove'");
         }
 
-        URI uri = URI.create(apiUrl);
-        URL url = uri.toURL();
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod("POST");
-        String basicAuth = java.util.Base64.getEncoder().encodeToString((username + ":" + password).getBytes());
-        conn.setRequestProperty("Authorization", "Basic " + basicAuth);
-        conn.setRequestProperty("X-Requested-With", "Java"); // Add this header
-        conn.setDoOutput(true);
+        HttpURLConnection conn = null;
+        try {
+            URI uri = URI.create(apiUrl);
+            URL url = uri.toURL();
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            String basicAuth = java.util.Base64.getEncoder().encodeToString((username + ":" + password).getBytes());
+            conn.setRequestProperty("Authorization", "Basic " + basicAuth);
+            conn.setRequestProperty("X-Requested-With", "Java");
+            conn.setDoOutput(true);
 
-        try (OutputStream os = conn.getOutputStream()) {
-            os.write(params.getBytes());
+            try (OutputStream os = conn.getOutputStream()) {
+                os.write(params.getBytes());
+            }
+
+            int responseCode = conn.getResponseCode();
+            String response = new String(conn.getInputStream().readAllBytes());
+            conn.disconnect();
+
+            if (responseCode != 200) {
+                System.err.println("Failed to update asset group " + groupId + ". HTTP code: " + responseCode);
+            } else {
+                System.out.println("Asset group " + groupId + " updated. Response: " + response);
+            }
+            return response;
+        } catch (IOException e) {
+            // Log the full request and any available response
+            LOGGER.severe("IOException during editQualysAssetGroup: " + e.getMessage());
+            LOGGER.severe("Request URL: " + apiUrl);
+            LOGGER.severe("Request Params: " + params);
+            LOGGER.severe("Request Headers: Authorization=Basic ****, X-Requested-With=Java");
+            if (conn != null) {
+                try {
+                    int code = conn.getResponseCode();
+                    String response = "";
+                    try (InputStream is = conn.getInputStream()) {
+                        response = new String(is.readAllBytes());
+                    } catch (IOException ex) {
+                        // Ignore, may not be available
+                    }
+                    LOGGER.severe("HTTP Response Code: " + code);
+                    LOGGER.severe("HTTP Response Body:\n" + response);
+                } catch (IOException ex) {
+                    LOGGER.severe("Unable to read response: " + ex.getMessage());
+                }
+            }
+            return null;
         }
-
-        int responseCode = conn.getResponseCode();
-        String response = new String(conn.getInputStream().readAllBytes());
-        conn.disconnect();
-
-        if (responseCode != 200) {
-            System.err.println("Failed to update asset group " + groupId + ". HTTP code: " + responseCode);
-        } else {
-            System.out.println("Asset group " + groupId + " updated. Response: " + response);
-        }
-        return response;
     }
 
     /**
-     * Extracts a Qualys error code from a fo/asset/group API XML response.
-     * Returns the error code as a string, or null if not found.
+     * Looks up the Qualys asset group ID for the given group name using the fo/asset/group API.
+     * Returns the group ID as a string, or null if not found.
+     * Logs request and response details on error.
      *
-     * @param response The XML response from the Qualys API
-     * @return The error code as a string, or null if not found
+     * @param groupName The name of the asset group (owner or contact value)
+     * @return The Qualys asset group ID as a String, or null if not found
+     */
+    private static String lookupQualysGroupId(String groupName) {
+        String apiUrl = "https://qualysapi.qualys.com/api/2.0/fo/asset/group/";
+        String username = "YOUR_QUALYS_USERNAME";
+        String password = "YOUR_QUALYS_PASSWORD";
+        String params = "action=list&title=" + URLEncoder.encode(groupName, java.nio.charset.StandardCharsets.UTF_8);
+
+        HttpURLConnection conn = null;
+        try {
+            URI uri = URI.create(apiUrl + "?" + params);
+            URL url = uri.toURL();
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            String basicAuth = java.util.Base64.getEncoder().encodeToString((username + ":" + password).getBytes());
+            conn.setRequestProperty("Authorization", "Basic " + basicAuth);
+            conn.setRequestProperty("X-Requested-With", "Java");
+
+            int responseCode = conn.getResponseCode();
+            String response = new String(conn.getInputStream().readAllBytes());
+            conn.disconnect();
+
+            System.err.println("Response body:\n" + response);
+            if (responseCode != 200) {
+                System.err.println("Failed to look up group ID for " + groupName + ". HTTP code: " + responseCode);
+                return null;
+            }
+
+            // Simple extraction (for demo; use proper XML parser in production)
+            String idTag = "<ID>";
+            int idStart = response.indexOf(idTag);
+            if (idStart == -1) return null;
+            int idEnd = response.indexOf("</ID>", idStart);
+            if (idEnd == -1) return null;
+            return response.substring(idStart + idTag.length(), idEnd).trim();
+        } catch (IOException e) {
+            // Log the full request and any available response
+            LOGGER.severe("IOException during lookupQualysGroupId for group '" + groupName + "': " + e.getMessage());
+            LOGGER.severe("Request URL: " + apiUrl + "?" + params);
+            LOGGER.severe("Request Headers: Authorization=Basic ****, X-Requested-With=Java");
+            if (conn != null) {
+                try {
+                    int code = conn.getResponseCode();
+                    String response = "";
+                    try (InputStream is = conn.getInputStream()) {
+                        response = new String(is.readAllBytes());
+                    } catch (IOException ex) {
+                        // Ignore, may not be available
+                    }
+                    LOGGER.severe("HTTP Response Code: " + code);
+                    LOGGER.severe("HTTP Response Body:\n" + response);
+                } catch (IOException ex) {
+                    LOGGER.severe("Unable to read response: " + ex.getMessage());
+                }
+            }
+            return null;
+        }
+    }
+
+    /**
+     * Extracts the Qualys FO API error code from the API response string.
+     * This method looks for <CODE>...</CODE> in the XML response.
+     * Returns the code as a string, or null if not found.
      */
     static String extractQualysFoApiErrorCode(String response) {
-        // Look for <ERROR><CODE>...</CODE></ERROR>
+        if (response == null) return null;
         String codeTag = "<CODE>";
         int codeStart = response.indexOf(codeTag);
         if (codeStart == -1) return null;
@@ -312,54 +428,6 @@ public class CmdbCvsConversionApplication {
         if (codeEnd == -1) return null;
         return response.substring(codeStart + codeTag.length(), codeEnd).trim();
     }
-
-    /**
-     * Looks up the Qualys asset group ID for the given group name using the fo/asset/group API.
-     *
-     * @param groupName The name of the asset group (owner or contact value)
-     * @return The Qualys asset group ID as a String, or null if not found
-     */
-    private static String lookupQualysGroupId(String groupName) throws IOException {
-        // Replace with your Qualys API endpoint and credentials
-        String apiUrl = "https://qualysapi.qualys.com/api/2.0/fo/asset/group/";
-        String username = "YOUR_QUALYS_USERNAME";
-        String password = "YOUR_QUALYS_PASSWORD";
-
-        // Build the query string for the group name
-        String params = "action=list&title=" + URLEncoder.encode(groupName, "UTF-8");
-
-        URI uri = URI.create(apiUrl + "?" + params);
-        URL url = uri.toURL();
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod("GET");
-        String basicAuth = java.util.Base64.getEncoder().encodeToString((username + ":" + password).getBytes());
-        conn.setRequestProperty("Authorization", "Basic " + basicAuth);
-        conn.setRequestProperty("X-Requested-With", "Java"); // Add this header
-
-        int responseCode = conn.getResponseCode();
-        String response = new String(conn.getInputStream().readAllBytes());
-        conn.disconnect();
-
-        System.err.println("Response body:\n" + response);
-        if (responseCode != 200) {
-            System.err.println("Failed to look up group ID for " + groupName + ". HTTP code: " + responseCode);
-            return null;
-        }
-
-        // Simple extraction (for demo; use proper XML parser in production)
-        String idTag = "<ID>";
-        int idStart = response.indexOf(idTag);
-        if (idStart == -1) return null;
-        int idEnd = response.indexOf("</ID>", idStart);
-        if (idEnd == -1) return null;
-        return response.substring(idStart + idTag.length(), idEnd).trim();
-    }
-
-    // Example usage in your main logic:
-    // String groupId = lookupQualysGroupId(groupName);
-    // if (groupId != null) {
-    //     editQualysAssetGroup(groupId, action, ips);
-    // }
 }
 
 /**

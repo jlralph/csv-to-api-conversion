@@ -1,6 +1,6 @@
 # cmdb-cvs-conversion
 
-A Java 21 application (no external dependencies) that reads a CSV file, parses each row, and (optionally) makes Qualys API calls to manage asset groups. The app builds summary maps of owners and contacts to their associated IP addresses, separated by active and deactivated status.
+A Java 21 application (no external dependencies) that reads a CSV file, parses each row, and (optionally) makes Qualys API calls to manage asset groups. The app builds summary maps of owners and contacts to their associated IP addresses, separated by active and deactivated status. All summary output is logged to both the console and a file.
 
 ## Project Setup
 
@@ -13,16 +13,16 @@ A Java 21 application (no external dependencies) that reads a CSV file, parses e
 Each row in the CSV should have the following columns:
 
 1. **Asset Name** (String)
-2. **Contact** (String)
-3. **Owner** (String)
+2. **Contact** (String, e.g., support group name)
+3. **Owner** (String, e.g., IT team name)
 4. **IP Addresses** (one or more, comma-separated)
 5. **Create Timestamp** (MM/DD/YYYY hh:mm:ss AM/PM)
 6. **Deactivated Timestamp** (MM/DD/YYYY hh:mm:ss AM/PM, may be empty)
 
 **Example:**
 ```
-Server1,Doe,Engineer,192.168.1.1,05/14/2025 08:30:00 AM,05/14/2025 05:00:00 PM
-Desktop2,White,Admin,192.168.2.10,192.168.2.11,192.168.2.12,05/11/2025 10:15:00 AM,
+SRV-PLAT-01,Helpdesk,Platform,192.168.1.1,05/14/2025 08:30:00 AM,05/14/2025 05:00:00 PM
+DT-DEVOPS-01,DevOps-Support,DevOps,192.168.2.10,192.168.2.11,192.168.2.12,05/11/2025 10:15:00 AM,
 ```
 
 ## What the App Does
@@ -41,9 +41,11 @@ Desktop2,White,Admin,192.168.2.10,192.168.2.11,192.168.2.12,05/11/2025 10:15:00 
   - **Removals** (deactivated IPs) are processed before **additions** (active IPs).
   - Looks up the Qualys asset group ID using the fo/asset/group API, then edits the group to add or remove IPs.
   - Adds the header `X-Requested-With: Java` to all API requests.
+  - If the group is not found, logs and records a `GROUP_NOT_FOUND` error.
+  - If an API call fails, logs the full request and response details.
 - If the third argument is set to `true`, API calls are suppressed and only dry-run output is printed.
 - Parses API responses for error codes and adds recognized codes and descriptions to the error records.
-- Prints summary of all maps and error records.
+- Logs all summary output (maps and error records) to both the logger and the console.
 
 ## Running the Application
 
@@ -52,45 +54,55 @@ java -jar target/cmdb-cvs-conversion-0.0.1-SNAPSHOT.jar [csvFilePath] [optionalS
 ```
 - `csvFilePath` (optional): Path to the CSV file. Defaults to `src/main/resources/sample.csv` if not provided.
 - `optionalStartTimestamp` (optional): Filter records to only include those with create or deactivated timestamps after this value. Format: `MM/dd/yyyy hh:mm:ss a`
-- `suppressApiCall` (optional): If `true`, API calls are not made and only dry-run output is printed.
+- `suppressApiCall` (optional): If `true`, API calls are not made and only dry-run output is printed. Defaults to `false`.
+
+## Logging
+
+- All output is logged to both the console and a file named `cmdb-cvs-conversion.log` in the working directory.
+- Errors and API responses are logged with appropriate severity.
 
 ## Sample Output
 
 ```
 Owner to Active IPs:
-Owner: Engineer -> IPs: [192.168.1.1]
-Owner: Admin -> IPs: [192.168.2.10, 192.168.2.11, 192.168.2.12]
+Owner: Platform -> IPs: [192.168.1.1]
+Owner: DevOps -> IPs: [192.168.2.10, 192.168.2.11, 192.168.2.12]
 ...
 
 Contact to Active IPs:
-Contact: Doe -> IPs: [192.168.1.1]
-Contact: White -> IPs: [192.168.2.10, 192.168.2.11, 192.168.2.12]
+Contact: Helpdesk -> IPs: [192.168.1.1]
+Contact: DevOps-Support -> IPs: [192.168.2.10, 192.168.2.11, 192.168.2.12]
 ...
 
 Owner to Deactivated IPs:
-Owner: Designer -> Deactivated IPs: [192.168.4.10, 192.168.4.11, 192.168.4.12]
+Owner: Design -> Deactivated IPs: [192.168.4.10, 192.168.4.11, 192.168.4.12]
 ...
 
 Contact to Deactivated IPs:
-Contact: Black -> Deactivated IPs: [192.168.4.10, 192.168.4.11, 192.168.4.12]
+Contact: Design-Support -> Deactivated IPs: [192.168.4.10, 192.168.4.11, 192.168.4.12]
 ...
 
-Error Records: [INVALID_IP: The IP address provided is invalid, GROUP_NOT_FOUND:SomeGroup]
+Error Records: [GROUP_NOT_FOUND:SomeGroup, 1901: Unrecognized parameter(s)]
 ```
 
 ## Example `sample.csv`
 
 ```
-Server1,Doe,Engineer,192.168.1.1,05/14/2025 08:30:00 AM,05/14/2025 05:00:00 PM
-Server2,Smith,Manager,10.0.0.1,05/13/2025 09:00:00 AM,05/13/2025 06:00:00 PM
-Desktop1,Brown,Analyst,172.16.0.1,05/12/2025 07:45:00 AM,05/12/2025 04:30:00 PM
-Desktop2,White,Admin,192.168.2.10,192.168.2.11,192.168.2.12,05/11/2025 10:15:00 AM,
-Desktop3,Green,Developer,192.168.3.10,192.168.3.11,192.168.3.12,05/11/2025 10:15:00 AM,
-Desktop4,Black,Designer,192.168.4.10,192.168.4.11,192.168.4.12,,05/11/2025 07:00:00 PM
-Desktop5,White,Tester,192.168.5.10,192.168.5.11,192.168.5.12,,
-Gary's PC,Gary,Development,192.168.6.10,192.168.6.11,192.168.6.12,05/11/2025 10:15:00 AM,05/11/2025 07:00:00 PM
-Laptop1,Lee,Support,203.0.113.5,2001:0db8:85a3:0000:0000:8a2e:0370:7334,05/15/2025 09:00:00 AM,
-ExtraRow,Kim,Ops,198.51.100.10,2001:db8:abcd:0012::1,05/16/2025 08:00:00 AM,
+SRV-PLAT-01,Helpdesk,Platform,192.168.1.1,05/14/2025 08:30:00 AM,05/14/2025 05:00:00 PM
+SRV-QA-01,QA-Support,QA,10.0.0.1,05/13/2025 09:00:00 AM,05/13/2025 06:00:00 PM
+DT-AN-01,Analytics-Support,Analytics,172.16.0.1,05/12/2025 07:45:00 AM,05/12/2025 04:30:00 PM
+DT-DEVOPS-01,DevOps-Support,DevOps,192.168.2.10,192.168.2.11,192.168.2.12,05/11/2025 10:15:00 AM,
+DT-FE-01,Frontend-Support,Frontend,192.168.3.10,192.168.3.11,192.168.3.12,05/11/2025 10:15:00 AM,
+DT-DESIGN-01,Design-Support,Design,192.168.4.10,192.168.4.11,192.168.4.12,,04/11/2025 07:00:00 PM
+DT-TEST-01,Testing-Support,Testing,192.168.5.10,192.168.5.11,192.168.5.12,,
+LAP-BE-01,Backend-Support,Backend,192.168.6.10,192.168.6.11,192.168.6.12,03/22/2023 10:15:00 AM,05/11/2025 07:00:00 PM
+LAP-SUPPORT-01,IT-Support,Support,203.0.113.5,2001:0db8:85a3:0000:0000:8a2e:0370:7334,05/15/2025 09:00:00 AM,
+# --- Boundary test data below ---
+SRV-PLAT-02,Helpdesk,Platform,10.10.10.1,10/01/2024 12:01:02 AM,10/02/2024 01:00:00 PM
+SRV-QA-02,QA-Support,QA,10.10.10.2,09/30/2024 11:59:59 PM,10/01/2024 12:01:01 AM
+DT-DEVOPS-02,DevOps-Support,DevOps,10.10.10.3,10/01/2024 12:01:02 AM,
+DT-FE-02,Frontend-Support,Frontend,10.10.10.4,10/01/2024 12:01:01 AM,10/01/2024 12:01:02 AM
+DT-AN-02,Analytics-Support,Analytics,10.10.10.5,10/01/2024 12:01:03 AM,
 ```
 
 ## Notes
@@ -102,5 +114,6 @@ ExtraRow,Kim,Ops,198.51.100.10,2001:db8:abcd:0012::1,05/16/2025 08:00:00 AM,
 - The application adds the `X-Requested-With: Java` header to all Qualys API requests.
 - If a start timestamp is provided, only records with create or deactivated timestamps after or equal to this value are processed.
 - If `suppressApiCall` is set to `true`, no API calls are made and only dry-run output is printed.
+- All summary output is logged to both the logger and the console.
 
 ---
