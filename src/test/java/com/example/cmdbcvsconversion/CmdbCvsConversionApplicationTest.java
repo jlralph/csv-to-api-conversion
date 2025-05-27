@@ -14,7 +14,7 @@ class CmdbCvsConversionApplicationTest {
     @Test
     void testParseDate_validFormat() {
         String dateStr = "05/14/2025 08:30:00 AM";
-        LocalDateTime dt = CmdbCvsConversionApplication.parseDate(dateStr);
+        LocalDateTime dt = CsvUtils.parseDate(dateStr);
         assertEquals(2025, dt.getYear());
         assertEquals(5, dt.getMonthValue());
         assertEquals(14, dt.getDayOfMonth());
@@ -29,7 +29,7 @@ class CmdbCvsConversionApplicationTest {
     @Test
     void testExtractQualysFoApiErrorCode_found() {
         String xml = "<RESPONSE><ERROR><CODE>1901</CODE></ERROR></RESPONSE>";
-        String code = CmdbCvsConversionApplication.extractQualysFoApiErrorCode(xml);
+        String code = QualysApiErrors.extractQualysFoApiErrorCode(xml);
         assertEquals("1901", code);
     }
 
@@ -39,7 +39,7 @@ class CmdbCvsConversionApplicationTest {
     @Test
     void testExtractQualysFoApiErrorCode_notFound() {
         String xml = "<RESPONSE><SUCCESS/></RESPONSE>";
-        String code = CmdbCvsConversionApplication.extractQualysFoApiErrorCode(xml);
+        String code = QualysApiErrors.extractQualysFoApiErrorCode(xml);
         assertNull(code);
     }
 
@@ -89,7 +89,7 @@ class CmdbCvsConversionApplicationTest {
     @Test
     void testMakeApiCall_invalidAction_throws() {
         Exception ex = assertThrows(IllegalArgumentException.class, () ->
-            CmdbCvsConversionApplication.makeApiCall("invalid", "group", new String[]{"1.2.3.4"}, null, null, new ArrayList<>())
+            QualysApi.makeApiCall("invalid", "group", new String[]{"1.2.3.4"}, new ArrayList<>(), java.util.logging.Logger.getGlobal())
         );
         assertTrue(ex.getMessage().contains("action must be 'add' or 'remove'"));
     }
@@ -102,7 +102,7 @@ class CmdbCvsConversionApplicationTest {
     void testMakeApiCall_groupNotFound_addsErrorRecord() {
         List<String> errors = new ArrayList<>();
         // Use a group name that will not exist and suppress API call side effects
-        CmdbCvsConversionApplication.makeApiCall("add", "nonexistent-group", new String[]{"1.2.3.4"}, null, null, errors);
+        QualysApi.makeApiCall("add", "nonexistent-group", new String[]{"1.2.3.4"}, errors, java.util.logging.Logger.getGlobal());
         assertTrue(errors.stream().anyMatch(e -> e.startsWith("GROUP_NOT_FOUND:")));
     }
 
@@ -119,6 +119,6 @@ class CmdbCvsConversionApplicationTest {
      */
     @Test
     void testParseDate_invalidFormat_throws() {
-        assertThrows(Exception.class, () -> CmdbCvsConversionApplication.parseDate("not a date"));
+        assertThrows(Exception.class, () -> CsvUtils.parseDate("not a date"));
     }
 }
