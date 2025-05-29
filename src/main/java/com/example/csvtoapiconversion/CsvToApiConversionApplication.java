@@ -1,4 +1,4 @@
-package com.example.cmdbcvsconversion;
+package com.example.csvtoapiconversion;
 
 import java.io.*;
 import java.nio.file.*;
@@ -13,10 +13,10 @@ import java.util.logging.*;
  * - Makes Qualys API calls to add/remove IPs from asset groups (unless suppressed).
  * - Logs all summary output and errors to both the console and a log file.
  */
-public class CmdbCvsConversionApplication {
+public class CsvToApiConversionApplication {
 
     // Logger setup for both file and console output
-    private static final Logger LOGGER = Logger.getLogger(CmdbCvsConversionApplication.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(CsvToApiConversionApplication.class.getName());
     static {
         try {
             FileHandler fileHandler = new FileHandler("cmdb-cvs-conversion.log", true);

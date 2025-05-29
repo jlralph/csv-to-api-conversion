@@ -1,6 +1,8 @@
-package com.example.cmdbcvsconversion;
+package com.example.csvtoapiconversion;
 
 import org.junit.jupiter.api.*;
+
+import com.example.csvtoapiconversion.QualysApiErrors;
 
 import static org.junit.jupiter.api.Assertions.*;
 

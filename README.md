@@ -1,4 +1,4 @@
-# cmdb-cvs-conversion
+# cvs-api-conversion
 
 A Java 21 application (no external dependencies) that reads a CSV file, parses each row, and (optionally) makes Qualys API calls to manage asset groups. The app builds summary maps of owners and contacts to their associated IP addresses, separated by active and deactivated status. All summary output is logged to both the console and a file.
 

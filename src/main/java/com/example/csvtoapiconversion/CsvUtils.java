@@ -1,4 +1,4 @@
-package com.example.cmdbcvsconversion;
+package com.example.csvtoapiconversion;
 
 import java.io.*;
 import java.nio.file.*;

@@ -1,12 +1,17 @@
-package com.example.cmdbcvsconversion;
+package com.example.csvtoapiconversion;
 
 import org.junit.jupiter.api.*;
+
+import com.example.csvtoapiconversion.CsvUtils;
+import com.example.csvtoapiconversion.QualysApi;
+import com.example.csvtoapiconversion.QualysApiErrors;
+
 import java.time.LocalDateTime;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CmdbCvsConversionApplicationTest {
+class CsvToApiConversionApplicationTest {
 
     /**
      * Test parsing a valid date string.

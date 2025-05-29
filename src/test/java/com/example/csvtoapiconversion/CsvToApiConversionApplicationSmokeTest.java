@@ -1,25 +1,28 @@
-package com.example.cmdbcvsconversion;
+package com.example.csvtoapiconversion;
 
 import org.junit.jupiter.api.*;
+
+import com.example.csvtoapiconversion.CsvToApiConversionApplication;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-class CmdbCvsConversionApplicationSmokeTest {
+class CsvToApiConversionApplicationSmokeTest {
 
     @Test
     void testMain_runsWithoutException() {
         // This is a smoke test: just ensure main runs with default args and doesn't throw
-        assertDoesNotThrow(() -> CmdbCvsConversionApplication.main(new String[0]));
+        assertDoesNotThrow(() -> CsvToApiConversionApplication.main(new String[0]));
     }
 
     @Test
     void testMain_runsWithSampleCsv() {
         String[] args = {"src/main/resources/sample.csv"};
-        assertDoesNotThrow(() -> CmdbCvsConversionApplication.main(args));
+        assertDoesNotThrow(() -> CsvToApiConversionApplication.main(args));
     }
 
     @Test
     void testMain_runsWithSuppressApiCall() {
         String[] args = {"src/main/resources/sample.csv", "05/01/2025 08:00:00 AM", "true"};
-        assertDoesNotThrow(() -> CmdbCvsConversionApplication.main(args));
+        assertDoesNotThrow(() -> CsvToApiConversionApplication.main(args));
     }
 }
