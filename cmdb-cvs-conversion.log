@@ -1889,3 +1889,59 @@ May 26, 2025 5:13:08 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplicati
 WARNING: Asset group not found for groupName: nonexistent-group
 May 26, 2025 5:13:08 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication makeApiCall
 SEVERE: action must be 'add' or 'remove'
+May 26, 2025 8:37:11 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication main
+INFO: Owner to Active IPs:
+May 26, 2025 8:37:11 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$0
+INFO: Owner: DevOps -> IPs: [192.168.2.11, 192.168.2.10, 192.168.2.12, 10.10.10.3]
+May 26, 2025 8:37:11 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$0
+INFO: Owner: Support -> IPs: [203.0.113.5, 2001:0db8:85a3:0000:0000:8a2e:0370:7334]
+May 26, 2025 8:37:11 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$0
+INFO: Owner: Frontend -> IPs: [192.168.3.11, 192.168.3.12, 192.168.3.10]
+May 26, 2025 8:37:11 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$0
+INFO: Owner: Analytics -> IPs: [10.10.10.5]
+May 26, 2025 8:37:11 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$0
+INFO: Owner: Testing -> IPs: [192.168.5.11, 192.168.5.12, 192.168.5.10]
+May 26, 2025 8:37:11 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication main
+INFO: Contact to Active IPs:
+May 26, 2025 8:37:11 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$1
+INFO: Contact: Gamma -> IPs: [10.10.10.3]
+May 26, 2025 8:37:11 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$1
+INFO: Contact: White -> IPs: [192.168.2.11, 192.168.5.11, 192.168.2.10, 192.168.5.12, 192.168.2.12, 192.168.5.10]
+May 26, 2025 8:37:11 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$1
+INFO: Contact: Epsilon -> IPs: [10.10.10.5]
+May 26, 2025 8:37:11 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$1
+INFO: Contact: Lee -> IPs: [203.0.113.5, 2001:0db8:85a3:0000:0000:8a2e:0370:7334]
+May 26, 2025 8:37:11 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$1
+INFO: Contact: Green -> IPs: [192.168.3.11, 192.168.3.12, 192.168.3.10]
+May 26, 2025 8:37:11 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication main
+INFO: Owner to Deactivated IPs:
+May 26, 2025 8:37:11 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$2
+INFO: Owner: Design -> Deactivated IPs: [192.168.4.12, 192.168.4.10, 192.168.4.11]
+May 26, 2025 8:37:11 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$2
+INFO: Owner: QA -> Deactivated IPs: [10.0.0.1]
+May 26, 2025 8:37:11 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$2
+INFO: Owner: Backend -> Deactivated IPs: [192.168.6.12, 192.168.6.11, 192.168.6.10]
+May 26, 2025 8:37:11 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$2
+INFO: Owner: Frontend -> Deactivated IPs: [10.10.10.4]
+May 26, 2025 8:37:11 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$2
+INFO: Owner: Platform -> Deactivated IPs: [192.168.1.1, 10.10.10.1]
+May 26, 2025 8:37:11 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$2
+INFO: Owner: Analytics -> Deactivated IPs: [172.16.0.1]
+May 26, 2025 8:37:11 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication main
+INFO: Contact to Deactivated IPs:
+May 26, 2025 8:37:11 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$3
+INFO: Contact: Gary -> Deactivated IPs: [192.168.6.12, 192.168.6.11, 192.168.6.10]
+May 26, 2025 8:37:11 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$3
+INFO: Contact: Brown -> Deactivated IPs: [172.16.0.1]
+May 26, 2025 8:37:11 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$3
+INFO: Contact: Delta -> Deactivated IPs: [10.10.10.4]
+May 26, 2025 8:37:11 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$3
+INFO: Contact: Smith -> Deactivated IPs: [10.0.0.1]
+May 26, 2025 8:37:11 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$3
+INFO: Contact: Alpha -> Deactivated IPs: [10.10.10.1]
+May 26, 2025 8:37:11 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$3
+INFO: Contact: Black -> Deactivated IPs: [192.168.4.12, 192.168.4.10, 192.168.4.11]
+May 26, 2025 8:37:11 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$3
+INFO: Contact: Doe -> Deactivated IPs: [192.168.1.1]
+May 26, 2025 8:37:11 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication main
+INFO: Error Records: []
