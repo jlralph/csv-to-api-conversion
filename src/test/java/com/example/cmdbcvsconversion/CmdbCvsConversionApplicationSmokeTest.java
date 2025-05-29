@@ -1,9 +1,6 @@
 package com.example.cmdbcvsconversion;
 
 import org.junit.jupiter.api.*;
-import java.nio.file.*;
-import java.util.*;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class CmdbCvsConversionApplicationSmokeTest {

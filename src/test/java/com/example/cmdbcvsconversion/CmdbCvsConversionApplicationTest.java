@@ -88,8 +88,14 @@ class CmdbCvsConversionApplicationTest {
      */
     @Test
     void testMakeApiCall_invalidAction_throws() {
-        Exception ex = assertThrows(IllegalArgumentException.class, () ->
-            QualysApi.makeApiCall("invalid", "group", new String[]{"1.2.3.4"}, new ArrayList<>(), java.util.logging.Logger.getGlobal())
+        String action = "invalid";
+        String group = "group";
+        String[] ips = new String[]{"1.2.3.4"};
+        List<String> errorList = new ArrayList<>();
+        java.util.logging.Logger logger = java.util.logging.Logger.getGlobal();
+        IllegalArgumentException ex = assertThrows(
+            IllegalArgumentException.class,
+            () -> QualysApi.makeApiCall(action, group, ips, errorList, logger)
         );
         assertTrue(ex.getMessage().contains("action must be 'add' or 'remove'"));
     }

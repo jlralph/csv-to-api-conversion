@@ -2725,3 +2725,1563 @@ May 28, 2025 9:11:55 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplicati
 INFO: Contact: Doe -> Deactivated IPs: [192.168.1.1]
 May 28, 2025 9:11:55 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication main
 INFO: Error Records: []
+May 28, 2025 9:18:43 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Design': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Design
+May 28, 2025 9:18:43 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Design
+May 28, 2025 9:18:43 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:43 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:43 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:43 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Design
+May 28, 2025 9:18:44 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'QA': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=QA
+May 28, 2025 9:18:44 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=QA
+May 28, 2025 9:18:44 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:44 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:44 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:44 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: QA
+May 28, 2025 9:18:44 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Backend': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Backend
+May 28, 2025 9:18:44 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Backend
+May 28, 2025 9:18:44 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:44 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:44 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:44 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Backend
+May 28, 2025 9:18:44 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Frontend': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Frontend
+May 28, 2025 9:18:44 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Frontend
+May 28, 2025 9:18:44 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:44 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:44 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:44 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Frontend
+May 28, 2025 9:18:44 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Platform': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Platform
+May 28, 2025 9:18:44 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Platform
+May 28, 2025 9:18:44 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:44 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:44 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:44 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Platform
+May 28, 2025 9:18:44 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Analytics': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Analytics
+May 28, 2025 9:18:44 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Analytics
+May 28, 2025 9:18:44 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:44 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:44 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:44 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Analytics
+May 28, 2025 9:18:45 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Gary': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Gary
+May 28, 2025 9:18:45 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Gary
+May 28, 2025 9:18:45 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:45 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:45 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:45 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Gary
+May 28, 2025 9:18:45 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Brown': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Brown
+May 28, 2025 9:18:45 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Brown
+May 28, 2025 9:18:45 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:45 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:45 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:45 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Brown
+May 28, 2025 9:18:45 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Delta': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Delta
+May 28, 2025 9:18:45 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Delta
+May 28, 2025 9:18:45 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:45 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:45 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:45 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Delta
+May 28, 2025 9:18:45 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Smith': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Smith
+May 28, 2025 9:18:45 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Smith
+May 28, 2025 9:18:45 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:45 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:45 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:45 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Smith
+May 28, 2025 9:18:45 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Alpha': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Alpha
+May 28, 2025 9:18:45 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Alpha
+May 28, 2025 9:18:45 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:45 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:45 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:45 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Alpha
+May 28, 2025 9:18:46 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Black': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Black
+May 28, 2025 9:18:46 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Black
+May 28, 2025 9:18:46 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:46 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:46 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:46 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Black
+May 28, 2025 9:18:46 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Doe': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Doe
+May 28, 2025 9:18:46 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Doe
+May 28, 2025 9:18:46 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:46 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:46 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:46 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Doe
+May 28, 2025 9:18:46 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Beta': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Beta
+May 28, 2025 9:18:46 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Beta
+May 28, 2025 9:18:46 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:46 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:46 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:46 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Beta
+May 28, 2025 9:18:46 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'DevOps': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=DevOps
+May 28, 2025 9:18:46 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=DevOps
+May 28, 2025 9:18:46 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:46 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:46 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:46 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: DevOps
+May 28, 2025 9:18:46 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Support': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Support
+May 28, 2025 9:18:46 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Support
+May 28, 2025 9:18:46 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:46 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:46 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:46 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Support
+May 28, 2025 9:18:47 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Frontend': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Frontend
+May 28, 2025 9:18:47 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Frontend
+May 28, 2025 9:18:47 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:47 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:47 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:47 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Frontend
+May 28, 2025 9:18:47 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Analytics': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Analytics
+May 28, 2025 9:18:47 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Analytics
+May 28, 2025 9:18:47 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:47 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:47 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:47 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Analytics
+May 28, 2025 9:18:47 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Testing': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Testing
+May 28, 2025 9:18:47 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Testing
+May 28, 2025 9:18:47 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:47 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:47 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:47 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Testing
+May 28, 2025 9:18:47 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Gamma': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Gamma
+May 28, 2025 9:18:47 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Gamma
+May 28, 2025 9:18:47 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:47 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:47 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:47 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Gamma
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'White': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=White
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=White
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: White
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Epsilon': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Epsilon
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Epsilon
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Epsilon
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Lee': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Lee
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Lee
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Lee
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Green': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Green
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Green
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Green
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication main
+INFO: Owner to Active IPs:
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$0
+INFO: Owner: DevOps -> IPs: [192.168.2.11, 192.168.2.10, 192.168.2.12, 10.10.10.3]
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$0
+INFO: Owner: Support -> IPs: [203.0.113.5, 2001:0db8:85a3:0000:0000:8a2e:0370:7334]
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$0
+INFO: Owner: Frontend -> IPs: [192.168.3.11, 192.168.3.12, 192.168.3.10]
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$0
+INFO: Owner: Analytics -> IPs: [10.10.10.5]
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$0
+INFO: Owner: Testing -> IPs: [192.168.5.11, 192.168.5.12, 192.168.5.10]
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication main
+INFO: Contact to Active IPs:
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$1
+INFO: Contact: Gamma -> IPs: [10.10.10.3]
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$1
+INFO: Contact: White -> IPs: [192.168.2.11, 192.168.5.11, 192.168.2.10, 192.168.5.12, 192.168.2.12, 192.168.5.10]
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$1
+INFO: Contact: Epsilon -> IPs: [10.10.10.5]
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$1
+INFO: Contact: Lee -> IPs: [203.0.113.5, 2001:0db8:85a3:0000:0000:8a2e:0370:7334]
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$1
+INFO: Contact: Green -> IPs: [192.168.3.11, 192.168.3.12, 192.168.3.10]
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication main
+INFO: Owner to Deactivated IPs:
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$2
+INFO: Owner: Design -> Deactivated IPs: [192.168.4.12, 192.168.4.10, 192.168.4.11]
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$2
+INFO: Owner: QA -> Deactivated IPs: [10.10.10.2, 10.0.0.1]
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$2
+INFO: Owner: Backend -> Deactivated IPs: [192.168.6.12, 192.168.6.11, 192.168.6.10]
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$2
+INFO: Owner: Frontend -> Deactivated IPs: [10.10.10.4]
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$2
+INFO: Owner: Platform -> Deactivated IPs: [192.168.1.1, 10.10.10.1]
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$2
+INFO: Owner: Analytics -> Deactivated IPs: [172.16.0.1]
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication main
+INFO: Contact to Deactivated IPs:
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$3
+INFO: Contact: Gary -> Deactivated IPs: [192.168.6.12, 192.168.6.11, 192.168.6.10]
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$3
+INFO: Contact: Brown -> Deactivated IPs: [172.16.0.1]
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$3
+INFO: Contact: Delta -> Deactivated IPs: [10.10.10.4]
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$3
+INFO: Contact: Smith -> Deactivated IPs: [10.0.0.1]
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$3
+INFO: Contact: Alpha -> Deactivated IPs: [10.10.10.1]
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$3
+INFO: Contact: Black -> Deactivated IPs: [192.168.4.12, 192.168.4.10, 192.168.4.11]
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$3
+INFO: Contact: Doe -> Deactivated IPs: [192.168.1.1]
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$3
+INFO: Contact: Beta -> Deactivated IPs: [10.10.10.2]
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication main
+INFO: Error Records: [GROUP_NOT_FOUND:Design, GROUP_NOT_FOUND:QA, GROUP_NOT_FOUND:Backend, GROUP_NOT_FOUND:Frontend, GROUP_NOT_FOUND:Platform, GROUP_NOT_FOUND:Analytics, GROUP_NOT_FOUND:Gary, GROUP_NOT_FOUND:Brown, GROUP_NOT_FOUND:Delta, GROUP_NOT_FOUND:Smith, GROUP_NOT_FOUND:Alpha, GROUP_NOT_FOUND:Black, GROUP_NOT_FOUND:Doe, GROUP_NOT_FOUND:Beta, GROUP_NOT_FOUND:DevOps, GROUP_NOT_FOUND:Support, GROUP_NOT_FOUND:Frontend, GROUP_NOT_FOUND:Analytics, GROUP_NOT_FOUND:Testing, GROUP_NOT_FOUND:Gamma, GROUP_NOT_FOUND:White, GROUP_NOT_FOUND:Epsilon, GROUP_NOT_FOUND:Lee, GROUP_NOT_FOUND:Green]
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Design': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Design
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Design
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:48 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Design
+May 28, 2025 9:18:49 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'QA': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=QA
+May 28, 2025 9:18:49 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=QA
+May 28, 2025 9:18:49 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:49 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:49 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:49 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: QA
+May 28, 2025 9:18:49 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Backend': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Backend
+May 28, 2025 9:18:49 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Backend
+May 28, 2025 9:18:49 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:49 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:49 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:49 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Backend
+May 28, 2025 9:18:49 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Frontend': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Frontend
+May 28, 2025 9:18:49 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Frontend
+May 28, 2025 9:18:49 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:49 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:49 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:49 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Frontend
+May 28, 2025 9:18:49 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Platform': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Platform
+May 28, 2025 9:18:49 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Platform
+May 28, 2025 9:18:49 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:49 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:49 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:49 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Platform
+May 28, 2025 9:18:49 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Analytics': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Analytics
+May 28, 2025 9:18:49 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Analytics
+May 28, 2025 9:18:49 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:49 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:49 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:49 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Analytics
+May 28, 2025 9:18:50 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Gary': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Gary
+May 28, 2025 9:18:50 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Gary
+May 28, 2025 9:18:50 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:50 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:50 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:50 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Gary
+May 28, 2025 9:18:50 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Brown': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Brown
+May 28, 2025 9:18:50 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Brown
+May 28, 2025 9:18:50 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:50 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:50 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:50 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Brown
+May 28, 2025 9:18:50 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Delta': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Delta
+May 28, 2025 9:18:50 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Delta
+May 28, 2025 9:18:50 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:50 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:50 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:50 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Delta
+May 28, 2025 9:18:50 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Smith': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Smith
+May 28, 2025 9:18:50 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Smith
+May 28, 2025 9:18:50 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:50 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:50 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:50 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Smith
+May 28, 2025 9:18:51 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Alpha': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Alpha
+May 28, 2025 9:18:51 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Alpha
+May 28, 2025 9:18:51 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:51 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:51 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:51 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Alpha
+May 28, 2025 9:18:51 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Black': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Black
+May 28, 2025 9:18:51 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Black
+May 28, 2025 9:18:51 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:51 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:51 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:51 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Black
+May 28, 2025 9:18:51 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Doe': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Doe
+May 28, 2025 9:18:51 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Doe
+May 28, 2025 9:18:51 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:51 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:51 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:51 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Doe
+May 28, 2025 9:18:51 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Beta': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Beta
+May 28, 2025 9:18:51 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Beta
+May 28, 2025 9:18:51 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:51 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:51 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:51 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Beta
+May 28, 2025 9:18:52 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'DevOps': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=DevOps
+May 28, 2025 9:18:52 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=DevOps
+May 28, 2025 9:18:52 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:52 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:52 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:52 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: DevOps
+May 28, 2025 9:18:52 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Support': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Support
+May 28, 2025 9:18:52 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Support
+May 28, 2025 9:18:52 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:52 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:52 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:52 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Support
+May 28, 2025 9:18:52 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Frontend': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Frontend
+May 28, 2025 9:18:52 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Frontend
+May 28, 2025 9:18:52 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:52 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:52 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:52 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Frontend
+May 28, 2025 9:18:52 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Analytics': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Analytics
+May 28, 2025 9:18:52 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Analytics
+May 28, 2025 9:18:52 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:52 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:52 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:52 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Analytics
+May 28, 2025 9:18:53 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Testing': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Testing
+May 28, 2025 9:18:53 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Testing
+May 28, 2025 9:18:53 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:53 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:53 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:53 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Testing
+May 28, 2025 9:18:53 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Gamma': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Gamma
+May 28, 2025 9:18:53 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Gamma
+May 28, 2025 9:18:53 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:53 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:53 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:53 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Gamma
+May 28, 2025 9:18:53 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'White': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=White
+May 28, 2025 9:18:53 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=White
+May 28, 2025 9:18:53 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:53 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:53 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:53 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: White
+May 28, 2025 9:18:53 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Epsilon': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Epsilon
+May 28, 2025 9:18:53 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Epsilon
+May 28, 2025 9:18:53 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:53 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:53 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:53 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Epsilon
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Lee': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Lee
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Lee
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Lee
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Green': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Green
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Green
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Green
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication main
+INFO: Owner to Active IPs:
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$0
+INFO: Owner: DevOps -> IPs: [192.168.2.11, 192.168.2.10, 192.168.2.12, 10.10.10.3]
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$0
+INFO: Owner: Support -> IPs: [203.0.113.5, 2001:0db8:85a3:0000:0000:8a2e:0370:7334]
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$0
+INFO: Owner: Frontend -> IPs: [192.168.3.11, 192.168.3.12, 192.168.3.10]
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$0
+INFO: Owner: Analytics -> IPs: [10.10.10.5]
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$0
+INFO: Owner: Testing -> IPs: [192.168.5.11, 192.168.5.12, 192.168.5.10]
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication main
+INFO: Contact to Active IPs:
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$1
+INFO: Contact: Gamma -> IPs: [10.10.10.3]
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$1
+INFO: Contact: White -> IPs: [192.168.2.11, 192.168.5.11, 192.168.2.10, 192.168.5.12, 192.168.2.12, 192.168.5.10]
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$1
+INFO: Contact: Epsilon -> IPs: [10.10.10.5]
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$1
+INFO: Contact: Lee -> IPs: [203.0.113.5, 2001:0db8:85a3:0000:0000:8a2e:0370:7334]
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$1
+INFO: Contact: Green -> IPs: [192.168.3.11, 192.168.3.12, 192.168.3.10]
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication main
+INFO: Owner to Deactivated IPs:
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$2
+INFO: Owner: Design -> Deactivated IPs: [192.168.4.12, 192.168.4.10, 192.168.4.11]
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$2
+INFO: Owner: QA -> Deactivated IPs: [10.10.10.2, 10.0.0.1]
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$2
+INFO: Owner: Backend -> Deactivated IPs: [192.168.6.12, 192.168.6.11, 192.168.6.10]
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$2
+INFO: Owner: Frontend -> Deactivated IPs: [10.10.10.4]
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$2
+INFO: Owner: Platform -> Deactivated IPs: [192.168.1.1, 10.10.10.1]
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$2
+INFO: Owner: Analytics -> Deactivated IPs: [172.16.0.1]
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication main
+INFO: Contact to Deactivated IPs:
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$3
+INFO: Contact: Gary -> Deactivated IPs: [192.168.6.12, 192.168.6.11, 192.168.6.10]
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$3
+INFO: Contact: Brown -> Deactivated IPs: [172.16.0.1]
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$3
+INFO: Contact: Delta -> Deactivated IPs: [10.10.10.4]
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$3
+INFO: Contact: Smith -> Deactivated IPs: [10.0.0.1]
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$3
+INFO: Contact: Alpha -> Deactivated IPs: [10.10.10.1]
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$3
+INFO: Contact: Black -> Deactivated IPs: [192.168.4.12, 192.168.4.10, 192.168.4.11]
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$3
+INFO: Contact: Doe -> Deactivated IPs: [192.168.1.1]
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$3
+INFO: Contact: Beta -> Deactivated IPs: [10.10.10.2]
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication main
+INFO: Error Records: [GROUP_NOT_FOUND:Design, GROUP_NOT_FOUND:QA, GROUP_NOT_FOUND:Backend, GROUP_NOT_FOUND:Frontend, GROUP_NOT_FOUND:Platform, GROUP_NOT_FOUND:Analytics, GROUP_NOT_FOUND:Gary, GROUP_NOT_FOUND:Brown, GROUP_NOT_FOUND:Delta, GROUP_NOT_FOUND:Smith, GROUP_NOT_FOUND:Alpha, GROUP_NOT_FOUND:Black, GROUP_NOT_FOUND:Doe, GROUP_NOT_FOUND:Beta, GROUP_NOT_FOUND:DevOps, GROUP_NOT_FOUND:Support, GROUP_NOT_FOUND:Frontend, GROUP_NOT_FOUND:Analytics, GROUP_NOT_FOUND:Testing, GROUP_NOT_FOUND:Gamma, GROUP_NOT_FOUND:White, GROUP_NOT_FOUND:Epsilon, GROUP_NOT_FOUND:Lee, GROUP_NOT_FOUND:Green]
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication main
+INFO: Owner to Active IPs:
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$0
+INFO: Owner: DevOps -> IPs: [192.168.2.11, 192.168.2.10, 192.168.2.12]
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$0
+INFO: Owner: Support -> IPs: [203.0.113.5, 2001:0db8:85a3:0000:0000:8a2e:0370:7334]
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$0
+INFO: Owner: Frontend -> IPs: [192.168.3.11, 192.168.3.12, 192.168.3.10]
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$0
+INFO: Owner: Testing -> IPs: [192.168.5.11, 192.168.5.12, 192.168.5.10]
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication main
+INFO: Contact to Active IPs:
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$1
+INFO: Contact: White -> IPs: [192.168.2.11, 192.168.5.11, 192.168.2.10, 192.168.5.12, 192.168.2.12, 192.168.5.10]
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$1
+INFO: Contact: Lee -> IPs: [203.0.113.5, 2001:0db8:85a3:0000:0000:8a2e:0370:7334]
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$1
+INFO: Contact: Green -> IPs: [192.168.3.11, 192.168.3.12, 192.168.3.10]
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication main
+INFO: Owner to Deactivated IPs:
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$2
+INFO: Owner: QA -> Deactivated IPs: [10.0.0.1]
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$2
+INFO: Owner: Backend -> Deactivated IPs: [192.168.6.12, 192.168.6.11, 192.168.6.10]
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$2
+INFO: Owner: Platform -> Deactivated IPs: [192.168.1.1]
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$2
+INFO: Owner: Analytics -> Deactivated IPs: [172.16.0.1]
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication main
+INFO: Contact to Deactivated IPs:
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$3
+INFO: Contact: Gary -> Deactivated IPs: [192.168.6.12, 192.168.6.11, 192.168.6.10]
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$3
+INFO: Contact: Brown -> Deactivated IPs: [172.16.0.1]
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$3
+INFO: Contact: Smith -> Deactivated IPs: [10.0.0.1]
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$3
+INFO: Contact: Doe -> Deactivated IPs: [192.168.1.1]
+May 28, 2025 9:18:54 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication main
+INFO: Error Records: []
+May 28, 2025 9:22:33 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Design': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Design
+May 28, 2025 9:22:33 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Design
+May 28, 2025 9:22:33 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:33 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:33 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:33 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Design
+May 28, 2025 9:22:33 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'QA': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=QA
+May 28, 2025 9:22:33 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=QA
+May 28, 2025 9:22:33 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:33 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:33 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:33 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: QA
+May 28, 2025 9:22:33 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Backend': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Backend
+May 28, 2025 9:22:33 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Backend
+May 28, 2025 9:22:33 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:33 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:33 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:33 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Backend
+May 28, 2025 9:22:34 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Frontend': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Frontend
+May 28, 2025 9:22:34 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Frontend
+May 28, 2025 9:22:34 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:34 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:34 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:34 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Frontend
+May 28, 2025 9:22:34 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Platform': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Platform
+May 28, 2025 9:22:34 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Platform
+May 28, 2025 9:22:34 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:34 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:34 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:34 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Platform
+May 28, 2025 9:22:34 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Analytics': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Analytics
+May 28, 2025 9:22:34 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Analytics
+May 28, 2025 9:22:34 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:34 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:34 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:34 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Analytics
+May 28, 2025 9:22:34 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Gary': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Gary
+May 28, 2025 9:22:34 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Gary
+May 28, 2025 9:22:34 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:34 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:34 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:34 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Gary
+May 28, 2025 9:22:34 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Brown': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Brown
+May 28, 2025 9:22:34 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Brown
+May 28, 2025 9:22:34 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:34 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:34 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:34 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Brown
+May 28, 2025 9:22:34 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Delta': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Delta
+May 28, 2025 9:22:34 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Delta
+May 28, 2025 9:22:34 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:34 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:34 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:34 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Delta
+May 28, 2025 9:22:35 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Smith': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Smith
+May 28, 2025 9:22:35 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Smith
+May 28, 2025 9:22:35 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:35 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:35 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:35 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Smith
+May 28, 2025 9:22:35 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Alpha': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Alpha
+May 28, 2025 9:22:35 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Alpha
+May 28, 2025 9:22:35 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:35 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:35 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:35 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Alpha
+May 28, 2025 9:22:35 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Black': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Black
+May 28, 2025 9:22:35 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Black
+May 28, 2025 9:22:35 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:35 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:35 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:35 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Black
+May 28, 2025 9:22:35 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Doe': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Doe
+May 28, 2025 9:22:35 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Doe
+May 28, 2025 9:22:35 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:35 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:35 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:35 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Doe
+May 28, 2025 9:22:35 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Beta': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Beta
+May 28, 2025 9:22:35 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Beta
+May 28, 2025 9:22:35 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:35 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:35 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:35 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Beta
+May 28, 2025 9:22:35 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'DevOps': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=DevOps
+May 28, 2025 9:22:35 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=DevOps
+May 28, 2025 9:22:35 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:35 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:35 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:35 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: DevOps
+May 28, 2025 9:22:36 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Support': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Support
+May 28, 2025 9:22:36 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Support
+May 28, 2025 9:22:36 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:36 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:36 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:36 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Support
+May 28, 2025 9:22:36 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Frontend': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Frontend
+May 28, 2025 9:22:36 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Frontend
+May 28, 2025 9:22:36 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:36 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:36 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:36 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Frontend
+May 28, 2025 9:22:36 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Analytics': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Analytics
+May 28, 2025 9:22:36 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Analytics
+May 28, 2025 9:22:36 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:36 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:36 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:36 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Analytics
+May 28, 2025 9:22:36 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Testing': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Testing
+May 28, 2025 9:22:36 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Testing
+May 28, 2025 9:22:36 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:36 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:36 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:36 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Testing
+May 28, 2025 9:22:36 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Gamma': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Gamma
+May 28, 2025 9:22:36 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Gamma
+May 28, 2025 9:22:36 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:36 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:36 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:36 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Gamma
+May 28, 2025 9:22:36 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'White': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=White
+May 28, 2025 9:22:36 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=White
+May 28, 2025 9:22:36 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:36 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:36 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:36 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: White
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Epsilon': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Epsilon
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Epsilon
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Epsilon
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Lee': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Lee
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Lee
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Lee
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Green': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Green
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Green
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Green
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication main
+INFO: Owner to Active IPs:
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$0
+INFO: Owner: DevOps -> IPs: [192.168.2.11, 192.168.2.10, 192.168.2.12, 10.10.10.3]
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$0
+INFO: Owner: Support -> IPs: [203.0.113.5, 2001:0db8:85a3:0000:0000:8a2e:0370:7334]
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$0
+INFO: Owner: Frontend -> IPs: [192.168.3.11, 192.168.3.12, 192.168.3.10]
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$0
+INFO: Owner: Analytics -> IPs: [10.10.10.5]
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$0
+INFO: Owner: Testing -> IPs: [192.168.5.11, 192.168.5.12, 192.168.5.10]
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication main
+INFO: Contact to Active IPs:
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$1
+INFO: Contact: Gamma -> IPs: [10.10.10.3]
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$1
+INFO: Contact: White -> IPs: [192.168.2.11, 192.168.5.11, 192.168.2.10, 192.168.5.12, 192.168.2.12, 192.168.5.10]
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$1
+INFO: Contact: Epsilon -> IPs: [10.10.10.5]
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$1
+INFO: Contact: Lee -> IPs: [203.0.113.5, 2001:0db8:85a3:0000:0000:8a2e:0370:7334]
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$1
+INFO: Contact: Green -> IPs: [192.168.3.11, 192.168.3.12, 192.168.3.10]
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication main
+INFO: Owner to Deactivated IPs:
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$2
+INFO: Owner: Design -> Deactivated IPs: [192.168.4.12, 192.168.4.10, 192.168.4.11]
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$2
+INFO: Owner: QA -> Deactivated IPs: [10.10.10.2, 10.0.0.1]
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$2
+INFO: Owner: Backend -> Deactivated IPs: [192.168.6.12, 192.168.6.11, 192.168.6.10]
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$2
+INFO: Owner: Frontend -> Deactivated IPs: [10.10.10.4]
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$2
+INFO: Owner: Platform -> Deactivated IPs: [192.168.1.1, 10.10.10.1]
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$2
+INFO: Owner: Analytics -> Deactivated IPs: [172.16.0.1]
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication main
+INFO: Contact to Deactivated IPs:
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$3
+INFO: Contact: Gary -> Deactivated IPs: [192.168.6.12, 192.168.6.11, 192.168.6.10]
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$3
+INFO: Contact: Brown -> Deactivated IPs: [172.16.0.1]
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$3
+INFO: Contact: Delta -> Deactivated IPs: [10.10.10.4]
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$3
+INFO: Contact: Smith -> Deactivated IPs: [10.0.0.1]
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$3
+INFO: Contact: Alpha -> Deactivated IPs: [10.10.10.1]
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$3
+INFO: Contact: Black -> Deactivated IPs: [192.168.4.12, 192.168.4.10, 192.168.4.11]
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$3
+INFO: Contact: Doe -> Deactivated IPs: [192.168.1.1]
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$3
+INFO: Contact: Beta -> Deactivated IPs: [10.10.10.2]
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication main
+INFO: Error Records: [GROUP_NOT_FOUND:Design, GROUP_NOT_FOUND:QA, GROUP_NOT_FOUND:Backend, GROUP_NOT_FOUND:Frontend, GROUP_NOT_FOUND:Platform, GROUP_NOT_FOUND:Analytics, GROUP_NOT_FOUND:Gary, GROUP_NOT_FOUND:Brown, GROUP_NOT_FOUND:Delta, GROUP_NOT_FOUND:Smith, GROUP_NOT_FOUND:Alpha, GROUP_NOT_FOUND:Black, GROUP_NOT_FOUND:Doe, GROUP_NOT_FOUND:Beta, GROUP_NOT_FOUND:DevOps, GROUP_NOT_FOUND:Support, GROUP_NOT_FOUND:Frontend, GROUP_NOT_FOUND:Analytics, GROUP_NOT_FOUND:Testing, GROUP_NOT_FOUND:Gamma, GROUP_NOT_FOUND:White, GROUP_NOT_FOUND:Epsilon, GROUP_NOT_FOUND:Lee, GROUP_NOT_FOUND:Green]
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Design': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Design
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Design
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Design
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'QA': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=QA
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=QA
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:37 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: QA
+May 28, 2025 9:22:38 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Backend': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Backend
+May 28, 2025 9:22:38 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Backend
+May 28, 2025 9:22:38 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:38 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:38 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:38 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Backend
+May 28, 2025 9:22:38 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Frontend': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Frontend
+May 28, 2025 9:22:38 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Frontend
+May 28, 2025 9:22:38 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:38 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:38 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:38 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Frontend
+May 28, 2025 9:22:38 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Platform': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Platform
+May 28, 2025 9:22:38 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Platform
+May 28, 2025 9:22:38 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:38 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:38 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:38 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Platform
+May 28, 2025 9:22:38 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Analytics': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Analytics
+May 28, 2025 9:22:38 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Analytics
+May 28, 2025 9:22:38 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:38 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:38 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:38 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Analytics
+May 28, 2025 9:22:38 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Gary': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Gary
+May 28, 2025 9:22:38 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Gary
+May 28, 2025 9:22:38 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:38 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:38 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:38 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Gary
+May 28, 2025 9:22:39 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Brown': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Brown
+May 28, 2025 9:22:39 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Brown
+May 28, 2025 9:22:39 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:39 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:39 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:39 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Brown
+May 28, 2025 9:22:39 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Delta': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Delta
+May 28, 2025 9:22:39 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Delta
+May 28, 2025 9:22:39 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:39 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:39 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:39 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Delta
+May 28, 2025 9:22:39 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Smith': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Smith
+May 28, 2025 9:22:39 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Smith
+May 28, 2025 9:22:39 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:39 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:39 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:39 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Smith
+May 28, 2025 9:22:39 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Alpha': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Alpha
+May 28, 2025 9:22:39 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Alpha
+May 28, 2025 9:22:39 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:39 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:39 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:39 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Alpha
+May 28, 2025 9:22:40 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Black': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Black
+May 28, 2025 9:22:40 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Black
+May 28, 2025 9:22:40 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:40 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:40 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:40 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Black
+May 28, 2025 9:22:40 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Doe': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Doe
+May 28, 2025 9:22:40 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Doe
+May 28, 2025 9:22:40 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:40 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:40 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:40 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Doe
+May 28, 2025 9:22:40 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Beta': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Beta
+May 28, 2025 9:22:40 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Beta
+May 28, 2025 9:22:40 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:40 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:40 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:40 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Beta
+May 28, 2025 9:22:40 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'DevOps': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=DevOps
+May 28, 2025 9:22:40 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=DevOps
+May 28, 2025 9:22:40 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:40 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:40 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:40 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: DevOps
+May 28, 2025 9:22:40 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Support': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Support
+May 28, 2025 9:22:40 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Support
+May 28, 2025 9:22:40 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:40 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:40 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:40 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Support
+May 28, 2025 9:22:40 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Frontend': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Frontend
+May 28, 2025 9:22:40 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Frontend
+May 28, 2025 9:22:40 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:40 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:40 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:40 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Frontend
+May 28, 2025 9:22:41 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Analytics': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Analytics
+May 28, 2025 9:22:41 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Analytics
+May 28, 2025 9:22:41 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:41 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:41 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:41 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Analytics
+May 28, 2025 9:22:41 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Testing': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Testing
+May 28, 2025 9:22:41 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Testing
+May 28, 2025 9:22:41 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:41 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:41 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:41 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Testing
+May 28, 2025 9:22:41 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Gamma': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Gamma
+May 28, 2025 9:22:41 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Gamma
+May 28, 2025 9:22:41 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:41 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:41 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:41 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Gamma
+May 28, 2025 9:22:41 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'White': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=White
+May 28, 2025 9:22:41 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=White
+May 28, 2025 9:22:41 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:41 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:41 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:41 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: White
+May 28, 2025 9:22:41 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Epsilon': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Epsilon
+May 28, 2025 9:22:41 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Epsilon
+May 28, 2025 9:22:41 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:41 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:41 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:41 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Epsilon
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Lee': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Lee
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Lee
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Lee
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: IOException during lookupQualysGroupId for group 'Green': Server returned HTTP response code: 500 for URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Green
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request URL: https://qualysapi.qualys.com/api/2.0/fo/asset/group/?action=list&title=Green
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: Request Headers: Authorization=Basic ****, X-Requested-With=Java
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Code: 500
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.QualysApi lookupQualysGroupId
+SEVERE: HTTP Response Body:
+
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.QualysApi makeApiCall
+WARNING: Asset group not found for groupName: Green
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication main
+INFO: Owner to Active IPs:
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$0
+INFO: Owner: DevOps -> IPs: [192.168.2.11, 192.168.2.10, 192.168.2.12, 10.10.10.3]
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$0
+INFO: Owner: Support -> IPs: [203.0.113.5, 2001:0db8:85a3:0000:0000:8a2e:0370:7334]
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$0
+INFO: Owner: Frontend -> IPs: [192.168.3.11, 192.168.3.12, 192.168.3.10]
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$0
+INFO: Owner: Analytics -> IPs: [10.10.10.5]
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$0
+INFO: Owner: Testing -> IPs: [192.168.5.11, 192.168.5.12, 192.168.5.10]
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication main
+INFO: Contact to Active IPs:
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$1
+INFO: Contact: Gamma -> IPs: [10.10.10.3]
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$1
+INFO: Contact: White -> IPs: [192.168.2.11, 192.168.5.11, 192.168.2.10, 192.168.5.12, 192.168.2.12, 192.168.5.10]
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$1
+INFO: Contact: Epsilon -> IPs: [10.10.10.5]
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$1
+INFO: Contact: Lee -> IPs: [203.0.113.5, 2001:0db8:85a3:0000:0000:8a2e:0370:7334]
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$1
+INFO: Contact: Green -> IPs: [192.168.3.11, 192.168.3.12, 192.168.3.10]
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication main
+INFO: Owner to Deactivated IPs:
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$2
+INFO: Owner: Design -> Deactivated IPs: [192.168.4.12, 192.168.4.10, 192.168.4.11]
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$2
+INFO: Owner: QA -> Deactivated IPs: [10.10.10.2, 10.0.0.1]
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$2
+INFO: Owner: Backend -> Deactivated IPs: [192.168.6.12, 192.168.6.11, 192.168.6.10]
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$2
+INFO: Owner: Frontend -> Deactivated IPs: [10.10.10.4]
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$2
+INFO: Owner: Platform -> Deactivated IPs: [192.168.1.1, 10.10.10.1]
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$2
+INFO: Owner: Analytics -> Deactivated IPs: [172.16.0.1]
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication main
+INFO: Contact to Deactivated IPs:
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$3
+INFO: Contact: Gary -> Deactivated IPs: [192.168.6.12, 192.168.6.11, 192.168.6.10]
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$3
+INFO: Contact: Brown -> Deactivated IPs: [172.16.0.1]
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$3
+INFO: Contact: Delta -> Deactivated IPs: [10.10.10.4]
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$3
+INFO: Contact: Smith -> Deactivated IPs: [10.0.0.1]
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$3
+INFO: Contact: Alpha -> Deactivated IPs: [10.10.10.1]
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$3
+INFO: Contact: Black -> Deactivated IPs: [192.168.4.12, 192.168.4.10, 192.168.4.11]
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$3
+INFO: Contact: Doe -> Deactivated IPs: [192.168.1.1]
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$3
+INFO: Contact: Beta -> Deactivated IPs: [10.10.10.2]
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication main
+INFO: Error Records: [GROUP_NOT_FOUND:Design, GROUP_NOT_FOUND:QA, GROUP_NOT_FOUND:Backend, GROUP_NOT_FOUND:Frontend, GROUP_NOT_FOUND:Platform, GROUP_NOT_FOUND:Analytics, GROUP_NOT_FOUND:Gary, GROUP_NOT_FOUND:Brown, GROUP_NOT_FOUND:Delta, GROUP_NOT_FOUND:Smith, GROUP_NOT_FOUND:Alpha, GROUP_NOT_FOUND:Black, GROUP_NOT_FOUND:Doe, GROUP_NOT_FOUND:Beta, GROUP_NOT_FOUND:DevOps, GROUP_NOT_FOUND:Support, GROUP_NOT_FOUND:Frontend, GROUP_NOT_FOUND:Analytics, GROUP_NOT_FOUND:Testing, GROUP_NOT_FOUND:Gamma, GROUP_NOT_FOUND:White, GROUP_NOT_FOUND:Epsilon, GROUP_NOT_FOUND:Lee, GROUP_NOT_FOUND:Green]
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication main
+INFO: Owner to Active IPs:
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$0
+INFO: Owner: DevOps -> IPs: [192.168.2.11, 192.168.2.10, 192.168.2.12]
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$0
+INFO: Owner: Support -> IPs: [203.0.113.5, 2001:0db8:85a3:0000:0000:8a2e:0370:7334]
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$0
+INFO: Owner: Frontend -> IPs: [192.168.3.11, 192.168.3.12, 192.168.3.10]
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$0
+INFO: Owner: Testing -> IPs: [192.168.5.11, 192.168.5.12, 192.168.5.10]
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication main
+INFO: Contact to Active IPs:
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$1
+INFO: Contact: White -> IPs: [192.168.2.11, 192.168.5.11, 192.168.2.10, 192.168.5.12, 192.168.2.12, 192.168.5.10]
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$1
+INFO: Contact: Lee -> IPs: [203.0.113.5, 2001:0db8:85a3:0000:0000:8a2e:0370:7334]
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$1
+INFO: Contact: Green -> IPs: [192.168.3.11, 192.168.3.12, 192.168.3.10]
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication main
+INFO: Owner to Deactivated IPs:
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$2
+INFO: Owner: QA -> Deactivated IPs: [10.0.0.1]
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$2
+INFO: Owner: Backend -> Deactivated IPs: [192.168.6.12, 192.168.6.11, 192.168.6.10]
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$2
+INFO: Owner: Platform -> Deactivated IPs: [192.168.1.1]
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$2
+INFO: Owner: Analytics -> Deactivated IPs: [172.16.0.1]
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication main
+INFO: Contact to Deactivated IPs:
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$3
+INFO: Contact: Gary -> Deactivated IPs: [192.168.6.12, 192.168.6.11, 192.168.6.10]
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$3
+INFO: Contact: Brown -> Deactivated IPs: [172.16.0.1]
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$3
+INFO: Contact: Smith -> Deactivated IPs: [10.0.0.1]
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication lambda$main$3
+INFO: Contact: Doe -> Deactivated IPs: [192.168.1.1]
+May 28, 2025 9:22:42 PM com.example.cmdbcvsconversion.CmdbCvsConversionApplication main
+INFO: Error Records: []

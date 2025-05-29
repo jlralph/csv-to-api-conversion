@@ -10,10 +10,14 @@ class QualysApiTest {
 
     @Test
     void testMakeApiCall_invalidAction_throws() {
-        Exception ex = assertThrows(IllegalArgumentException.class, () ->
-            QualysApi.makeApiCall("invalid", "group", new String[]{"1.2.3.4"}, new ArrayList<>(), Logger.getGlobal())
-        );
+        Exception ex = assertThrows(IllegalArgumentException.class, this::callInvalidAction);
         assertTrue(ex.getMessage().contains("action must be 'add' or 'remove'"));
+    }
+
+    private void callInvalidAction() {
+        QualysApi.makeApiCall(
+            "invalid", "group", new String[]{"1.2.3.4"}, new ArrayList<>(), Logger.getGlobal()
+        );
     }
 
     @Test
