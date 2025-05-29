@@ -5,8 +5,22 @@ import java.net.*;
 import java.util.*;
 import java.util.logging.*;
 
+/**
+ * Utility class for making Qualys API calls to add or remove IPs from asset groups.
+ * Handles logging, error parsing, and group lookup.
+ */
 public class QualysApi {
 
+    /**
+     * Makes an API call to add or remove IPs from a Qualys asset group.
+     * Looks up the group ID, performs the edit, and logs errors.
+     *
+     * @param action "add" or "remove"
+     * @param groupName The asset group name (owner or contact)
+     * @param ips Array of IP addresses to add/remove
+     * @param errorRecords List to collect error codes/descriptions
+     * @param logger Logger for output
+     */
     public static void makeApiCall(
             String action,
             String groupName,
@@ -14,12 +28,14 @@ public class QualysApi {
             List<String> errorRecords,
             Logger logger
     ) {
+        // Validate action
         if (!"add".equals(action) && !"remove".equals(action)) {
             String msg = "action must be 'add' or 'remove'";
             logger.severe(msg);
             throw new IllegalArgumentException(msg);
         }
 
+        // Lookup Qualys asset group ID by groupName
         String groupId = lookupQualysGroupId(groupName, logger);
         if (groupId == null) {
             String msg = "Asset group not found for groupName: " + groupName;
@@ -29,8 +45,10 @@ public class QualysApi {
             return;
         }
 
+        // Edit the asset group to add or remove IPs
         String editResponse = editQualysAssetGroup(groupId, action, ips, logger);
 
+        // Parse the edit response for error codes and add only recognized codes
         if (editResponse != null) {
             String errorCode = QualysApiErrors.extractQualysFoApiErrorCode(editResponse);
             String errorDesc = QualysApiErrors.getDescriptionByCode(errorCode);
@@ -42,17 +60,30 @@ public class QualysApi {
         }
     }
 
+    /**
+     * Edits the Qualys asset group by ID to add or remove IPs using the fo/asset/group API.
+     * Returns the raw API response as a string.
+     * Logs request and response details on error.
+     *
+     * @param groupId The Qualys asset group ID
+     * @param action "add" or "remove"
+     * @param ips Array of IP addresses to add or remove
+     * @param logger Logger for output
+     * @return The raw API response as a string
+     */
     private static String editQualysAssetGroup(String groupId, String action, String[] ips, Logger logger) {
         String apiUrl = "https://qualysapi.qualys.com/api/2.0/fo/asset/group/";
         String username = "YOUR_QUALYS_USERNAME";
         String password = "YOUR_QUALYS_PASSWORD";
 
+        // Build comma-separated IP list
         StringBuilder ipList = new StringBuilder();
         for (int i = 0; i < ips.length; i++) {
             ipList.append(ips[i]);
             if (i < ips.length - 1) ipList.append(",");
         }
 
+        // Build request parameters
         String params;
         if ("add".equals(action)) {
             params = "action=edit&id=" + URLEncoder.encode(groupId, java.nio.charset.StandardCharsets.UTF_8) +
@@ -73,6 +104,7 @@ public class QualysApi {
             conn.setRequestProperty("X-Requested-With", "Java");
             conn.setDoOutput(true);
 
+            // Send request body
             try (OutputStream os = conn.getOutputStream()) {
                 os.write(params.getBytes());
             }
@@ -88,6 +120,7 @@ public class QualysApi {
             }
             return response;
         } catch (IOException e) {
+            // Log the full request and any available response
             logger.severe("IOException during editQualysAssetGroup: " + e.getMessage());
             logger.severe("Request URL: " + apiUrl);
             logger.severe("Request Params: " + params);
@@ -111,6 +144,15 @@ public class QualysApi {
         }
     }
 
+    /**
+     * Looks up the Qualys asset group ID for the given group name using the fo/asset/group API.
+     * Returns the group ID as a string, or null if not found.
+     * Logs request and response details on error.
+     *
+     * @param groupName The name of the asset group (owner or contact value)
+     * @param logger Logger for output
+     * @return The Qualys asset group ID as a String, or null if not found
+     */
     private static String lookupQualysGroupId(String groupName, Logger logger) {
         String apiUrl = "https://qualysapi.qualys.com/api/2.0/fo/asset/group/";
         String username = "YOUR_QUALYS_USERNAME";
@@ -137,6 +179,7 @@ public class QualysApi {
                 return null;
             }
 
+            // Simple extraction (for demo; use proper XML parser in production)
             String idTag = "<ID>";
             int idStart = response.indexOf(idTag);
             if (idStart == -1) return null;
@@ -144,6 +187,7 @@ public class QualysApi {
             if (idEnd == -1) return null;
             return response.substring(idStart + idTag.length(), idEnd).trim();
         } catch (IOException e) {
+            // Log the full request and any available response
             logger.severe("IOException during lookupQualysGroupId for group '" + groupName + "': " + e.getMessage());
             logger.severe("Request URL: " + apiUrl + "?" + params);
             logger.severe("Request Headers: Authorization=Basic ****, X-Requested-With=Java");

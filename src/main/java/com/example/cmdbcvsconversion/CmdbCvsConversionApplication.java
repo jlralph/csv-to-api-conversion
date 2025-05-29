@@ -6,8 +6,16 @@ import java.time.*;
 import java.util.*;
 import java.util.logging.*;
 
+/**
+ * Main application class for CMDB CSV to Qualys asset group conversion.
+ * - Reads a CSV file and builds maps of owners/contacts to active and deactivated IPs.
+ * - Optionally filters records by a start timestamp.
+ * - Makes Qualys API calls to add/remove IPs from asset groups (unless suppressed).
+ * - Logs all summary output and errors to both the console and a log file.
+ */
 public class CmdbCvsConversionApplication {
 
+    // Logger setup for both file and console output
     private static final Logger LOGGER = Logger.getLogger(CmdbCvsConversionApplication.class.getName());
     static {
         try {
@@ -20,6 +28,9 @@ public class CmdbCvsConversionApplication {
         }
     }
 
+    /**
+     * Entry point: parses arguments, processes CSV, and manages API calls and logging.
+     */
     public static void main(String[] args) throws Exception {
         ArgsConfig config = parseArgs(args);
 
@@ -29,17 +40,20 @@ public class CmdbCvsConversionApplication {
         Map<String, Set<String>> ownerToDeactivatedIps = new HashMap<>();
         Map<String, Set<String>> contactToDeactivatedIps = new HashMap<>();
 
+        // Parse CSV and build maps for owner/contact to active/deactivated IPs
         CsvUtils.processCsv(
             config.csvPath, config.startTimestamp,
             ownerToActiveIps, contactToActiveIps,
             ownerToDeactivatedIps, contactToDeactivatedIps
         );
 
+        // Process removals (deactivated IPs) before additions (active IPs)
         processRemovals(ownerToDeactivatedIps, "owner", config.suppressApiCall, errorRecords);
         processRemovals(contactToDeactivatedIps, "contact", config.suppressApiCall, errorRecords);
         processAdditions(ownerToActiveIps, "owner", config.suppressApiCall, errorRecords);
         processAdditions(contactToActiveIps, "contact", config.suppressApiCall, errorRecords);
 
+        // Output error records and summary maps to console and logger
         System.out.println("Error Records: " + errorRecords);
 
         LOGGER.info("Owner to Active IPs:");
@@ -53,6 +67,10 @@ public class CmdbCvsConversionApplication {
         LOGGER.info("Error Records: " + errorRecords);
     }
 
+    /**
+     * For each group (owner/contact), remove IPs that are deactivated.
+     * If suppressApiCall is true, only print what would be done.
+     */
     private static void processRemovals(Map<String, Set<String>> groupToIps, String groupType, boolean suppressApiCall, List<String> errorRecords) {
         for (Map.Entry<String, Set<String>> entry : groupToIps.entrySet()) {
             String group = entry.getKey();
@@ -65,6 +83,10 @@ public class CmdbCvsConversionApplication {
         }
     }
 
+    /**
+     * For each group (owner/contact), add IPs that are active.
+     * If suppressApiCall is true, only print what would be done.
+     */
     private static void processAdditions(Map<String, Set<String>> groupToIps, String groupType, boolean suppressApiCall, List<String> errorRecords) {
         for (Map.Entry<String, Set<String>> entry : groupToIps.entrySet()) {
             String group = entry.getKey();
@@ -77,6 +99,9 @@ public class CmdbCvsConversionApplication {
         }
     }
 
+    /**
+     * Parse command-line arguments for CSV path, start timestamp, and suppressApiCall flag.
+     */
     private static ArgsConfig parseArgs(String[] args) {
         Path csvPath;
         LocalDateTime startTimestamp = null;
@@ -104,6 +129,9 @@ public class CmdbCvsConversionApplication {
         return new ArgsConfig(csvPath, startTimestamp, suppressApiCall);
     }
 
+    /**
+     * Simple config holder for parsed arguments.
+     */
     private static class ArgsConfig {
         Path csvPath;
         LocalDateTime startTimestamp;

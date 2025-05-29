@@ -8,6 +8,26 @@ import java.util.*;
 
 public class CsvUtils {
 
+    /**
+     * Reads the CSV file and populates the provided maps with active and deactivated IPs
+     * for each owner and contact, based on the create and deactivated timestamps.
+     *
+     * Business logic:
+     * - If a row's deactivated timestamp is empty, all IPs are considered "active" and
+     *   are added to both the owner's and contact's active sets.
+     * - If a row's deactivated timestamp is present, all IPs are considered "deactivated"
+     *   and are added to both the owner's and contact's deactivated sets.
+     * - If a startTimestamp is provided, only rows where either the create or deactivated
+     *   timestamp is after or equal to the startTimestamp are included.
+     *
+     * @param csvPath Path to the CSV file
+     * @param startTimestamp Optional filter for create/deactivated timestamps
+     * @param ownerToActiveIps Output: owner → set of active IPs
+     * @param contactToActiveIps Output: contact → set of active IPs
+     * @param ownerToDeactivatedIps Output: owner → set of deactivated IPs
+     * @param contactToDeactivatedIps Output: contact → set of deactivated IPs
+     * @throws IOException if the file cannot be read
+     */
     public static void processCsv(
             Path csvPath,
             LocalDateTime startTimestamp,
@@ -20,12 +40,13 @@ public class CsvUtils {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] cols = line.split(",", -1);
-                if (cols.length < 6) continue;
+                if (cols.length < 6) continue; // Skip invalid rows
 
                 String assetName = cols[0].trim();
                 String contact = cols[1].trim();
                 String owner = cols[2].trim();
 
+                // IPs are from index 3 up to (length - 2)
                 String[] ips = Arrays.copyOfRange(cols, 3, cols.length - 2);
                 for (int i = 0; i < ips.length; i++) ips[i] = ips[i].trim();
 
@@ -35,19 +56,24 @@ public class CsvUtils {
                 LocalDateTime createTimestamp = createTimestampStr.isEmpty() ? null : parseDate(createTimestampStr);
                 LocalDateTime deactivatedTimestamp = deactivatedTimestampStr.isEmpty() ? null : parseDate(deactivatedTimestampStr);
 
+                // Business logic: filter by startTimestamp if provided
                 if (startTimestamp != null) {
                     boolean beforeCreate = (createTimestamp != null && createTimestamp.isBefore(startTimestamp));
                     boolean beforeDeactivated = (deactivatedTimestamp != null && deactivatedTimestamp.isBefore(startTimestamp));
+                    // Skip if both timestamps are before the filter
                     if ((createTimestamp != null && beforeCreate && (deactivatedTimestamp == null || beforeDeactivated))
                         || (deactivatedTimestamp != null && beforeDeactivated && (createTimestamp == null || beforeCreate))) {
                         continue;
                     }
                 }
 
+                // Business logic: classify as active or deactivated
                 if (deactivatedTimestamp == null) {
+                    // No deactivated timestamp: treat as active
                     ownerToActiveIps.computeIfAbsent(owner, k -> new HashSet<>()).addAll(Arrays.asList(ips));
                     contactToActiveIps.computeIfAbsent(contact, k -> new HashSet<>()).addAll(Arrays.asList(ips));
                 } else {
+                    // Has deactivated timestamp: treat as deactivated
                     ownerToDeactivatedIps.computeIfAbsent(owner, k -> new HashSet<>()).addAll(Arrays.asList(ips));
                     contactToDeactivatedIps.computeIfAbsent(contact, k -> new HashSet<>()).addAll(Arrays.asList(ips));
                 }
@@ -55,6 +81,11 @@ public class CsvUtils {
         }
     }
 
+    /**
+     * Parses a date string in the format MM/dd/yyyy hh:mm:ss a to LocalDateTime.
+     * @param s the date string
+     * @return LocalDateTime object
+     */
     public static LocalDateTime parseDate(String s) {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm:ss a");
         return LocalDateTime.parse(s, fmt);

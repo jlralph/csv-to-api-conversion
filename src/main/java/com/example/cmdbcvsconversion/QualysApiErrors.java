@@ -2,12 +2,20 @@ package com.example.cmdbcvsconversion;
 
 import java.util.*;
 
+/**
+ * Utility class for Qualys API error code lookups.
+ * Provides mappings between error codes and their descriptions.
+ * Used to filter and describe error codes returned by the Qualys API.
+ */
 public class QualysApiErrors {
+    // Maps error code to description
     private static final Map<String, String> ERROR_CODE_TO_DESCRIPTION;
+    // Maps description (lowercase) to error code
     private static final Map<String, String> DESCRIPTION_TO_ERROR_CODE;
 
     static {
         Map<String, String> codeToDesc = new HashMap<>();
+        // Populate error code to description map
         codeToDesc.put("1901", "Unrecognized parameter(s)");
         codeToDesc.put("1903", "Missing required parameter(s)");
         codeToDesc.put("1904", "Please specify only one of these parameters");
@@ -29,6 +37,7 @@ public class QualysApiErrors {
 
         ERROR_CODE_TO_DESCRIPTION = Collections.unmodifiableMap(codeToDesc);
 
+        // Reverse map for description to error code (case-insensitive)
         Map<String, String> descToCode = new HashMap<>();
         for (Map.Entry<String, String> entry : codeToDesc.entrySet()) {
             descToCode.put(entry.getValue().toLowerCase(), entry.getKey());
@@ -36,14 +45,31 @@ public class QualysApiErrors {
         DESCRIPTION_TO_ERROR_CODE = Collections.unmodifiableMap(descToCode);
     }
 
+    /**
+     * Get the description for a given error code.
+     *
+     * @param code Qualys API error code as string
+     * @return Description if found, otherwise "Unknown error code"
+     */
     public static String getDescriptionByCode(String code) {
         return ERROR_CODE_TO_DESCRIPTION.getOrDefault(code, "Unknown error code");
     }
 
+    /**
+     * Get the error code for a given description.
+     *
+     * @param description Qualys API error description as string (case-insensitive)
+     * @return Error code if found, otherwise "Unknown description"
+     */
     public static String getCodeByDescription(String description) {
         return DESCRIPTION_TO_ERROR_CODE.getOrDefault(description.toLowerCase(), "Unknown description");
     }
 
+    /**
+     * Extracts the Qualys FO API error code from the API response string.
+     * This method looks for <CODE>...</CODE> in the XML response.
+     * Returns the code as a string, or null if not found.
+     */
     public static String extractQualysFoApiErrorCode(String response) {
         if (response == null) return null;
         String codeTag = "<CODE>";
@@ -54,6 +80,9 @@ public class QualysApiErrors {
         return response.substring(codeStart + codeTag.length(), codeEnd).trim();
     }
 
+    /**
+     * Main method demonstrating the usage of QualysApiErrors class.
+     */
     public static void main(String[] args) {
         String code = "1901";
         String description = getDescriptionByCode(code);
