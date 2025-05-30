@@ -39,46 +39,69 @@ public class CsvUtils {
         try (BufferedReader reader = Files.newBufferedReader(csvPath)) {
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] cols = line.split(",", -1);
-                if (cols.length < 6) continue; // Skip invalid rows
-
-                String assetName = cols[0].trim();
-                String contact = cols[1].trim();
-                String owner = cols[2].trim();
-
-                // IPs are from index 3 up to (length - 2)
-                String[] ips = Arrays.copyOfRange(cols, 3, cols.length - 2);
-                for (int i = 0; i < ips.length; i++) ips[i] = ips[i].trim();
-
-                String createTimestampStr = cols[cols.length - 2].trim();
-                String deactivatedTimestampStr = cols[cols.length - 1].trim();
-
-                LocalDateTime createTimestamp = createTimestampStr.isEmpty() ? null : parseDate(createTimestampStr);
-                LocalDateTime deactivatedTimestamp = deactivatedTimestampStr.isEmpty() ? null : parseDate(deactivatedTimestampStr);
-
-                // Business logic: filter by startTimestamp if provided
-                if (startTimestamp != null) {
-                    boolean beforeCreate = (createTimestamp != null && createTimestamp.isBefore(startTimestamp));
-                    boolean beforeDeactivated = (deactivatedTimestamp != null && deactivatedTimestamp.isBefore(startTimestamp));
-                    // Skip if both timestamps are before the filter
-                    if ((createTimestamp != null && beforeCreate && (deactivatedTimestamp == null || beforeDeactivated))
-                        || (deactivatedTimestamp != null && beforeDeactivated && (createTimestamp == null || beforeCreate))) {
-                        continue;
-                    }
-                }
-
-                // Business logic: classify as active or deactivated
-                if (deactivatedTimestamp == null) {
-                    // No deactivated timestamp: treat as active
-                    ownerToActiveIps.computeIfAbsent(owner, k -> new HashSet<>()).addAll(Arrays.asList(ips));
-                    contactToActiveIps.computeIfAbsent(contact, k -> new HashSet<>()).addAll(Arrays.asList(ips));
-                } else {
-                    // Has deactivated timestamp: treat as deactivated
-                    ownerToDeactivatedIps.computeIfAbsent(owner, k -> new HashSet<>()).addAll(Arrays.asList(ips));
-                    contactToDeactivatedIps.computeIfAbsent(contact, k -> new HashSet<>()).addAll(Arrays.asList(ips));
-                }
+                processCsvRow(
+                    line,
+                    startTimestamp,
+                    ownerToActiveIps,
+                    contactToActiveIps,
+                    ownerToDeactivatedIps,
+                    contactToDeactivatedIps
+                );
             }
         }
+    }
+
+    private static void processCsvRow(
+            String line,
+            LocalDateTime startTimestamp,
+            Map<String, Set<String>> ownerToActiveIps,
+            Map<String, Set<String>> contactToActiveIps,
+            Map<String, Set<String>> ownerToDeactivatedIps,
+            Map<String, Set<String>> contactToDeactivatedIps
+    ) {
+        String[] cols = line.split(",", -1);
+        if (cols.length < 6) return; // Skip invalid rows
+
+        String assetName = cols[0].trim();
+        String contact = cols[1].trim();
+        String owner = cols[2].trim();
+
+        // IPs are from index 3 up to (length - 2)
+        String[] ips = Arrays.copyOfRange(cols, 3, cols.length - 2);
+        for (int i = 0; i < ips.length; i++) ips[i] = ips[i].trim();
+
+        String createTimestampStr = cols[cols.length - 2].trim();
+        String deactivatedTimestampStr = cols[cols.length - 1].trim();
+
+        LocalDateTime createTimestamp = createTimestampStr.isEmpty() ? null : parseDate(createTimestampStr);
+        LocalDateTime deactivatedTimestamp = deactivatedTimestampStr.isEmpty() ? null : parseDate(deactivatedTimestampStr);
+
+        if (shouldSkipRow(startTimestamp, createTimestamp, deactivatedTimestamp)) {
+            return;
+        }
+
+        if (deactivatedTimestamp == null) {
+            // No deactivated timestamp: treat as active
+            ownerToActiveIps.computeIfAbsent(owner, k -> new HashSet<>()).addAll(Arrays.asList(ips));
+            contactToActiveIps.computeIfAbsent(contact, k -> new HashSet<>()).addAll(Arrays.asList(ips));
+        } else {
+            // Has deactivated timestamp: treat as deactivated
+            ownerToDeactivatedIps.computeIfAbsent(owner, k -> new HashSet<>()).addAll(Arrays.asList(ips));
+            contactToDeactivatedIps.computeIfAbsent(contact, k -> new HashSet<>()).addAll(Arrays.asList(ips));
+        }
+    }
+
+    private static boolean shouldSkipRow(LocalDateTime startTimestamp, LocalDateTime createTimestamp, LocalDateTime deactivatedTimestamp) {
+        if (startTimestamp == null) {
+            return false;
+        }
+        boolean beforeCreate = (createTimestamp != null && createTimestamp.isBefore(startTimestamp));
+        boolean beforeDeactivated = (deactivatedTimestamp != null && deactivatedTimestamp.isBefore(startTimestamp));
+        // Skip if both timestamps are before the filter
+        if ((createTimestamp != null && beforeCreate) && (deactivatedTimestamp == null || beforeDeactivated)) {
+            return true;
+        }
+        return (deactivatedTimestamp != null && beforeDeactivated) && (createTimestamp == null || beforeCreate);
     }
 
     /**
