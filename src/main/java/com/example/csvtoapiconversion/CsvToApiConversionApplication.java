@@ -19,7 +19,7 @@ public class CsvToApiConversionApplication {
     private static final Logger LOGGER = Logger.getLogger(CsvToApiConversionApplication.class.getName());
     static {
         try {
-            FileHandler fileHandler = new FileHandler("cmdb-cvs-conversion.log", true);
+            FileHandler fileHandler = new FileHandler("csv-to-api-conversion.log", true);
             fileHandler.setFormatter(new SimpleFormatter());
             LOGGER.addHandler(fileHandler);
             LOGGER.setUseParentHandlers(true);
