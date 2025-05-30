@@ -4,7 +4,7 @@
     <artifactId>csv-api-conversion</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>csv-api-conversion</name>
+    <name>csv-to-api-conversion</name>
     <description>Project for converting CSV data and making API calls</description>
     <properties>
         <java.version>21</java.version>
