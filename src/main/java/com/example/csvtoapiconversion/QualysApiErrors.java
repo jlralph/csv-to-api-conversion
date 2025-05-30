@@ -45,6 +45,7 @@ public class QualysApiErrors {
         DESCRIPTION_TO_ERROR_CODE = Collections.unmodifiableMap(descToCode);
     }
 
+
     /**
      * Get the description for a given error code.
      *

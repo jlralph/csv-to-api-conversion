@@ -45,18 +45,54 @@ public class QualysApi {
             return;
         }
 
-        // Edit the asset group to add or remove IPs
-        String editResponse = editQualysAssetGroup(groupId, action, ips, logger);
+        // Retry logic for specific error codes
+        final Set<String> retryableCodes = Set.of("1920", "1960", "1965", "1981");
+        int maxRetries = 10;
+        int attempt = 0;
+        while (attempt < maxRetries) {
+            String editResponse = editQualysAssetGroup(groupId, action, ips, logger);
 
-        // Parse the edit response for error codes and add only recognized codes
-        if (editResponse != null) {
-            String errorCode = QualysApiErrors.extractQualysFoApiErrorCode(editResponse);
-            String errorDesc = QualysApiErrors.getDescriptionByCode(errorCode);
+            String errorCode = null;
+            String errorDesc = null;
+            if (editResponse != null) {
+                errorCode = QualysApiErrors.extractQualysFoApiErrorCode(editResponse);
+                errorDesc = QualysApiErrors.getDescriptionByCode(errorCode);
+            }
+
+            if (errorCode != null && retryableCodes.contains(errorCode)) {
+                attempt++;
+                String msg = String.format(
+                    "Received retryable error code %s (%s) from Qualys API. Attempt %d/%d. Retrying in 5 minutes...",
+                    errorCode, errorDesc, attempt, maxRetries
+                );
+                logger.warning(msg);
+                System.err.println(msg);
+                if (attempt >= maxRetries) {
+                    String quitMsg = String.format(
+                        "Received error code %s (%s) %d times in a row. Exiting application.",
+                        errorCode, errorDesc, maxRetries
+                    );
+                    logger.severe(quitMsg);
+                    System.err.println(quitMsg);
+                    System.exit(1);
+                }
+                try {
+                    Thread.sleep(5 * 60 * 1000); // 5 minutes in milliseconds
+                } catch (InterruptedException ie) {
+                    Thread.currentThread().interrupt();
+                    logger.severe("Retry sleep interrupted: " + ie.getMessage());
+                    break;
+                }
+                continue;
+            }
+
+            // Parse the edit response for error codes and add only recognized codes
             if (errorCode != null && !"Unknown error code".equals(errorDesc)) {
                 String msg = errorCode + ": " + errorDesc;
                 errorRecords.add(msg);
                 logger.warning(msg);
             }
+            break; // Success or non-retryable error, exit loop
         }
     }
 
