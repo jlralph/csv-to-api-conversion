@@ -1,4 +1,4 @@
-# cvs-api-conversion
+# csv-to-api-conversion
 
 A Java 21 application (no external dependencies) that reads a CSV file, parses each row, and (optionally) makes Qualys API calls to manage asset groups. The app builds summary maps of owners and contacts to their associated IP addresses, separated by active and deactivated status. All summary output is logged to both the console and a file.
 
@@ -50,7 +50,7 @@ DT-DEVOPS-01,DevOps-Support,DevOps,192.168.2.10,192.168.2.11,192.168.2.12,05/11/
 ## Running the Application
 
 ```sh
-java -jar target/cmdb-cvs-conversion-0.0.1-SNAPSHOT.jar [csvFilePath] [optionalStartTimestamp] [suppressApiCall]
+java -jar target/csv-to-api-conversion-0.0.1-SNAPSHOT.jar [csvFilePath] [optionalStartTimestamp] [suppressApiCall]
 ```
 - `csvFilePath` (optional): Path to the CSV file. Defaults to `src/main/resources/sample.csv` if not provided.
 - `optionalStartTimestamp` (optional): Filter records to only include those with create or deactivated timestamps after this value. Format: `MM/dd/yyyy hh:mm:ss a`
@@ -58,7 +58,7 @@ java -jar target/cmdb-cvs-conversion-0.0.1-SNAPSHOT.jar [csvFilePath] [optionalS
 
 ## Logging
 
-- All output is logged to both the console and a file named `cmdb-cvs-conversion.log` in the working directory.
+- All output is logged to both the console and a file named `csv-to-api-conversion.log` in the working directory.
 - Errors and API responses are logged with appropriate severity.
 
 ## Sample Output
