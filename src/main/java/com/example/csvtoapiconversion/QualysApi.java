@@ -7,19 +7,19 @@ import java.util.logging.*;
 
 /**
  * Utility class for making Qualys API calls to add or remove IPs from asset groups.
- * Handles logging, error parsing, and group lookup.
+ * Handles error code parsing and fatal error handling.
  */
 public class QualysApi {
 
     /**
      * Makes an API call to add or remove IPs from a Qualys asset group.
-     * Looks up the group ID, performs the edit, and logs errors.
+     * Exits the application if a fatal error code is returned.
      *
-     * @param action "add" or "remove"
-     * @param groupName The asset group name (owner or contact)
-     * @param ips Array of IP addresses to add/remove
-     * @param errorRecords List to collect error codes/descriptions
-     * @param logger Logger for output
+     * @param action        "add" or "remove"
+     * @param groupName     Name of the Qualys asset group
+     * @param ips           Array of IP addresses to add or remove
+     * @param errorRecords  List to collect error records
+     * @param logger        Logger for output
      */
     public static void makeApiCall(
             String action,
@@ -63,6 +63,7 @@ public class QualysApi {
                     errorCode, errorDesc
                 );
                 logger.severe(msg);
+                System.err.println(msg);
                 System.exit(1);
             }
 
