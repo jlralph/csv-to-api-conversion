@@ -7,11 +7,15 @@ import java.util.*;
 import java.util.logging.*;
 
 /**
- * Main application class for CMDB CSV to Qualys asset group conversion.
- * - Reads a CSV file and builds maps of owners/contacts to active and deactivated IPs.
- * - Optionally filters records by a start timestamp.
- * - Makes Qualys API calls to add/remove IPs from asset groups (unless suppressed).
- * - Logs all summary output and errors to both the console and a log file.
+ * Main application class for converting a CMDB CSV file to Qualys asset group API actions.
+ * <p>
+ * Features:
+ * <ul>
+ *   <li>Reads a CSV file and builds maps of owners/contacts to active and deactivated IPs.</li>
+ *   <li>Optionally filters records by a start timestamp.</li>
+ *   <li>Makes Qualys API calls to add/remove IPs from asset groups (unless suppressed).</li>
+ *   <li>Logs all summary output and errors to both the console and a log file.</li>
+ * </ul>
  */
 public class CsvToApiConversionApplication {
 
@@ -30,6 +34,8 @@ public class CsvToApiConversionApplication {
 
     /**
      * Entry point: parses arguments, processes CSV, and manages API calls and logging.
+     * @param args Command-line arguments: [csvPath] [startTimestamp] [suppressApiCall]
+     * @throws Exception if an error occurs during processing
      */
     public static void main(String[] args) throws Exception {
         ArgsConfig config = parseArgs(args);
@@ -53,9 +59,6 @@ public class CsvToApiConversionApplication {
         processAdditions(ownerToActiveIps, "owner", config.suppressApiCall, errorRecords);
         processAdditions(contactToActiveIps, "contact", config.suppressApiCall, errorRecords);
 
-        // Output error records and summary maps to console and logger
-        System.out.println("Error Records: " + errorRecords);
-
         LOGGER.info("Owner to Active IPs:");
         ownerToActiveIps.forEach((k, v) -> LOGGER.info("Owner: " + k + " -> IPs: " + v));
         LOGGER.info("Contact to Active IPs:");
@@ -72,6 +75,11 @@ public class CsvToApiConversionApplication {
     /**
      * For each group (owner/contact), remove IPs that are deactivated.
      * If suppressApiCall is true, only print what would be done.
+     *
+     * @param groupToIps Map of group name to set of IPs to remove
+     * @param groupType  "owner" or "contact"
+     * @param suppressApiCall If true, do not make API calls (dry run)
+     * @param errorRecords List to collect error records
      */
     private static void processRemovals(Map<String, Set<String>> groupToIps, String groupType, boolean suppressApiCall, List<String> errorRecords) {
         for (Map.Entry<String, Set<String>> entry : groupToIps.entrySet()) {
@@ -88,6 +96,11 @@ public class CsvToApiConversionApplication {
     /**
      * For each group (owner/contact), add IPs that are active.
      * If suppressApiCall is true, only print what would be done.
+     *
+     * @param groupToIps Map of group name to set of IPs to add
+     * @param groupType  "owner" or "contact"
+     * @param suppressApiCall If true, do not make API calls (dry run)
+     * @param errorRecords List to collect error records
      */
     private static void processAdditions(Map<String, Set<String>> groupToIps, String groupType, boolean suppressApiCall, List<String> errorRecords) {
         for (Map.Entry<String, Set<String>> entry : groupToIps.entrySet()) {
@@ -103,6 +116,8 @@ public class CsvToApiConversionApplication {
 
     /**
      * Parse command-line arguments for CSV path, start timestamp, and suppressApiCall flag.
+     * @param args Command-line arguments
+     * @return ArgsConfig object with parsed values
      */
     private static ArgsConfig parseArgs(String[] args) {
         Path csvPath;
@@ -119,7 +134,7 @@ public class CsvToApiConversionApplication {
             try {
                 startTimestamp = CsvUtils.parseDate(args[1]);
             } catch (Exception e) {
-                System.err.println("Invalid start timestamp format. Expected: MM/dd/yyyy hh:mm:ss a");
+                LOGGER.warning("Invalid start timestamp format. Expected: MM/dd/yyyy hh:mm:ss a");
                 startTimestamp = null;
             }
         }
