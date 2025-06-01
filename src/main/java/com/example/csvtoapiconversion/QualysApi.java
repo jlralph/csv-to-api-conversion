@@ -52,6 +52,22 @@ public class QualysApi {
         if (editResponse != null) {
             String errorCode = QualysApiErrors.extractQualysFoApiErrorCode(editResponse);
             String errorDesc = QualysApiErrors.getDescriptionByCode(errorCode);
+
+            // If the error code is one of the specified, exit the application
+            Set<String> fatalCodes = Set.of(
+                "1920", "1960", "1965", "1981",
+                "999", "1999", "2000", "2002", "2003", "2011", "2012"
+            );
+            if (errorCode != null && fatalCodes.contains(errorCode)) {
+                String msg = String.format(
+                    "Fatal Qualys API error code %s (%s) received. Exiting application.",
+                    errorCode, errorDesc
+                );
+                logger.severe(msg);
+                System.err.println(msg);
+                System.exit(1);
+            }
+
             if (errorCode != null && !"Unknown error code".equals(errorDesc)) {
                 String msg = errorCode + ": " + errorDesc;
                 errorRecords.add(msg);

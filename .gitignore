@@ -1,3 +1,4 @@
 /.vscode
 /target
 cmdb-cvs-conversion.log
+csv-to-api-conversion.log
