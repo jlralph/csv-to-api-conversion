@@ -64,7 +64,9 @@ public class CsvToApiConversionApplication {
         ownerToDeactivatedIps.forEach((k, v) -> LOGGER.info("Owner: " + k + " -> Deactivated IPs: " + v));
         LOGGER.info("Contact to Deactivated IPs:");
         contactToDeactivatedIps.forEach((k, v) -> LOGGER.info("Contact: " + k + " -> Deactivated IPs: " + v));
-        LOGGER.info("Error Records: " + errorRecords);
+        if (LOGGER.isLoggable(Level.INFO)) {
+            LOGGER.info(String.format("Error Records: %s", errorRecords));
+        }
     }
 
     /**

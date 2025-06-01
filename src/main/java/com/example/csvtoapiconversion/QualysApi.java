@@ -41,7 +41,6 @@ public class QualysApi {
             String msg = "Asset group not found for groupName: " + groupName;
             errorRecords.add("GROUP_NOT_FOUND:" + groupName);
             logger.warning(msg);
-            System.err.println(msg);
             return;
         }
 
@@ -64,7 +63,6 @@ public class QualysApi {
                     errorCode, errorDesc
                 );
                 logger.severe(msg);
-                System.err.println(msg);
                 System.exit(1);
             }
 
