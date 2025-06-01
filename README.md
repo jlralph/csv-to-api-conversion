@@ -1,6 +1,6 @@
 # csv-to-api-conversion
 
-A Java 21 application (no external dependencies) that reads a CSV file, parses each row, and (optionally) makes Qualys API calls to manage asset groups. The app builds summary maps of owners and contacts to their associated IP addresses, separated by active and deactivated status. All summary output is logged to both the console and a file.
+A Java 21 application (no external dependencies) that reads a CSV file, parses each row, and (optionally) makes Qualys API calls to manage asset groups. The app builds summary maps of owners and contacts to their associated IP addresses, separated by active and deactivated status. All summary output and errors are logged to both the console and a file.
 
 ## Project Setup
 
@@ -43,14 +43,15 @@ DT-DEVOPS-01,DevOps-Support,DevOps,192.168.2.10,192.168.2.11,192.168.2.12,05/11/
   - Adds the header `X-Requested-With: Java` to all API requests.
   - If the group is not found, logs and records a `GROUP_NOT_FOUND` error.
   - If an API call fails, logs the full request and response details.
+  - If the API response contains a recognized error code, logs and records the code and description.
+  - If the API response contains a fatal error code (`1920`, `1960`, `1965`, `1981`, `999`, `1999`, `2000`, `2002`, `2003`, `2011`, `2012`), the application logs the error and exits immediately.
 - If the third argument is set to `true`, API calls are suppressed and only dry-run output is printed.
-- Parses API responses for error codes and adds recognized codes and descriptions to the error records.
-- Logs all summary output (maps and error records) to both the logger and the console.
+- All summary output (maps and error records) is logged to both the logger and the console.
 
 ## Running the Application
 
 ```sh
-java -jar target/csv-to-api-conversion-0.0.1-SNAPSHOT.jar [csvFilePath] [optionalStartTimestamp] [suppressApiCall]
+java -jar target/csv-to-api-conversion-1.0-SNAPSHOT.jar [csvFilePath] [optionalStartTimestamp] [suppressApiCall]
 ```
 - `csvFilePath` (optional): Path to the CSV file. Defaults to `src/main/resources/sample.csv` if not provided.
 - `optionalStartTimestamp` (optional): Filter records to only include those with create or deactivated timestamps after this value. Format: `MM/dd/yyyy hh:mm:ss a`
@@ -114,6 +115,7 @@ DT-AN-02,Analytics-Support,Analytics,10.10.10.5,10/01/2024 12:01:03 AM,
 - The application adds the `X-Requested-With: Java` header to all Qualys API requests.
 - If a start timestamp is provided, only records with create or deactivated timestamps after or equal to this value are processed.
 - If `suppressApiCall` is set to `true`, no API calls are made and only dry-run output is printed.
+- If the API response contains a fatal error code (`1920`, `1960`, `1965`, `1981`, `999`, `1999`, `2000`, `2002`, `2003`, `2011`, `2012`), the application logs the error and exits immediately.
 - All summary output is logged to both the logger and the console.
 
 ---

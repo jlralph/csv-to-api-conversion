@@ -778,3 +778,59 @@ May 29, 2025 6:29:05 PM com.example.csvtoapiconversion.CsvToApiConversionApplica
 INFO: Contact: Doe -> Deactivated IPs: [192.168.1.1]
 May 29, 2025 6:29:05 PM com.example.csvtoapiconversion.CsvToApiConversionApplication main
 INFO: Error Records: []
+Jun 01, 2025 2:08:04 PM com.example.csvtoapiconversion.CsvToApiConversionApplication main
+INFO: Owner to Active IPs:
+Jun 01, 2025 2:08:04 PM com.example.csvtoapiconversion.CsvToApiConversionApplication lambda$0
+INFO: Owner: DevOps -> IPs: [192.168.2.11, 192.168.2.10, 192.168.2.12, 10.10.10.3]
+Jun 01, 2025 2:08:04 PM com.example.csvtoapiconversion.CsvToApiConversionApplication lambda$0
+INFO: Owner: Support -> IPs: [203.0.113.5, 2001:0db8:85a3:0000:0000:8a2e:0370:7334]
+Jun 01, 2025 2:08:04 PM com.example.csvtoapiconversion.CsvToApiConversionApplication lambda$0
+INFO: Owner: Frontend -> IPs: [192.168.3.11, 192.168.3.12, 192.168.3.10]
+Jun 01, 2025 2:08:04 PM com.example.csvtoapiconversion.CsvToApiConversionApplication lambda$0
+INFO: Owner: Analytics -> IPs: [10.10.10.5]
+Jun 01, 2025 2:08:04 PM com.example.csvtoapiconversion.CsvToApiConversionApplication lambda$0
+INFO: Owner: Testing -> IPs: [192.168.5.11, 192.168.5.12, 192.168.5.10]
+Jun 01, 2025 2:08:04 PM com.example.csvtoapiconversion.CsvToApiConversionApplication main
+INFO: Contact to Active IPs:
+Jun 01, 2025 2:08:04 PM com.example.csvtoapiconversion.CsvToApiConversionApplication lambda$1
+INFO: Contact: Gamma -> IPs: [10.10.10.3]
+Jun 01, 2025 2:08:04 PM com.example.csvtoapiconversion.CsvToApiConversionApplication lambda$1
+INFO: Contact: White -> IPs: [192.168.2.11, 192.168.5.11, 192.168.2.10, 192.168.5.12, 192.168.2.12, 192.168.5.10]
+Jun 01, 2025 2:08:04 PM com.example.csvtoapiconversion.CsvToApiConversionApplication lambda$1
+INFO: Contact: Epsilon -> IPs: [10.10.10.5]
+Jun 01, 2025 2:08:04 PM com.example.csvtoapiconversion.CsvToApiConversionApplication lambda$1
+INFO: Contact: Lee -> IPs: [203.0.113.5, 2001:0db8:85a3:0000:0000:8a2e:0370:7334]
+Jun 01, 2025 2:08:04 PM com.example.csvtoapiconversion.CsvToApiConversionApplication lambda$1
+INFO: Contact: Green -> IPs: [192.168.3.11, 192.168.3.12, 192.168.3.10]
+Jun 01, 2025 2:08:04 PM com.example.csvtoapiconversion.CsvToApiConversionApplication main
+INFO: Owner to Deactivated IPs:
+Jun 01, 2025 2:08:04 PM com.example.csvtoapiconversion.CsvToApiConversionApplication lambda$2
+INFO: Owner: Design -> Deactivated IPs: [192.168.4.12, 192.168.4.10, 192.168.4.11]
+Jun 01, 2025 2:08:04 PM com.example.csvtoapiconversion.CsvToApiConversionApplication lambda$2
+INFO: Owner: QA -> Deactivated IPs: [10.0.0.1]
+Jun 01, 2025 2:08:04 PM com.example.csvtoapiconversion.CsvToApiConversionApplication lambda$2
+INFO: Owner: Backend -> Deactivated IPs: [192.168.6.12, 192.168.6.11, 192.168.6.10]
+Jun 01, 2025 2:08:04 PM com.example.csvtoapiconversion.CsvToApiConversionApplication lambda$2
+INFO: Owner: Frontend -> Deactivated IPs: [10.10.10.4]
+Jun 01, 2025 2:08:04 PM com.example.csvtoapiconversion.CsvToApiConversionApplication lambda$2
+INFO: Owner: Platform -> Deactivated IPs: [192.168.1.1, 10.10.10.1]
+Jun 01, 2025 2:08:04 PM com.example.csvtoapiconversion.CsvToApiConversionApplication lambda$2
+INFO: Owner: Analytics -> Deactivated IPs: [172.16.0.1]
+Jun 01, 2025 2:08:04 PM com.example.csvtoapiconversion.CsvToApiConversionApplication main
+INFO: Contact to Deactivated IPs:
+Jun 01, 2025 2:08:04 PM com.example.csvtoapiconversion.CsvToApiConversionApplication lambda$3
+INFO: Contact: Gary -> Deactivated IPs: [192.168.6.12, 192.168.6.11, 192.168.6.10]
+Jun 01, 2025 2:08:04 PM com.example.csvtoapiconversion.CsvToApiConversionApplication lambda$3
+INFO: Contact: Brown -> Deactivated IPs: [172.16.0.1]
+Jun 01, 2025 2:08:04 PM com.example.csvtoapiconversion.CsvToApiConversionApplication lambda$3
+INFO: Contact: Delta -> Deactivated IPs: [10.10.10.4]
+Jun 01, 2025 2:08:04 PM com.example.csvtoapiconversion.CsvToApiConversionApplication lambda$3
+INFO: Contact: Smith -> Deactivated IPs: [10.0.0.1]
+Jun 01, 2025 2:08:04 PM com.example.csvtoapiconversion.CsvToApiConversionApplication lambda$3
+INFO: Contact: Alpha -> Deactivated IPs: [10.10.10.1]
+Jun 01, 2025 2:08:04 PM com.example.csvtoapiconversion.CsvToApiConversionApplication lambda$3
+INFO: Contact: Black -> Deactivated IPs: [192.168.4.12, 192.168.4.10, 192.168.4.11]
+Jun 01, 2025 2:08:04 PM com.example.csvtoapiconversion.CsvToApiConversionApplication lambda$3
+INFO: Contact: Doe -> Deactivated IPs: [192.168.1.1]
+Jun 01, 2025 2:08:04 PM com.example.csvtoapiconversion.CsvToApiConversionApplication main
+INFO: Error Records: []
