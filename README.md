@@ -31,7 +31,8 @@ DT-DEVOPS-01,DevOps-Support,DevOps,192.168.2.10,192.168.2.11,192.168.2.12,05/11/
 - For each row:
   - If `deactivatedTimestamp` is empty, adds all IPs to the "active" sets for both owner and contact.
   - If `deactivatedTimestamp` is present, adds all IPs to the "deactivated" sets for both owner and contact.
-- Optionally, if a start timestamp is provided as a second argument, only includes records where either the create or deactivated timestamp is after or equal to the start timestamp.
+- Optionally, if a start timestamp is provided as a command-line argument, only includes records where either the create or deactivated timestamp is after or equal to the start timestamp.
+- If a start timestamp is not provided as an argument, the application attempts to read it from `CsvToApiConversion.txt` in the project root (using ISO format or `MM/dd/yyyy hh:mm:ss a`).
 - Builds four maps:
   - `ownerToActiveIps`
   - `contactToActiveIps`
@@ -47,6 +48,7 @@ DT-DEVOPS-01,DevOps-Support,DevOps,192.168.2.10,192.168.2.11,192.168.2.12,05/11/
   - If the API response contains a fatal error code (`1920`, `1960`, `1965`, `1981`, `999`, `1999`, `2000`, `2002`, `2003`, `2011`, `2012`), the application logs the error and exits immediately.
 - If the third argument is set to `true`, API calls are suppressed and only dry-run output is printed.
 - All summary output (maps and error records) is logged to both the logger and the console.
+- **On successful completion, writes the application start timestamp (not the end time) to `CsvToApiConversion.txt` in the project root (overwriting any previous content).**
 
 ## Running the Application
 
@@ -54,7 +56,7 @@ DT-DEVOPS-01,DevOps-Support,DevOps,192.168.2.10,192.168.2.11,192.168.2.12,05/11/
 java -jar target/csv-to-api-conversion-1.0-SNAPSHOT.jar [csvFilePath] [optionalStartTimestamp] [suppressApiCall]
 ```
 - `csvFilePath` (optional): Path to the CSV file. Defaults to `src/main/resources/sample.csv` if not provided.
-- `optionalStartTimestamp` (optional): Filter records to only include those with create or deactivated timestamps after this value. Format: `MM/dd/yyyy hh:mm:ss a`
+- `optionalStartTimestamp` (optional): Filter records to only include those with create or deactivated timestamps after this value. Format: `MM/dd/yyyy hh:mm:ss a` or ISO format if read from `CsvToApiConversion.txt`.
 - `suppressApiCall` (optional): If `true`, API calls are not made and only dry-run output is printed. Defaults to `false`.
 
 ## Logging
@@ -116,6 +118,7 @@ DT-AN-02,Analytics-Support,Analytics,10.10.10.5,10/01/2024 12:01:03 AM,
 - If a start timestamp is provided, only records with create or deactivated timestamps after or equal to this value are processed.
 - If `suppressApiCall` is set to `true`, no API calls are made and only dry-run output is printed.
 - If the API response contains a fatal error code (`1920`, `1960`, `1965`, `1981`, `999`, `1999`, `2000`, `2002`, `2003`, `2011`, `2012`), the application logs the error and exits immediately.
+- **On successful completion, the application writes the application start timestamp to `CsvToApiConversion.txt` in the project root (overwriting any previous content).**
 - All summary output is logged to both the logger and the console.
 
 ---

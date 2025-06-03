@@ -41,6 +41,9 @@ public class CsvToApiConversionApplication {
     public static void main(String[] args) throws Exception {
         ArgsConfig config = parseArgs(args);
 
+        // Capture the application start timestamp
+        LocalDateTime appStartTimestamp = LocalDateTime.now();
+
         List<String> errorRecords = new ArrayList<>();
         Map<String, Set<String>> ownerToActiveIps = new HashMap<>();
         Map<String, Set<String>> contactToActiveIps = new HashMap<>();
@@ -72,16 +75,16 @@ public class CsvToApiConversionApplication {
             LOGGER.info(String.format("Error Records: %s", errorRecords));
         }
 
-        // Write the current timestamp to CsvToApiConversion.txt in the project root
+        // Write the application start timestamp to CsvToApiConversion.txt in the project root
         try {
-            String timestamp = java.time.LocalDateTime.now().toString();
+            String timestamp = appStartTimestamp.toString();
             Path outputPath = Paths.get("CsvToApiConversion.txt");
             Files.writeString(outputPath, timestamp, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
             if (LOGGER.isLoggable(Level.INFO)) {
-                LOGGER.info(String.format("Wrote completion timestamp to CsvToApiConversion.txt: %s", timestamp));
+                LOGGER.info(String.format("Wrote application start timestamp to CsvToApiConversion.txt: %s", timestamp));
             }
         } catch (IOException e) {
-            LOGGER.warning("Failed to write completion timestamp: " + e.getMessage());
+            LOGGER.warning("Failed to write application start timestamp: " + e.getMessage());
         }
     }
 
