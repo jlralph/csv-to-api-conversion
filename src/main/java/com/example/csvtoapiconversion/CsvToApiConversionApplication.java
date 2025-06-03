@@ -186,15 +186,27 @@ public class CsvToApiConversionApplication {
     /**
      * Simple config holder for parsed arguments.
      */
-    private static class ArgsConfig {
-        Path csvPath;
-        LocalDateTime startTimestamp;
-        boolean suppressApiCall;
+    public static class ArgsConfig {
+        private final Path csvPath;
+        private final LocalDateTime startTimestamp;
+        private final boolean suppressApiCall;
 
         ArgsConfig(Path csvPath, LocalDateTime startTimestamp, boolean suppressApiCall) {
             this.csvPath = csvPath;
             this.startTimestamp = startTimestamp;
             this.suppressApiCall = suppressApiCall;
+        }
+
+        public Path getCsvPath() {
+            return csvPath;
+        }
+
+        public LocalDateTime getStartTimestamp() {
+            return startTimestamp;
+        }
+
+        public boolean isSuppressApiCall() {
+            return suppressApiCall;
         }
     }
 }

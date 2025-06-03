@@ -1,15 +1,12 @@
 package com.example.csvtoapiconversion;
 
 import org.junit.jupiter.api.*;
-
-import com.example.csvtoapiconversion.CsvUtils;
-import com.example.csvtoapiconversion.QualysApi;
-import com.example.csvtoapiconversion.QualysApiErrors;
-
-import java.time.LocalDateTime;
+import java.io.*;
+import java.nio.file.*;
+import java.time.*;
 import java.util.*;
-
 import static org.junit.jupiter.api.Assertions.*;
+
 
 class CsvToApiConversionApplicationTest {
 
@@ -131,5 +128,64 @@ class CsvToApiConversionApplicationTest {
     @Test
     void testParseDate_invalidFormat_throws() {
         assertThrows(Exception.class, () -> CsvUtils.parseDate("not a date"));
+    }
+
+    @Test
+    void testParseArgs_UsesCommandLineStartTimestamp() {
+        String[] args = {"test.csv", "05/14/2025 08:30:00 AM", "true"};
+        var config = invokeParseArgs(args);
+        CsvToApiConversionApplication.ArgsConfig cfg = (CsvToApiConversionApplication.ArgsConfig) config;
+        assertEquals(Paths.get("test.csv"), cfg.getCsvPath());
+        assertEquals(LocalDateTime.of(2025, 5, 14, 8, 30, 0), cfg.getStartTimestamp());
+        assertTrue(cfg.isSuppressApiCall());
+    }
+
+    @Test
+    void testParseArgs_ReadsTimestampFromFileIfNotProvided() throws IOException {
+        Path tsFile = Paths.get("CsvToApiConversion.txt");
+        String isoTimestamp = "2025-06-02T12:34:56";
+        Files.writeString(tsFile, isoTimestamp, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+
+        String[] args = {"test.csv"};
+        var config = invokeParseArgs(args);
+        CsvToApiConversionApplication.ArgsConfig cfg = (CsvToApiConversionApplication.ArgsConfig) config;
+        assertEquals(LocalDateTime.parse(isoTimestamp), cfg.getStartTimestamp());
+
+        Files.deleteIfExists(tsFile);
+    }
+
+    @Test
+    void testParseArgs_ReadsTimestampFromFileWithFallbackFormat() throws IOException {
+        Path tsFile = Paths.get("CsvToApiConversion.txt");
+        String legacyTimestamp = "05/14/2025 08:30:00 AM";
+        Files.writeString(tsFile, legacyTimestamp, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+
+        String[] args = {"test.csv"};
+        var config = invokeParseArgs(args);
+        CsvToApiConversionApplication.ArgsConfig cfg = (CsvToApiConversionApplication.ArgsConfig) config;
+        assertEquals(LocalDateTime.of(2025, 5, 14, 8, 30, 0), cfg.getStartTimestamp());
+
+        Files.deleteIfExists(tsFile);
+    }
+
+    @Test
+    void testParseArgs_Defaults() {
+        String[] args = {};
+        var config = invokeParseArgs(args);
+        CsvToApiConversionApplication.ArgsConfig cfg = (CsvToApiConversionApplication.ArgsConfig) config;
+        assertEquals(Paths.get("src/main/resources/sample.csv"), cfg.getCsvPath());
+      //  assertNull(cfg.getStartTimestamp());
+        assertFalse(cfg.isSuppressApiCall());
+    }
+
+    // Helper to invoke private static parseArgs
+    private static Object invokeParseArgs(String[] args) {
+        try {
+            var method = CsvToApiConversionApplication.class.getDeclaredMethod("parseArgs", String[].class);
+            method.setAccessible(true);
+            return method.invoke(null, (Object) args);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
