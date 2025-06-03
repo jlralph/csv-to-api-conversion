@@ -70,6 +70,18 @@ public class CsvToApiConversionApplication {
         if (LOGGER.isLoggable(Level.INFO)) {
             LOGGER.info(String.format("Error Records: %s", errorRecords));
         }
+
+        // Write the current timestamp to CsvToApiConversion.txt in the project root
+        try {
+            String timestamp = java.time.LocalDateTime.now().toString();
+            Path outputPath = Paths.get("CsvToApiConversion.txt");
+            Files.writeString(outputPath, timestamp, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+            if (LOGGER.isLoggable(Level.INFO)) {
+                LOGGER.info(String.format("Wrote completion timestamp to CsvToApiConversion.txt: %s", timestamp));
+            }
+        } catch (IOException e) {
+            LOGGER.warning("Failed to write completion timestamp: " + e.getMessage());
+        }
     }
 
     /**
@@ -116,6 +128,7 @@ public class CsvToApiConversionApplication {
 
     /**
      * Parse command-line arguments for CSV path, start timestamp, and suppressApiCall flag.
+     * If start timestamp is not provided as an argument, attempts to read it from CsvToApiConversion.txt.
      * @param args Command-line arguments
      * @return ArgsConfig object with parsed values
      */
@@ -130,12 +143,36 @@ public class CsvToApiConversionApplication {
             csvPath = Paths.get(args[0]);
         }
 
-        if (args.length >= 2) {
+        // Try to get startTimestamp from args or from CsvToApiConversion.txt
+        if (args.length >= 2 && args[1] != null && !args[1].isBlank()) {
             try {
                 startTimestamp = CsvUtils.parseDate(args[1]);
             } catch (Exception e) {
                 LOGGER.warning("Invalid start timestamp format. Expected: MM/dd/yyyy hh:mm:ss a");
                 startTimestamp = null;
+            }
+        } else {
+            // Try to read from CsvToApiConversion.txt if present
+            Path tsFile = Paths.get("CsvToApiConversion.txt");
+            if (Files.exists(tsFile)) {
+                try {
+                    String tsString = Files.readString(tsFile).trim();
+                    if (!tsString.isEmpty()) {
+                        // Try parsing as ISO_LOCAL_DATE_TIME first (default write format)
+                        try {
+                            startTimestamp = LocalDateTime.parse(tsString);
+                        } catch (Exception e) {
+                            // Fallback: try parsing as MM/dd/yyyy hh:mm:ss a
+                            try {
+                                startTimestamp = CsvUtils.parseDate(tsString);
+                            } catch (Exception ex) {
+                                LOGGER.warning("Could not parse timestamp from CsvToApiConversion.txt: " + ex.getMessage());
+                            }
+                        }
+                    }
+                } catch (IOException e) {
+                    LOGGER.warning("Could not read CsvToApiConversion.txt for start timestamp: " + e.getMessage());
+                }
             }
         }
 

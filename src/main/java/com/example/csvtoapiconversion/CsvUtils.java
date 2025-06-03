@@ -6,6 +6,9 @@ import java.time.*;
 import java.time.format.*;
 import java.util.*;
 
+/**
+ * Utility class for processing the CSV file and building maps of owners/contacts to active and deactivated IPs.
+ */
 public class CsvUtils {
 
     /**
@@ -51,6 +54,17 @@ public class CsvUtils {
         }
     }
 
+    /**
+     * Processes a single row from the CSV file and updates the appropriate maps.
+     * Skips invalid rows and applies the startTimestamp filter if provided.
+     *
+     * @param line The CSV row as a string
+     * @param startTimestamp Optional filter for create/deactivated timestamps
+     * @param ownerToActiveIps Output: owner → set of active IPs
+     * @param contactToActiveIps Output: contact → set of active IPs
+     * @param ownerToDeactivatedIps Output: owner → set of deactivated IPs
+     * @param contactToDeactivatedIps Output: contact → set of deactivated IPs
+     */
     private static void processCsvRow(
             String line,
             LocalDateTime startTimestamp,
@@ -91,6 +105,15 @@ public class CsvUtils {
         }
     }
 
+    /**
+     * Determines if a row should be skipped based on the startTimestamp filter.
+     * Skips if both create and deactivated timestamps are before the filter.
+     *
+     * @param startTimestamp The filter timestamp (nullable)
+     * @param createTimestamp The create timestamp for the row (nullable)
+     * @param deactivatedTimestamp The deactivated timestamp for the row (nullable)
+     * @return true if the row should be skipped, false otherwise
+     */
     private static boolean shouldSkipRow(LocalDateTime startTimestamp, LocalDateTime createTimestamp, LocalDateTime deactivatedTimestamp) {
         if (startTimestamp == null) {
             return false;
