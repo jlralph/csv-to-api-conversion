@@ -15,6 +15,7 @@ import java.util.logging.*;
  *   <li>Optionally filters records by a start timestamp.</li>
  *   <li>Makes Qualys API calls to add/remove IPs from asset groups (unless suppressed).</li>
  *   <li>Logs all summary output and errors to both the console and a log file.</li>
+ *   <li>Writes the completion timestamp to CsvToApiConversion.txt in the project root.</li>
  * </ul>
  */
 public class CsvToApiConversionApplication {
@@ -33,7 +34,7 @@ public class CsvToApiConversionApplication {
     }
 
     /**
-     * Entry point: parses arguments, processes CSV, and manages API calls and logging.
+     * Entry point: parses arguments, processes CSV, manages API calls, logging, and writes completion timestamp.
      * @param args Command-line arguments: [csvPath] [startTimestamp] [suppressApiCall]
      * @throws Exception if an error occurs during processing
      */
@@ -48,16 +49,16 @@ public class CsvToApiConversionApplication {
 
         // Parse CSV and build maps for owner/contact to active/deactivated IPs
         CsvUtils.processCsv(
-            config.csvPath, config.startTimestamp,
+            config.getCsvPath(), config.getStartTimestamp(),
             ownerToActiveIps, contactToActiveIps,
             ownerToDeactivatedIps, contactToDeactivatedIps
         );
 
         // Process removals (deactivated IPs) before additions (active IPs)
-        processRemovals(ownerToDeactivatedIps, "owner", config.suppressApiCall, errorRecords);
-        processRemovals(contactToDeactivatedIps, "contact", config.suppressApiCall, errorRecords);
-        processAdditions(ownerToActiveIps, "owner", config.suppressApiCall, errorRecords);
-        processAdditions(contactToActiveIps, "contact", config.suppressApiCall, errorRecords);
+        processRemovals(ownerToDeactivatedIps, "owner", config.isSuppressApiCall(), errorRecords);
+        processRemovals(contactToDeactivatedIps, "contact", config.isSuppressApiCall(), errorRecords);
+        processAdditions(ownerToActiveIps, "owner", config.isSuppressApiCall(), errorRecords);
+        processAdditions(contactToActiveIps, "contact", config.isSuppressApiCall(), errorRecords);
 
         LOGGER.info("Owner to Active IPs:");
         ownerToActiveIps.forEach((k, v) -> LOGGER.info("Owner: " + k + " -> IPs: " + v));
@@ -185,6 +186,7 @@ public class CsvToApiConversionApplication {
 
     /**
      * Simple config holder for parsed arguments.
+     * Provides getters for csvPath, startTimestamp, and suppressApiCall.
      */
     public static class ArgsConfig {
         private final Path csvPath;
