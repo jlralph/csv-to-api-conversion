@@ -12,18 +12,18 @@ import java.util.logging.*;
 public class QualysApi {
 
     /**
-     * Makes an API call to add or remove IPs from a Qualys asset group.
+     * Makes an API call to add or remove IPs from a Qualys tag.
      * Exits the application if a fatal error code is returned.
      *
      * @param action        "add" or "remove"
-     * @param groupName     Name of the Qualys asset group
+     * @param tagName       Name of the Qualys tag
      * @param ips           Array of IP addresses to add or remove
      * @param errorRecords  List to collect error records
      * @param logger        Logger for output
      */
     public static void makeApiCall(
             String action,
-            String groupName,
+            String tagName,
             String[] ips,
             List<String> errorRecords,
             Logger logger
@@ -35,17 +35,17 @@ public class QualysApi {
             throw new IllegalArgumentException(msg);
         }
 
-        // Lookup Qualys asset group ID by groupName
-        String groupId = lookupQualysGroupId(groupName, logger);
-        if (groupId == null) {
-            String msg = "Asset group not found for groupName: " + groupName;
-            errorRecords.add("GROUP_NOT_FOUND:" + groupName);
+        // Lookup Qualys tag ID by tagName
+        String tagId = lookupQualysTagId(tagName, logger);
+        if (tagId == null) {
+            String msg = "Tag not found for tagName: " + tagName;
+            errorRecords.add("TAG_NOT_FOUND:" + tagName);
             logger.warning(msg);
             return;
         }
 
-        // Edit the asset group to add or remove IPs
-        String editResponse = editQualysAssetGroup(groupId, action, ips, logger);
+        // Edit the tag to add or remove IPs
+        String editResponse = editQualysTag(tagId, action, ips, logger);
 
         // Parse the edit response for error codes and add only recognized codes
         if (editResponse != null) {
@@ -76,52 +76,58 @@ public class QualysApi {
     }
 
     /**
-     * Edits the Qualys asset group by ID to add or remove IPs using the fo/asset/group API.
+     * Edits the Qualys tag by ID to add or remove IPs using the asset/tag API.
      * Returns the raw API response as a string.
      * Logs request and response details on error.
      *
-     * @param groupId The Qualys asset group ID
+     * @param tagId The Qualys tag ID
      * @param action "add" or "remove"
      * @param ips Array of IP addresses to add or remove
      * @param logger Logger for output
      * @return The raw API response as a string
      */
-    private static String editQualysAssetGroup(String groupId, String action, String[] ips, Logger logger) {
-        String apiUrl = "https://qualysapi.qualys.com/api/2.0/fo/asset/group/";
+    private static String editQualysTag(String tagId, String action, String[] ips, Logger logger) {
+        String apiUrl = "https://qualysapi.qualys.com/qps/rest/2.0/update/am/tag/" + tagId;
         String username = "YOUR_QUALYS_USERNAME";
         String password = "YOUR_QUALYS_PASSWORD";
 
-        // Build comma-separated IP list
+        // Build XML body for the request
         StringBuilder ipList = new StringBuilder();
-        for (int i = 0; i < ips.length; i++) {
-            ipList.append(ips[i]);
-            if (i < ips.length - 1) ipList.append(",");
+        for (String ip : ips) {
+            ipList.append("<ipAddress>").append(ip).append("</ipAddress>");
         }
 
-        // Build request parameters
-        String params;
+        String xmlBody;
         if ("add".equals(action)) {
-            params = "action=edit&id=" + URLEncoder.encode(groupId, java.nio.charset.StandardCharsets.UTF_8) +
-                    "&add_ips=" + URLEncoder.encode(ipList.toString(), java.nio.charset.StandardCharsets.UTF_8);
+            xmlBody = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+                    + "<ServiceRequest>"
+                    + "<data>"
+                    + "<addIps>" + ipList + "</addIps>"
+                    + "</data>"
+                    + "</ServiceRequest>";
         } else {
-            params = "action=edit&id=" + URLEncoder.encode(groupId, java.nio.charset.StandardCharsets.UTF_8) +
-                    "&remove_ips=" + URLEncoder.encode(ipList.toString(), java.nio.charset.StandardCharsets.UTF_8);
+            xmlBody = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+                    + "<ServiceRequest>"
+                    + "<data>"
+                    + "<removeIps>" + ipList + "</removeIps>"
+                    + "</data>"
+                    + "</ServiceRequest>";
         }
 
         HttpURLConnection conn = null;
         try {
-            URI uri = URI.create(apiUrl);
-            URL url = uri.toURL();
+            URL url = new URL(apiUrl);
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
             String basicAuth = java.util.Base64.getEncoder().encodeToString((username + ":" + password).getBytes());
             conn.setRequestProperty("Authorization", "Basic " + basicAuth);
             conn.setRequestProperty("X-Requested-With", "Java");
+            conn.setRequestProperty("Content-Type", "application/xml");
             conn.setDoOutput(true);
 
             // Send request body
             try (OutputStream os = conn.getOutputStream()) {
-                os.write(params.getBytes());
+                os.write(xmlBody.getBytes());
             }
 
             int responseCode = conn.getResponseCode();
@@ -129,17 +135,17 @@ public class QualysApi {
             conn.disconnect();
 
             if (responseCode != 200) {
-                System.err.println("Failed to update asset group " + groupId + ". HTTP code: " + responseCode);
+                System.err.println("Failed to update tag " + tagId + ". HTTP code: " + responseCode);
             } else {
-                System.out.println("Asset group " + groupId + " updated. Response: " + response);
+                System.out.println("Tag " + tagId + " updated. Response: " + response);
             }
             return response;
         } catch (IOException e) {
             // Log the full request and any available response
-            logger.severe("IOException during editQualysAssetGroup: " + e.getMessage());
+            logger.severe("IOException during editQualysTag: " + e.getMessage());
             logger.severe("Request URL: " + apiUrl);
-            logger.severe("Request Params: " + params);
-            logger.severe("Request Headers: Authorization=Basic ****, X-Requested-With=Java");
+            logger.severe("Request Body: " + xmlBody);
+            logger.severe("Request Headers: Authorization=Basic ****, X-Requested-With=Java, Content-Type=application/xml");
             if (conn != null) {
                 try {
                     int code = conn.getResponseCode();
@@ -160,52 +166,64 @@ public class QualysApi {
     }
 
     /**
-     * Looks up the Qualys asset group ID for the given group name using the fo/asset/group API.
-     * Returns the group ID as a string, or null if not found.
+     * Looks up the Qualys tag ID for the given tag name using the asset/tag API.
+     * Returns the tag ID as a string, or null if not found.
      * Logs request and response details on error.
      *
-     * @param groupName The name of the asset group (owner or contact value)
+     * @param tagName The name of the tag (owner or contact value)
      * @param logger Logger for output
-     * @return The Qualys asset group ID as a String, or null if not found
+     * @return The Qualys tag ID as a String, or null if not found
      */
-    private static String lookupQualysGroupId(String groupName, Logger logger) {
-        String apiUrl = "https://qualysapi.qualys.com/api/2.0/fo/asset/group/";
+    private static String lookupQualysTagId(String tagName, Logger logger) {
+        String apiUrl = "https://qualysapi.qualys.com/qps/rest/2.0/search/am/tag";
         String username = "YOUR_QUALYS_USERNAME";
         String password = "YOUR_QUALYS_PASSWORD";
-        String params = "action=list&title=" + URLEncoder.encode(groupName, java.nio.charset.StandardCharsets.UTF_8);
+
+        String xmlBody = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+                + "<ServiceRequest>"
+                + "<filters>"
+                + "<Criteria field=\"name\" operator=\"EQUALS\">" + tagName + "</Criteria>"
+                + "</filters>"
+                + "</ServiceRequest>";
 
         HttpURLConnection conn = null;
         try {
-            URI uri = URI.create(apiUrl + "?" + params);
-            URL url = uri.toURL();
+            URL url = new URL(apiUrl);
             conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
+            conn.setRequestMethod("POST");
             String basicAuth = java.util.Base64.getEncoder().encodeToString((username + ":" + password).getBytes());
             conn.setRequestProperty("Authorization", "Basic " + basicAuth);
             conn.setRequestProperty("X-Requested-With", "Java");
+            conn.setRequestProperty("Content-Type", "application/xml");
+            conn.setDoOutput(true);
+
+            // Send request body
+            try (OutputStream os = conn.getOutputStream()) {
+                os.write(xmlBody.getBytes());
+            }
 
             int responseCode = conn.getResponseCode();
             String response = new String(conn.getInputStream().readAllBytes());
             conn.disconnect();
 
-            System.err.println("Response body:\n" + response);
             if (responseCode != 200) {
-                System.err.println("Failed to look up group ID for " + groupName + ". HTTP code: " + responseCode);
+                System.err.println("Failed to look up tag ID for " + tagName + ". HTTP code: " + responseCode);
                 return null;
             }
 
             // Simple extraction (for demo; use proper XML parser in production)
-            String idTag = "<ID>";
+            String idTag = "<id>";
             int idStart = response.indexOf(idTag);
             if (idStart == -1) return null;
-            int idEnd = response.indexOf("</ID>", idStart);
+            int idEnd = response.indexOf("</id>", idStart);
             if (idEnd == -1) return null;
             return response.substring(idStart + idTag.length(), idEnd).trim();
         } catch (IOException e) {
             // Log the full request and any available response
-            logger.severe("IOException during lookupQualysGroupId for group '" + groupName + "': " + e.getMessage());
-            logger.severe("Request URL: " + apiUrl + "?" + params);
-            logger.severe("Request Headers: Authorization=Basic ****, X-Requested-With=Java");
+            logger.severe("IOException during lookupQualysTagId for tag '" + tagName + "': " + e.getMessage());
+            logger.severe("Request URL: " + apiUrl);
+            logger.severe("Request Body: " + xmlBody);
+            logger.severe("Request Headers: Authorization=Basic ****, X-Requested-With=Java, Content-Type=application/xml");
             if (conn != null) {
                 try {
                     int code = conn.getResponseCode();
