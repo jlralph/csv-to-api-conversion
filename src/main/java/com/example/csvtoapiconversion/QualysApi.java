@@ -38,10 +38,24 @@ public class QualysApi {
         // Lookup Qualys tag ID by tagName
         String tagId = lookupQualysTagId(tagName, logger);
         if (tagId == null) {
-            String msg = "Tag not found for tagName: " + tagName;
-            errorRecords.add("TAG_NOT_FOUND:" + tagName);
-            logger.warning(msg);
-            return;
+            if ("remove".equals(action)) {
+                // If removing and tag doesn't exist, nothing to do
+                logger.info("Tag not found for tagName: " + tagName + ". No removal needed.");
+                return;
+            } else {
+                logger.warning("Tag not found for tagName: " + tagName + ". Attempting to create tag with IPs.");
+                tagId = createQualysTag(tagName, ips, logger);
+                if (tagId == null) {
+                    String msg = "Failed to create tag for tagName: " + tagName;
+                    errorRecords.add("TAG_NOT_FOUND_AND_CREATE_FAILED:" + tagName);
+                    logger.severe(msg);
+                    return;
+                } else {
+                    logger.info("Successfully created tag '" + tagName + "' with ID: " + tagId);
+                    // No need to call editQualysTag after creation, since IPs were added at creation
+                    return;
+                }
+            }
         }
 
         // Edit the tag to add or remove IPs
@@ -63,7 +77,6 @@ public class QualysApi {
                     errorCode, errorDesc
                 );
                 logger.severe(msg);
-                System.err.println(msg);
                 System.exit(1);
             }
 
@@ -135,9 +148,11 @@ public class QualysApi {
             conn.disconnect();
 
             if (responseCode != 200) {
-                System.err.println("Failed to update tag " + tagId + ". HTTP code: " + responseCode);
+                logger.severe(String.format("Failed to update tag %s. HTTP code: %d", tagId, responseCode));
             } else {
-                System.out.println("Tag " + tagId + " updated. Response: " + response);
+                if (logger.isLoggable(Level.INFO)) {
+                    logger.info(String.format("Tag %s updated. Response: %s", tagId, response));
+                }
             }
             return response;
         } catch (IOException e) {
@@ -221,6 +236,95 @@ public class QualysApi {
         } catch (IOException e) {
             // Log the full request and any available response
             logger.severe("IOException during lookupQualysTagId for tag '" + tagName + "': " + e.getMessage());
+            logger.severe("Request URL: " + apiUrl);
+            logger.severe("Request Body: " + xmlBody);
+            logger.severe("Request Headers: Authorization=Basic ****, X-Requested-With=Java, Content-Type=application/xml");
+            if (conn != null) {
+                try {
+                    int code = conn.getResponseCode();
+                    String response = "";
+                    try (InputStream is = conn.getInputStream()) {
+                        response = new String(is.readAllBytes());
+                    } catch (IOException ex) {
+                        // Ignore, may not be available
+                    }
+                    logger.severe("HTTP Response Code: " + code);
+                    logger.severe("HTTP Response Body:\n" + response);
+                } catch (IOException ex) {
+                    logger.severe("Unable to read response: " + ex.getMessage());
+                }
+            }
+            return null;
+        }
+    }
+
+    /**
+     * Creates a new Qualys tag with the given name and (optionally) IPs using the asset/tag API.
+     * Returns the new tag ID as a string, or null if creation fails.
+     *
+     * @param tagName The name of the tag to create
+     * @param ips     Array of IP addresses to add to the tag (may be empty)
+     * @param logger  Logger for output
+     * @return The new Qualys tag ID as a String, or null if creation fails
+     */
+    private static String createQualysTag(String tagName, String[] ips, Logger logger) {
+        String apiUrl = "https://qualysapi.qualys.com/qps/rest/2.0/create/am/tag";
+        String username = "YOUR_QUALYS_USERNAME";
+        String password = "YOUR_QUALYS_PASSWORD";
+
+        StringBuilder ipList = new StringBuilder();
+        if (ips != null && ips.length > 0) {
+            for (String ip : ips) {
+                ipList.append("<ipAddress>").append(ip).append("</ipAddress>");
+            }
+        }
+
+        String xmlBody = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+                + "<ServiceRequest>"
+                + "<data>"
+                + "<Tag>"
+                + "<name>" + tagName + "</name>";
+        if (ipList.length() > 0) {
+            xmlBody += "<addIps>" + ipList + "</addIps>";
+        }
+        xmlBody += "</Tag>"
+                + "</data>"
+                + "</ServiceRequest>";
+
+        HttpURLConnection conn = null;
+        try {
+            URL url = new URL(apiUrl);
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            String basicAuth = java.util.Base64.getEncoder().encodeToString((username + ":" + password).getBytes());
+            conn.setRequestProperty("Authorization", "Basic " + basicAuth);
+            conn.setRequestProperty("X-Requested-With", "Java");
+            conn.setRequestProperty("Content-Type", "application/xml");
+            conn.setDoOutput(true);
+
+            // Send request body
+            try (OutputStream os = conn.getOutputStream()) {
+                os.write(xmlBody.getBytes());
+            }
+
+            int responseCode = conn.getResponseCode();
+            String response = new String(conn.getInputStream().readAllBytes());
+            conn.disconnect();
+
+            if (responseCode != 200) {
+                logger.severe("Failed to create tag '" + tagName + "'. HTTP code: " + responseCode);
+                return null;
+            }
+
+            // Simple extraction (for demo; use proper XML parser in production)
+            String idTag = "<id>";
+            int idStart = response.indexOf(idTag);
+            if (idStart == -1) return null;
+            int idEnd = response.indexOf("</id>", idStart);
+            if (idEnd == -1) return null;
+            return response.substring(idStart + idTag.length(), idEnd).trim();
+        } catch (IOException e) {
+            logger.severe("IOException during createQualysTag for tag '" + tagName + "': " + e.getMessage());
             logger.severe("Request URL: " + apiUrl);
             logger.severe("Request Body: " + xmlBody);
             logger.severe("Request Headers: Authorization=Basic ****, X-Requested-With=Java, Content-Type=application/xml");
