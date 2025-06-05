@@ -11,21 +11,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class CsvToApiConversionApplicationTest {
 
     /**
-     * Test parsing a valid date string.
-     */
-    @Test
-    void testParseDate_validFormat() {
-        String dateStr = "05/14/2025 08:30:00 AM";
-        LocalDateTime dt = CsvUtils.parseDate(dateStr);
-        assertEquals(2025, dt.getYear());
-        assertEquals(5, dt.getMonthValue());
-        assertEquals(14, dt.getDayOfMonth());
-        assertEquals(8, dt.getHour());
-        assertEquals(30, dt.getMinute());
-        assertEquals(0, dt.getSecond());
-    }
-
-    /**
      * Test extracting a code from a valid Qualys error XML.
      */
     @Test
@@ -87,31 +72,33 @@ class CsvToApiConversionApplicationTest {
 
     /**
      * Test that an invalid action throws an exception.
+     * (The application should only accept "add" or "remove" as valid actions.)
      */
- //   @Test
+    @Test
     void testMakeApiCall_invalidAction_throws() {
         String action = "invalid";
-        String group = "group";
+        String tag = "tag";
         String[] ips = new String[]{"1.2.3.4"};
         List<String> errorList = new ArrayList<>();
         java.util.logging.Logger logger = java.util.logging.Logger.getGlobal();
         IllegalArgumentException ex = assertThrows(
             IllegalArgumentException.class,
-            () -> QualysApi.makeApiCall(action, group, ips, errorList, logger)
+            () -> QualysApi.makeApiCall(action, tag, ips, errorList, logger)
         );
         assertTrue(ex.getMessage().contains("action must be 'add' or 'remove'"));
     }
 
     /**
-     * Test that makeApiCall adds GROUP_NOT_FOUND to errorRecords if groupId is null.
-     * (This test assumes lookupQualysGroupId returns null for a dummy group.)
+     * Test that makeApiCall adds TAG_NOT_FOUND_AND_CREATE_FAILED to errorRecords if tag creation fails.
+     * (This test assumes createQualysTag returns null for a dummy tag.)
+     * Note: This test may need to mock QualysApi.createQualysTag for isolation.
      */
- //   @Test
-    void testMakeApiCall_groupNotFound_addsErrorRecord() {
+    @Test
+    void testMakeApiCall_tagNotFoundAndCreateFailed_addsErrorRecord() {
         List<String> errors = new ArrayList<>();
-        // Use a group name that will not exist and suppress API call side effects
-        QualysApi.makeApiCall("add", "nonexistent-group", new String[]{"1.2.3.4"}, errors, java.util.logging.Logger.getGlobal());
-        assertTrue(errors.stream().anyMatch(e -> e.startsWith("GROUP_NOT_FOUND:")));
+        // Use a tag name that will not exist and suppress API call side effects
+        QualysApi.makeApiCall("add", "nonexistent-tag", new String[]{"1.2.3.4"}, errors, java.util.logging.Logger.getGlobal());
+        assertTrue(errors.stream().anyMatch(e -> e.startsWith("TAG_NOT_FOUND_AND_CREATE_FAILED:")));
     }
 
     /**
@@ -123,13 +110,31 @@ class CsvToApiConversionApplicationTest {
     }
 
     /**
-     * Test parseDate throws DateTimeParseException for invalid format.
+     * Test parseDate throws Exception for invalid format.
      */
     @Test
     void testParseDate_invalidFormat_throws() {
         assertThrows(Exception.class, () -> CsvUtils.parseDate("not a date"));
     }
 
+    /**
+     * Test parseDate parses a valid date string.
+     */
+    @Test
+    void testParseDate_validFormat() {
+        String dateStr = "05/14/2025 08:30:00 AM";
+        LocalDateTime dt = CsvUtils.parseDate(dateStr);
+        assertEquals(2025, dt.getYear());
+        assertEquals(5, dt.getMonthValue());
+        assertEquals(14, dt.getDayOfMonth());
+        assertEquals(8, dt.getHour());
+        assertEquals(30, dt.getMinute());
+        assertEquals(0, dt.getSecond());
+    }
+
+    /**
+     * Test parseArgs uses command line start timestamp if provided.
+     */
     @Test
     void testParseArgs_UsesCommandLineStartTimestamp() {
         String[] args = {"test.csv", "05/14/2025 08:30:00 AM", "true"};
@@ -140,6 +145,9 @@ class CsvToApiConversionApplicationTest {
         assertTrue(cfg.isSuppressApiCall());
     }
 
+    /**
+     * Test parseArgs reads timestamp from file if not provided on command line (ISO format).
+     */
     @Test
     void testParseArgs_ReadsTimestampFromFileIfNotProvided() throws IOException {
         Path tsFile = Paths.get("CsvToApiConversion.txt");
@@ -154,6 +162,9 @@ class CsvToApiConversionApplicationTest {
         Files.deleteIfExists(tsFile);
     }
 
+    /**
+     * Test parseArgs reads timestamp from file with fallback legacy format.
+     */
     @Test
     void testParseArgs_ReadsTimestampFromFileWithFallbackFormat() throws IOException {
         Path tsFile = Paths.get("CsvToApiConversion.txt");
@@ -168,13 +179,15 @@ class CsvToApiConversionApplicationTest {
         Files.deleteIfExists(tsFile);
     }
 
+    /**
+     * Test parseArgs uses defaults if no arguments are provided.
+     */
     @Test
     void testParseArgs_Defaults() {
         String[] args = {};
         var config = invokeParseArgs(args);
         CsvToApiConversionApplication.ArgsConfig cfg = (CsvToApiConversionApplication.ArgsConfig) config;
         assertEquals(Paths.get("src/main/resources/sample.csv"), cfg.getCsvPath());
-      //  assertNull(cfg.getStartTimestamp());
         assertFalse(cfg.isSuppressApiCall());
     }
 

@@ -15,7 +15,7 @@ public class QualysApiErrors {
 
     static {
         Map<String, String> codeToDesc = new HashMap<>();
-        // Populate error code to description map
+        // Populate error code to description map for the Qualys Asset Tag API (qps/rest/2.0/update/am/tag/)
         codeToDesc.put("1901", "Unrecognized parameter(s)");
         codeToDesc.put("1903", "Missing required parameter(s)");
         codeToDesc.put("1904", "Please specify only one of these parameters");
@@ -34,6 +34,15 @@ public class QualysApiErrors {
         codeToDesc.put("2003", "Registration must be completed before API requests will be served for this account");
         codeToDesc.put("2011", "SecureID authentication is required for this account, so API access is blocked");
         codeToDesc.put("2012", "User license is not authorized to run this API");
+        codeToDesc.put("3001", "Tag not found");
+        codeToDesc.put("3002", "Tag already exists");
+        codeToDesc.put("3003", "Invalid tag name");
+        codeToDesc.put("3004", "Invalid IP address");
+        codeToDesc.put("3005", "IP address already assigned to tag");
+        codeToDesc.put("3006", "IP address not assigned to tag");
+        codeToDesc.put("3007", "Cannot remove last IP from tag");
+        codeToDesc.put("3008", "Tag is in use and cannot be deleted");
+        codeToDesc.put("3009", "Tag is system-defined and cannot be modified");
 
         ERROR_CODE_TO_DESCRIPTION = Collections.unmodifiableMap(codeToDesc);
 

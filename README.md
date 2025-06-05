@@ -1,12 +1,12 @@
 # csv-to-api-conversion
 
-A Java 21 application (no external dependencies) that reads a CSV file, parses each row, and (optionally) makes Qualys API calls to manage asset groups. The app builds summary maps of owners and contacts to their associated IP addresses, separated by active and deactivated status. All summary output and errors are logged to both the console and a file.
+A Java 21 application that reads a CSV file, parses each row, and (optionally) makes Qualys API calls to manage asset **tags**. The app builds summary maps of owners and contacts to their associated IP addresses, separated by active and deactivated status. All summary output and errors are logged to both the console and a file.
 
 ## Project Setup
 
 - **Build Tool:** Maven
 - **Java Version:** 21
-- **Dependencies:** None (uses only standard Java libraries)
+- **Dependencies:** JUnit 5, Mockito (for testing), Byte Buddy (transitive, for mocking static methods)
 
 ## CSV Input Format
 
@@ -40,12 +40,13 @@ DT-DEVOPS-01,DevOps-Support,DevOps,192.168.2.10,192.168.2.11,192.168.2.12,05/11/
   - `contactToDeactivatedIps`
 - Makes Qualys API calls for each map entry (unless suppressed):
   - **Removals** (deactivated IPs) are processed before **additions** (active IPs).
-  - Looks up the Qualys asset group ID using the fo/asset/group API, then edits the group to add or remove IPs.
+  - Looks up the Qualys tag ID using the tag API, then edits the tag to add or remove IPs.
   - Adds the header `X-Requested-With: Java` to all API requests.
-  - If the group is not found, logs and records a `GROUP_NOT_FOUND` error.
+  - If the tag is not found and the action is `add`, attempts to create the tag and associate IPs.
+  - If the tag cannot be created, logs and records a `TAG_NOT_FOUND_AND_CREATE_FAILED` error.
   - If an API call fails, logs the full request and response details.
   - If the API response contains a recognized error code, logs and records the code and description.
-  - If the API response contains a fatal error code (`1920`, `1960`, `1965`, `1981`, `999`, `1999`, `2000`, `2002`, `2003`, `2011`, `2012`), the application logs the error and exits immediately.
+  - If the API response contains a fatal error code (`1901`, `1903`, `1904`, `1905`, `1907`, `1908`, `1920`, `1960`, `1965`, `1922`, `1981`, `999`, `1999`, `2000`, `2002`, `2003`, `2011`, `2012`), the application logs the error and exits immediately.
 - If the third argument is set to `true`, API calls are suppressed and only dry-run output is printed.
 - All summary output (maps and error records) is logged to both the logger and the console.
 - **On successful completion, writes the application start timestamp (not the end time) to `CsvToApiConversion.txt` in the project root (overwriting any previous content).**
@@ -53,7 +54,7 @@ DT-DEVOPS-01,DevOps-Support,DevOps,192.168.2.10,192.168.2.11,192.168.2.12,05/11/
 ## Running the Application
 
 ```sh
-java -jar target/csv-to-api-conversion-1.0-SNAPSHOT.jar [csvFilePath] [optionalStartTimestamp] [suppressApiCall]
+java -jar target/csv-to-api-conversion-0.0.1-SNAPSHOT.jar [csvFilePath] [optionalStartTimestamp] [suppressApiCall]
 ```
 - `csvFilePath` (optional): Path to the CSV file. Defaults to `src/main/resources/sample.csv` if not provided.
 - `optionalStartTimestamp` (optional): Filter records to only include those with create or deactivated timestamps after this value. Format: `MM/dd/yyyy hh:mm:ss a` or ISO format if read from `CsvToApiConversion.txt`.
@@ -85,7 +86,7 @@ Contact to Deactivated IPs:
 Contact: Design-Support -> Deactivated IPs: [192.168.4.10, 192.168.4.11, 192.168.4.12]
 ...
 
-Error Records: [GROUP_NOT_FOUND:SomeGroup, 1901: Unrecognized parameter(s)]
+Error Records: [TAG_NOT_FOUND_AND_CREATE_FAILED:SomeTag, 1901: Unrecognized parameter(s)]
 ```
 
 ## Example `sample.csv`
@@ -112,12 +113,11 @@ DT-AN-02,Analytics-Support,Analytics,10.10.10.5,10/01/2024 12:01:03 AM,
 
 - The application is designed for demonstration and can be extended for real Qualys API integration.
 - All IP addresses in the sample data are unique.
-- No external libraries are used; only Java standard library.
 - Qualys API credentials must be provided in the code for real API calls.
 - The application adds the `X-Requested-With: Java` header to all Qualys API requests.
 - If a start timestamp is provided, only records with create or deactivated timestamps after or equal to this value are processed.
 - If `suppressApiCall` is set to `true`, no API calls are made and only dry-run output is printed.
-- If the API response contains a fatal error code (`1920`, `1960`, `1965`, `1981`, `999`, `1999`, `2000`, `2002`, `2003`, `2011`, `2012`), the application logs the error and exits immediately.
+- If the API response contains a fatal error code (`1901`, `1903`, `1904`, `1905`, `1907`, `1908`, `1920`, `1960`, `1965`, `1922`, `1981`, `999`, `1999`, `2000`, `2002`, `2003`, `2011`, `2012`), the application logs the error and exits immediately.
 - **On successful completion, the application writes the application start timestamp to `CsvToApiConversion.txt` in the project root (overwriting any previous content).**
 - All summary output is logged to both the logger and the console.
 

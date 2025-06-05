@@ -1,6 +1,9 @@
 package com.example.csvtoapiconversion;
 
 import org.junit.jupiter.api.*;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
+
 import java.util.*;
 import java.util.logging.*;
 
@@ -10,73 +13,79 @@ class QualysApiTest {
 
     private static final Logger LOGGER = Logger.getLogger(QualysApiTest.class.getName());
 
+    /**
+     * Test that makeApiCall throws on invalid action.
+     */
     @Test
     void testMakeApiCallThrowsOnInvalidAction() {
         List<String> errors = new ArrayList<>();
         IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> {
-            QualysApi.makeApiCall("invalid", "group", new String[]{"1.2.3.4"}, errors, LOGGER);
+            QualysApi.makeApiCall("invalid", "tag", new String[]{"1.2.3.4"}, errors, LOGGER);
         });
         assertTrue(ex.getMessage().contains("action must be 'add' or 'remove'"));
     }
 
+    /**
+     * Test that makeApiCall adds TAG_NOT_FOUND_AND_CREATE_FAILED to errorRecords if tag creation fails.
+     * Uses mocking to force createQualysTag to return null.
+     */
     @Test
-    void testMakeApiCallGroupNotFound() {
+    void testMakeApiCallTagNotFoundAndCreateFailed() {
         List<String> errors = new ArrayList<>();
-        Logger logger = Logger.getLogger("TestLogger");
-        // Override lookupQualysGroupId to always return null for this test
-        QualysApi api = new QualysApi() {
-            static String lookupQualysGroupId(String groupName, Logger logger) {
-                return null;
-            }
-        };
-        // Use reflection to call the static method with the overridden version
-        // But since lookupQualysGroupId is private static, we can't override it directly.
-        // So, we just call the real method and expect GROUP_NOT_FOUND in errors.
-        api.makeApiCall("add", "nonexistent-group", new String[]{"1.2.3.4"}, errors, logger);
-        assertTrue(errors.stream().anyMatch(e -> e.contains("GROUP_NOT_FOUND")));
+        try (MockedStatic<QualysApi> mock = Mockito.mockStatic(QualysApi.class, Mockito.CALLS_REAL_METHODS)) {
+            mock.when(() -> QualysApi.createQualysTag(Mockito.anyString(), Mockito.any(String[].class), Mockito.any()))
+                .thenReturn(null);
+            // Also mock editQualysTag to avoid real API call if needed
+            mock.when(() -> QualysApi.editQualysTag(Mockito.anyString(), Mockito.anyString(), Mockito.any(String[].class), Mockito.any()))
+                .thenReturn(null);
+
+            QualysApi.makeApiCall("add", "nonexistent-tag", new String[]{"1.2.3.4"}, errors, LOGGER);
+            assertTrue(errors.stream().anyMatch(e -> e.startsWith("TAG_NOT_FOUND_AND_CREATE_FAILED:")));
+        }
     }
 
+    /**
+     * Test that the fatalCodes set contains all required codes for the tag API.
+     */
     @Test
-    void testMakeApiCallFatalErrorCodesExit() {
-        // We can't actually call System.exit in a unit test, so we check the logic up to that point.
-        // Instead, we can refactor makeApiCall to allow injection/mocking for testing, or just document this limitation.
-        // Here, we just verify that the fatalCodes set contains all required codes.
+    void testMakeApiCallFatalErrorCodesSet() {
         Set<String> fatalCodes = Set.of(
-            "1920", "1960", "1965", "1981",
-            "999", "1999", "2000", "2002", "2003", "2011", "2012"
+            "1901", "1903", "1904", "1905", "1907", "1908",
+            "1920", "1960", "1965", "1922", "1981", "999", "1999",
+            "2000", "2002", "2003", "2011", "2012"
         );
-        assertTrue(fatalCodes.contains("1920"));
+        assertTrue(fatalCodes.contains("1901"));
         assertTrue(fatalCodes.contains("2012"));
         assertFalse(fatalCodes.contains("1234"));
     }
 
+    /**
+     * Test that editQualysTag method exists (reflection check).
+     */
     @Test
-    void testEditQualysAssetGroupBuildsCorrectParams() {
-        // This test is limited since the method is private and does real HTTP calls.
-        // You could refactor editQualysAssetGroup to be package-private for testing, or use reflection.
-        // Here, we just check that the method exists and can be called via reflection.
+    void testEditQualysTagMethodExists() {
         try {
             var method = QualysApi.class.getDeclaredMethod(
-                "editQualysAssetGroup", String.class, String.class, String[].class, Logger.class
+                "editQualysTag", String.class, String.class, String[].class, Logger.class
             );
             assertNotNull(method);
         } catch (NoSuchMethodException e) {
-            fail("editQualysAssetGroup method should exist");
+            fail("editQualysTag method should exist");
         }
     }
 
+    /**
+     * Test that createQualysTag method exists (reflection check).
+     */
     @Test
-    void testLookupQualysGroupIdBuildsCorrectParams() {
-        // This test is limited since the method is private and does real HTTP calls.
-        // You could refactor lookupQualysGroupId to be package-private for testing, or use reflection.
-        // Here, we just check that the method exists and can be called via reflection.
+    void testCreateQualysTagMethodExists() {
         try {
             var method = QualysApi.class.getDeclaredMethod(
-                "lookupQualysGroupId", String.class, Logger.class
+                "createQualysTag", String.class, String[].class, Logger.class
             );
             assertNotNull(method);
         } catch (NoSuchMethodException e) {
-            fail("lookupQualysGroupId method should exist");
+            fail("createQualysTag method should exist");
         }
     }
 }

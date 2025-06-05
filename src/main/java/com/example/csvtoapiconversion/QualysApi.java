@@ -40,10 +40,14 @@ public class QualysApi {
         if (tagId == null) {
             if ("remove".equals(action)) {
                 // If removing and tag doesn't exist, nothing to do
-                logger.info("Tag not found for tagName: " + tagName + ". No removal needed.");
+                if (logger.isLoggable(Level.INFO)) {
+                    logger.info(String.format("Tag not found for tagName: %s. No removal needed.", tagName));
+                }
                 return;
             } else {
-                logger.warning("Tag not found for tagName: " + tagName + ". Attempting to create tag with IPs.");
+                if (logger.isLoggable(Level.WARNING)) {
+                    logger.warning(String.format("Tag not found for tagName: %s. Attempting to create tag with IPs.", tagName));
+                }
                 tagId = createQualysTag(tagName, ips, logger);
                 if (tagId == null) {
                     String msg = "Failed to create tag for tagName: " + tagName;
@@ -68,8 +72,9 @@ public class QualysApi {
 
             // If the error code is one of the specified, exit the application
             Set<String> fatalCodes = Set.of(
-                "1920", "1960", "1965", "1981",
-                "999", "1999", "2000", "2002", "2003", "2011", "2012"
+                "1901", "1903", "1904", "1905", "1907", "1908",
+                "1920", "1960", "1965", "1922", "1981", "999", "1999",
+                "2000", "2002", "2003", "2011", "2012"
             );
             if (errorCode != null && fatalCodes.contains(errorCode)) {
                 String msg = String.format(
@@ -99,7 +104,7 @@ public class QualysApi {
      * @param logger Logger for output
      * @return The raw API response as a string
      */
-    private static String editQualysTag(String tagId, String action, String[] ips, Logger logger) {
+    public static String editQualysTag(String tagId, String action, String[] ips, Logger logger) {
         String apiUrl = "https://qualysapi.qualys.com/qps/rest/2.0/update/am/tag/" + tagId;
         String username = "YOUR_QUALYS_USERNAME";
         String password = "YOUR_QUALYS_PASSWORD";
@@ -189,7 +194,7 @@ public class QualysApi {
      * @param logger Logger for output
      * @return The Qualys tag ID as a String, or null if not found
      */
-    private static String lookupQualysTagId(String tagName, Logger logger) {
+    public static String lookupQualysTagId(String tagName, Logger logger) {
         String apiUrl = "https://qualysapi.qualys.com/qps/rest/2.0/search/am/tag";
         String username = "YOUR_QUALYS_USERNAME";
         String password = "YOUR_QUALYS_PASSWORD";
@@ -267,7 +272,7 @@ public class QualysApi {
      * @param logger  Logger for output
      * @return The new Qualys tag ID as a String, or null if creation fails
      */
-    private static String createQualysTag(String tagName, String[] ips, Logger logger) {
+    public static String createQualysTag(String tagName, String[] ips, Logger logger) {
         String apiUrl = "https://qualysapi.qualys.com/qps/rest/2.0/create/am/tag";
         String username = "YOUR_QUALYS_USERNAME";
         String password = "YOUR_QUALYS_PASSWORD";
